@@ -1,0 +1,33 @@
+#div1 {
+    display: block;
+    background-color: red;
+
+}
+
+#div1:hover {
+    background-color: orange;
+    font-weight: bold;
+}
+
+#div2 {
+   display: block;
+   background-color: blue;
+}
+
+#div2:hover {
+    font-weight: bold;
+}
+
+#div2 {
+   display: block;
+   background-color: yellow;
+}
+
+#div3 {
+    display: block;
+    background-color: green;
+}
+
+#div3:hover {
+    font-weight: bold;
+}
