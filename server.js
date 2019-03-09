@@ -10,3 +10,7 @@ app.get("/", redirectUser);
 function redirectUser(req, res) {
     return res.redirect('home.html');
 };
+
+app.listen(process.env.PORT, function(){
+	console.log("It's working");
+});
