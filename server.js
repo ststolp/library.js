@@ -1,9 +1,14 @@
 var express = require('express');
 var app = express();
+
 const controller = require("./controllers/libraryFunctions.js");
 app.set('port', (process.env.PORT || 5000));
 const { Pool } = require("pg");
+
+
+
 const connectionString = process.env.DATABASE_URL;
+console.log("The url is: " + connectionString);
 const pool = Pool({connectionString: connectionString});
 
 app.use(express.static("public"));
