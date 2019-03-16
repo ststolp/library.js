@@ -10,7 +10,7 @@ app.use(express.static("public"));
 app.set("views", "view");
 app.set("view engine", "ejs");
 
-app.get("/", controller.redirectUser);
+app.get("/", redirectUser);
 app.get("/get_library", getLibrary);
 app.get("/search_library", searchLibrary);
 
@@ -18,6 +18,10 @@ app.listen(app.get('port'), function(){
 	console.log("It's working");
 });
 /*************************************** */
+
+function redirectUser(req, res) {
+    return res.redirect('home_library.html');
+};
 
 function getLibrary(req, res) {
     const query = "SELECT b.book_id, b.title, a.fname, a.lname, b.year, b.publisher FROM books b INNER JOIN author a ON b.author_id = a.author_id ORDER BY b.title";
