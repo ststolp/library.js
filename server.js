@@ -27,7 +27,7 @@ function getLibrary(req, res) {
     const query = "SELECT b.book_id, b.title, a.fname, a.lname, b.year, b.publisher FROM books b INNER JOIN author a ON b.author_id = a.author_id ORDER BY b.title";
    pool.query(query, function(error, response) {
        if(error) {
-           response(500).json({success: false, data: error});
+           res.status(500).json({success: false, data: error});
        } else {
        res.status(200).json(response.rows);
        }
