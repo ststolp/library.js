@@ -50,27 +50,15 @@ function getBooks(method, search, callback) {
 	if (method == 'lname') {
 		query = "SELECT b.title, a.fname, a.lname, b.year, b.publisher FROM books b INNER JOIN author a ON b.author_id = a.author_id WHERE a.lname = '$1' ORDER BY b.title";
 	} else if (method == 'title') {
-		query = "SELECT b.title, a.fname, a.lname, b.year, b.publisher FROM books b
-		INNER JOIN author a ON b.author_id = a.author_id
-		WHERE b.title = '$1'
-		ORDER BY b.title";	
+		query = "SELECT b.title, a.fname, a.lname, b.year, b.publisher FROM books b INNER JOIN author a ON b.author_id = a.author_id WHERE b.title = '$1' ORDER BY b.title";	
 	} else if (method == 'genre') {
-       	query = "SELECT b.title, a.fname, a.lname, b.year, b.publisher FROM books b
-		INNER JOIN author a ON b.author_id = a.author_id
-		INNER JOIN genre g ON a.genre_id = g.genre_id
-		WHERE g.genre = '$1'
-		ORDER BY b.title";
+       	query = "SELECT b.title, a.fname, a.lname, b.year, b.publisher FROM books b INNER JOIN author a ON b.author_id = a.author_id INNER JOIN genre g ON a.genre_id = g.genre_id WHERE g.genre = '$1' ORDER BY b.title";
   } else {
-	query = "SELECT b.title, a.fname, a.lname, b.year, b.publisher FROM books b
-		INNER JOIN author a ON b.author_id = a.author_id
-		WHERE b.title = '$1'
-        ORDER BY b.title";
+	query = "SELECT b.title, a.fname, a.lname, b.year, b.publisher FROM books b INNER JOIN author a ON b.author_id = a.author_id WHERE b.title = '$1' ORDER BY b.title";
     	}
 } else {
 
-   query = "SELECT b.book_id, b.title, a.fname, a.lname, b.year, b.publisher FROM books b 
-   INNER JOIN author a ON b.author_id = a.author_id
-   ORDER BY b.title";
+   query = "SELECT b.book_id, b.title, a.fname, a.lname, b.year, b.publisher FROM books b INNER JOIN author a ON b.author_id = a.author_id ORDER BY b.title";
 }
   const params = [search];
      pool.query(query, params, function(error, response) {
