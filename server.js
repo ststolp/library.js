@@ -8,7 +8,6 @@ const { Pool } = require("pg");
 
 
 const connectionString = process.env.DATABASE_URL;
-console.log("The url is: " + connectionString);
 const pool = Pool({connectionString: connectionString});
 
 app.use(express.static("public"));
@@ -29,13 +28,25 @@ function redirectUser(req, res) {
 };
 
 function getLibrary(req, res) {
+
+    getAllBooks(function(error, result) {
+        if (error || result == null || result.length != 1) {
+            res.status(500).json({success: false, data: error});
+        } else {
+            const books = result;
+            res.status(200).json(books);
+        }
+    });
+}
+ 
+function getAllBooks(callback) {
     const query = "SELECT b.book_id, b.title, a.fname, a.lname, b.year, b.publisher FROM books b INNER JOIN author a ON b.author_id = a.author_id ORDER BY b.title";
    pool.query(query, function(error, response) {
-       if(error) {
-           res.status(500).json({success: false, data: error});
-       } else {
-       res.status(200).json(response.rows);
-       }
+             if (error) {
+             console.log("There was an error" + error);
+             callback(error, null);
+         }
+        callback(null, response.rows);
    });
 }
  
