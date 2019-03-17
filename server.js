@@ -24,27 +24,27 @@ function redirectUser(req, res) {
     return res.redirect('home_library.html');
 };
 
-function getLibrary(req, res) {
-    getAllBooks(function(error, result) {
-        if (error || result == null || result.length != 1) {
-            res.status(500).json({success: false, data: error});
-        } else {
-            const books = result;
-            res.status(200).json(books);
-        }
-    });
-}
+// function getLibrary(req, res) {
+//     getAllBooks(function(error, result) {
+//         if (error || result == null || result.length != 1) {
+//             res.status(500).json({success: false, data: error});
+//         } else {
+//             const books = result;
+//             res.status(200).json(books);
+//         }
+//     });
+// }
  
-function getAllBooks(callback_lib) {
-    const query = "SELECT b.book_id, b.title, a.fname, a.lname, b.year, b.publisher FROM books b INNER JOIN author a ON b.author_id = a.author_id ORDER BY b.title";
-    pool.query(query, function(error, response) {
-        if (error) {
-            console.log("There was an error" + error);
-            callback(error, null);
-        }
-        callback_lib(null, response.rows);
-    });
-}
+// function getAllBooks(callback_lib) {
+//     const query = "SELECT b.book_id, b.title, a.fname, a.lname, b.year, b.publisher FROM books b INNER JOIN author a ON b.author_id = a.author_id ORDER BY b.title";
+//     pool.query(query, function(error, response) {
+//         if (error) {
+//             console.log("There was an error" + error);
+//             callback(error, null);
+//         }
+//         callback_lib(null, response.rows);
+//     });
+// }
  
 
 function searchLibrary(req, response) {
