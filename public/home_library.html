@@ -5,7 +5,23 @@
 <!DOCTYPE html>
 <head>
 <title>Library</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="lib_style.css">
+ $("#seeBooks").click(function(){
+    $.get("/get_library", function(data, status){
+      if(status == success) {
+         let div = document.getElementById("data");
+         div.innerHTML = data;
+      }
+    });
+  });
+
+  $("#search").click(function(){
+    $.get("/search_library", function(data, status){
+         let div = document.getElementById("data");
+         div.innerHTML = data;
+    });
+  });
 </head>
 <body>
 //<?php include 'header.php';  ?>
@@ -18,14 +34,16 @@
      <label>Genre</label>
     <input type='checkbox' name='method' value='genre'>
     <input type='text' placeholder='Search...' name='search' value="">
-    <input class="button" type='submit' value='search'>
+    <input id="search" class="button" type='submit' value='search'>
 </form>
 </div>
 <h1>Library</h1>
 <form action='/get_library' method='get'>
 
-<input class="button" type="submit" value="See Books">
+<input id="seeBooks" class="button" type="submit" value="See Books">
 </form>
+
+<div id="data"></div>
 <br>
 //<?php include 'footer.php';  ?>
 
