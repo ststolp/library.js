@@ -12,8 +12,8 @@ app.set("views", "view");
 app.set("view engine", "ejs");
 
 app.get("/", redirectUser);
-//app.get("/get_library", getLibrary);
-app.get("/search_library", searchLibrary);
+app.get("/get_library", getLibrary);
+//app.get("/search_library", searchLibrary);
 
 app.listen(app.get('port'), function(){
 	console.log("It's working");
