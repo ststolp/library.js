@@ -78,6 +78,7 @@ function getBooks(method, search, callback) {
     	}
 }
   const params = [search];
+  console.log("The search is : " + search);
      pool.query(query, params, function(error, response) {
          if (error) {
              console.log("There was an error" + error);
