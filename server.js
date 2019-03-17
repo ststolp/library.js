@@ -42,7 +42,7 @@ function getLibrary(req, res) {
 function getAllBooks(callback) {
     const query = "SELECT b.book_id, b.title, a.fname, a.lname, b.year, b.publisher FROM books b INNER JOIN author a ON b.author_id = a.author_id ORDER BY b.title";
    pool.query(query, function(error, response) {
-             if (error) {
+         if (error) {
              console.log("There was an error" + error);
              callback(error, null);
          }
@@ -76,9 +76,6 @@ function getBooks(method, search, callback) {
   } else {
 	query = "SELECT b.title, a.fname, a.lname, b.year, b.publisher FROM books b INNER JOIN author a ON b.author_id = a.author_id WHERE b.title = '$1' ORDER BY b.title";
     	}
-} else {
-
-   query = "SELECT b.book_id, b.title, a.fname, a.lname, b.year, b.publisher FROM books b INNER JOIN author a ON b.author_id = a.author_id ORDER BY b.title";
 }
   const params = [search];
      pool.query(query, params, function(error, response) {
