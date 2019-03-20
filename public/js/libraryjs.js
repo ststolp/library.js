@@ -25,7 +25,7 @@ function searchLibrary() {
 		if(request.readyState == 4){
 			var div = document.createElement('div');
 			if(request.status == 200){
-                let array = request.responseText;
+                let array = JSON.parse(request.responseText);
                 fill(array, div);
 			}else{
 				div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
@@ -49,7 +49,7 @@ function getLibrary() {
 		if(request.readyState == 4){
 			var div = document.createElement('div');
 			if(request.status == 200){
-                let array = request.responseText;
+                let array = JSON.parse(request.responseText);
                 fill(array, div);
 			}else{
 				div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
