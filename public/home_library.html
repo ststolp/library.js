@@ -1,29 +1,8 @@
-// <?php
-// session_start();
-// require_once("dbConnect.php");
-// $db = get_db();
 <!DOCTYPE html>
 <head>
 <title>Library</title>
 <link rel="stylesheet" type="text/css" href="lib_style.css">
-<script src="js/libarayjs.js">
-$(document).ready(function(){
- $("#seeBooks").click(function(){
-    $.get("/get_library", function(data, status){
-      if(status == success) {
-         let div = document.getElementById("data");
-         div.innerHTML = data;
-      }
-    });
-  });
-  $("#search").click(function(){
-    $.get("/search_library", function(data, status){
-         let div = document.getElementById("data");
-         div.innerHTML = data;
-    });
-  });
-});
-</script>
+<script type="text/javascript" src="js/libraryjs.js"> </script>
 </head>
 <body>
 //<?php include 'header.php';  ?>
@@ -41,7 +20,7 @@ $(document).ready(function(){
 </div>
 <h1>Library</h1>
 
-<button onclick="getLibrary()" class="button" value="See Books">
+<button onclick="getLibrary()" class="button">See Books</button>
 
 <div id="output"></div>
 <br>
