@@ -1,5 +1,5 @@
 function fill(array, div) {
-    array.foreach(function(item) {
+    array.forEach(function(item) {
         let entry = "";
         entry += `<p><b>${item.title}</b> by ${item.fname} ${item.lname}</p>`;
         entry += `<p>Publisher: ${item.publisher}, ${item.year}.</p>`;
