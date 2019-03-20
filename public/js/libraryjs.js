@@ -41,7 +41,8 @@ function searchLibrary() {
                 }
 			}else{
 				div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
-			}
+            }
+            output.innerHTML = "";
 			output.appendChild(div);
 		}
 	}
@@ -65,7 +66,8 @@ function getLibrary() {
                 fill(array, div);
 			}else{
 				div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
-			}
+            }
+            output.innerHTML = "";
 			output.appendChild(div);
 		}
 	}
