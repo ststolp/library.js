@@ -12,8 +12,8 @@ function getLibrary() {
     console.log("sending request...");
    let output = document.getElementById('output');
     request.onreadystatechange = function(){
-		console.log("on ready state function calling");
-		if(request.readystate == 4){
+		console.log("on ready state function calling: " + request.readyState);
+		if(request.readyState == 4){
 			var div = document.createElement('div');
 			if(request.status == 200){
 				div.appendChild(Dcoument.createTextNode(request.responseText));
