@@ -5,18 +5,20 @@
 <script type="text/javascript" src="/js/libraryjs.js"> </script>
 </head>
 <body>
-//<?php include 'header.php';  ?>
+
+  <!-- header here -->
 <div>
-<form action='searchLibrary()' method='get'><br>
-    <label>Author's last name</label>
-    <input type='checkbox' name='method' value='lname'>
-    <label>Title</label>
-    <input type='checkbox' name='method' value='title'>
-     <label>Genre</label>
-    <input type='checkbox' name='method' value='genre'>
-    <input type='text' placeholder='Search...' name='search' value="">
-    <input id="search" class="button" type='submit' value='search'>
-</form>
+<br>
+    <label>Search For:</label>
+    <select id="method">
+      <option value="lname">Author Last name</option>
+      <option value="title">Title</option>
+      <option value="genre">Genre</option>
+    </select>
+ 
+    <input type='text' placeholder='That has...' id='search' value="">
+    <button onclick="searchLibrary()" class="button">Search</button>>
+
 </div>
 <h1>Library</h1>
 
@@ -24,7 +26,7 @@
 
 <div id="output"></div>
 <br>
-//<?php include 'footer.php';  ?>
+<!-- footer here-->
 
 </body>
 </html>
