@@ -31,7 +31,14 @@ function searchLibrary() {
 			var div = document.createElement('div');
 			if(request.status == 200){
                 let array = JSON.parse(request.responseText);
-                fill(array, div);
+                if (array.length > 0) {
+                    fill(array, div);
+                }
+                else {
+                    let p = document.createElement('p');
+                    p.innerHTML = "No Results";
+                    div.appendChild(p);
+                }
 			}else{
 				div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
 			}
