@@ -6,7 +6,7 @@
 <head>
 <title>Library</title>
 <link rel="stylesheet" type="text/css" href="lib_style.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+<script src="js/libarayjs.js">
 $(document).ready(function(){
  $("#seeBooks").click(function(){
     $.get("/get_library", function(data, status){
@@ -28,7 +28,7 @@ $(document).ready(function(){
 <body>
 //<?php include 'header.php';  ?>
 <div>
-<form action='/search_library' method='get'><br>
+<form action='searchLibrary()' method='get'><br>
     <label>Author's last name</label>
     <input type='checkbox' name='method' value='lname'>
     <label>Title</label>
@@ -40,12 +40,12 @@ $(document).ready(function(){
 </form>
 </div>
 <h1>Library</h1>
-<form action='/get_library' method='get'>
+<form action='getLibrary()' method='get'>
 
 <input id="seeBooks" class="button" type="submit" value="See Books">
 </form>
 
-<div id="data"></div>
+<div id="output"></div>
 <br>
 //<?php include 'footer.php';  ?>
 
