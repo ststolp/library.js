@@ -1,4 +1,5 @@
 function fill(array, div) {
+    div.innerHTML = "";
     array.forEach(function(item) {
         let emt = document.createElement('p');
         let entry = `<p><b>${item.title}</b> by ${item.fname} ${item.lname}</p>`;
@@ -17,6 +18,7 @@ function fill(array, div) {
 function searchLibrary() {
     let method = document.getElementById('method').value;
     let search = document.getElementById('search').value;
+    console.log("method: " + method + "search : " + search);
     let request = new XMLHttpRequest();
     let target = "/search_library?method=" + method + "&search=" + search;
     request.open("GET", target);
