@@ -16,10 +16,10 @@ function getLibrary() {
 		if(request.readyState == 4){
 			var div = document.createElement('div');
 			if(request.status == 200){
-				div.appendChild(Dcoument.createTextNode(request.responseText));
+				div.appendChild(document.createTextNode(request.responseText));
 
 			}else{
-				div.appendChild(Dcoument.createTextNode(JSON.stringify(ERROR)));
+				div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
 			}
 			output.appendChild(div);
 		}
