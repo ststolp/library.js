@@ -6,7 +6,7 @@ function fill(array, div) {
 	    entry += "<label>Check out this book</label><br>";
 	    entry += `<input type='checkbox' name='checkout[]' value='${item.book_id}'>`;
         emt.innerHTML = entry; //appendChild(document.createTextNode(entry));
-        div.appendChlild(emt)
+        div.appendChild(emt)
     });
     let emt = document.createElement('p');
     let button = '<br><button class="button" onclick="">Check Out</button>';
