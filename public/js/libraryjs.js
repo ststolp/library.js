@@ -1,14 +1,17 @@
 function fill(array, div) {
     array.forEach(function(item) {
-        let entry = "";
-        entry += `<p><b>${item.title}</b> by ${item.fname} ${item.lname}</p>`;
+        let emt = document.createElement('p');
+        let entry = `<p><b>${item.title}</b> by ${item.fname} ${item.lname}</p>`;
         entry += `<p>Publisher: ${item.publisher}, ${item.year}.</p>`;
 	    entry += "<label>Check out this book</label><br>";
 	    entry += `<input type='checkbox' name='checkout[]' value='${item.book_id}'>`;
-        div.appendChild(document.createTextNode(entry));
+        emt.innerHTML = entry; //appendChild(document.createTextNode(entry));
+        div.appendChlild(emt)
     });
+    let emt = document.createElement('p');
     let button = '<br><button class="button" onclick="">Check Out</button>';
-    div.appendChild(document.createTextNode(button));
+    emt.innerHTML = button;
+    div.appendChild(emt);
 }
 
 function searchLibrary() {
