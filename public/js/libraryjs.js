@@ -21,9 +21,9 @@ function fill(array, div) {
 //get all the genres</br>
     let request = new XMLHttpRequest();
     let target = "/get_genres"; 
+        let array = [];
     request.open("GET", target);
     request.send();
-    let array = [];
 	   request.onreadystatechange = function(){
 		console.log("on ready state function calling: " + request.readyState);
 		if(request.readyState == 4){
@@ -53,7 +53,7 @@ function fill(array, div) {
                     });
                 }
 		}
-	}
+    }
 
 
     let newGenre = "<label>Other Genre</label><input type='text' id='new_genre' value=''><br>";
