@@ -25,8 +25,11 @@ function printAuthors(array, subdiv) {
 }
 
 
-function fill(array, div) {
-    div.innerHTML = "";
+function fill(array, divBooks) {
+    divGenre = document.getElementById('genre').innerHTML = "";
+    divAuthor = document.getElementById('author').innerHTML = "";
+
+    divBooks.innerHTML = "";
     array.forEach(function(item) {
         let emt = document.createElement('p');
         let entry = `<p><b>${item.title}</b> by ${item.fname} ${item.lname}</p>`;
@@ -34,17 +37,17 @@ function fill(array, div) {
 	    entry += "<label>Check out this book</label><br>";
 	    entry += `<input type='checkbox' name='checkout[]' value='${item.book_id}'>`;
         emt.innerHTML = entry; 
-        div.appendChild(emt)
+        divBooks.appendChild(emt)
     });
     let emt = document.createElement('p');
     let button = '<br><button class="button" onclick="checkOut()">Check Out</button>';
     emt.innerHTML = button;
-    div.appendChild(emt);
+    divBooks.appendChild(emt);
 
  let content = "<h2>Add a Book</h2>";
 
 	content += "<label>Title</label><input type='text' id='title'><br><h3>Genre</h3>";
-    div.innerHTML = div.innerHTML + content;
+    divGenre.innerHTML = divGenre.innerHTML + content;
 //get all the genres</br>
     let request = new XMLHttpRequest();
     let target = "/get_genres"; 
@@ -58,8 +61,7 @@ function fill(array, div) {
                 console.log(request.responseText);
                 let array = JSON.parse(request.responseText);
                 printGenres(array, subdiv);
-                let master = document.getElementById('output');
-                master.innerHTML = master.innerHTML + subdiv.innerHTML;
+                divGenre.innerHTML = divGenre.innerHTML + subdiv.innerHTML;
 			}else{
 				div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
             }
@@ -68,7 +70,7 @@ function fill(array, div) {
 
 
     let newGenre = "<label>Other Genre</label><input type='text' id='new_genre' value=''><br>";
-    div.innerHTML = div.innerHTML + newGenre;
+    divGenre.innerHTML = divGenre.innerHTML + newGenre;
 //get all authors
  let requestAuthor = new XMLHttpRequest();
     let targetAuthor = "/get_authors"; 
@@ -83,8 +85,7 @@ function fill(array, div) {
                 let array = JSON.parse(requestAuthor.responseText);
                 printAuthors(array, subdiv);
                 console.log(subdiv.innerHTML);
-                let master = document.getElementById('output');
-                master.innerHTML = master.innerHTML + subdiv.innerHTML;
+                divAuthor.innerHTML = divAuthor.innerHTML + subdiv.innerHTML;
 			}else{
 				div.appendChild(document.createTextNodeJSON.stringify(ERROR));
             }
@@ -95,7 +96,7 @@ function fill(array, div) {
 	let more = '<label>Other Author</label><input type="text" id="fname" value=""><input type="text" id="lname" value=""><br>';
 	more += '<label>year</label><input type="date" id="year"><br><label>Publisher</label>';
     more += '<input type="text" id="publisher"><br><button class="button" onclick="addBook()">Add Book</button>';
-    div.innerHTML = div.innerHTML + more;
+    divAuthor.innerHTML = divAuthor.innerHTML + more;
 }
 
 function searchLibrary() {
@@ -107,7 +108,7 @@ function searchLibrary() {
     request.open("GET", target);
     request.send();
     console.log("sending request...");
-   let output = document.getElementById('output');
+   let divBooks = document.getElementById('books');
     request.onreadystatechange = function(){
 		console.log("on ready state function calling: " + request.readyState);
 		if(request.readyState == 4){
@@ -125,8 +126,7 @@ function searchLibrary() {
 			}else{
 				div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
             }
-            output.innerHTML = "";
-			output.appendChild(div);
+			divBooks.appendChild(div);
 		}
 	}
 }
@@ -139,7 +139,7 @@ function getLibrary() {
     request.open("GET", target);
     request.send();
     console.log("sending request...");
-   let output = document.getElementById('output');
+   let divBooks = document.getElementById('books');
     request.onreadystatechange = function(){
 		console.log("on ready state function calling: " + request.readyState);
 		if(request.readyState == 4){
@@ -150,8 +150,8 @@ function getLibrary() {
 			}else{
 				div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
             }
-            output.innerHTML = "";
-			output.appendChild(div);
+            divBooks.innerHTML = "";
+			divBooks.appendChild(div);
 		}
 	}
 }
