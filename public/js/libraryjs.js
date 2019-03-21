@@ -58,10 +58,11 @@ function fill(array, div) {
                 console.log(request.responseText);
                 let array = JSON.parse(request.responseText);
                 printGenres(array, subdiv);
+                let master = document.getElementById('output');
+                master.innerHTML = master.innerHTML + subdiv.innerHTML;
 			}else{
 				div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
             }
-            div.innerHTML = div.innerHTML + subdiv;
         }
     }
 
@@ -82,10 +83,11 @@ function fill(array, div) {
                 let array = JSON.parse(requestAuthor.responseText);
                 printAuthors(array, subdiv);
                 console.log(subdiv.innerHTML);
+                let master = document.getElementById('output');
+                master.innerHTML = master.innerHTML + subdiv.innerHTML;
 			}else{
 				div.appendChild(document.createTextNodeJSON.stringify(ERROR));
             }
-            div.innerHTML = div.innerHTML + subdiv;
         }
      
 	}
