@@ -46,16 +46,16 @@ function fill(array, div) {
     let newGenre = "<label>Other Genre</label><input type='text' id='new_genre' value=''><br>";
     div.innerHTML = div.innerHTML + newGenre;
 //get all authors
- let request = new XMLHttpRequest();
+ let requestAuthor = new XMLHttpRequest();
     let target = "/get_authors"; 
-    request.open("GET", target);
-    request.send();
-	   request.onreadystatechange = function(){
-		console.log("on ready state function calling: " + request.readyState);
-		if(request.readyState == 4){
+    requestAuthor.open("GET", target);
+    requestAuthor.send();
+       requestAuthor.onreadystatechange = function(){
+		console.log("on ready state function calling: " + requestAuthor.readyState);
+		if(requestAuthor.readyState == 4){
 			var div = document.createElement('div');
-			if(request.status == 200){
-                let array = JSON.parse(request.responseText);
+			if(requestAuthor.status == 200){
+                let array = JSON.parse(requestAuthor.responseText);
                 if (array.length > 0) {
                     array.forEach(function(item) {
                     let choice = `<label>${item.fname} ${item.lname}</label>`;
