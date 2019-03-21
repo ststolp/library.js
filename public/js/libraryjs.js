@@ -80,7 +80,7 @@ function fill(array, div) {
                 let array = JSON.parse(requestAuthor.responseText);
                 printAuthors(array, subdiv);
 			}else{
-				div.appendChild(document.createTextNodeJSON.stringify(ERROR)));
+				div.appendChild(document.createTextNodeJSON.stringify(ERROR));
             }
         }
         output.appendChild(subdiv);
