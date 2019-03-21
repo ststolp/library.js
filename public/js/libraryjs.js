@@ -60,7 +60,7 @@ function fill(array, div) {
 				div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
             }
         }
-        output.appendChild(subdiv);
+        div.innerHTML = div.innerHTML + subdiv;
     }
 
 
@@ -83,7 +83,7 @@ function fill(array, div) {
 				div.appendChild(document.createTextNodeJSON.stringify(ERROR));
             }
         }
-        output.appendChild(subdiv);
+        div.innerHTML = div.innerHTML + subdiv;
 	}
 
 	let more = '<label>Other Author</label><input type="text" id="fname" value=""><input type="text" id="lname" value=""><br>';
