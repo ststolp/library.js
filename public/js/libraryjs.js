@@ -47,8 +47,8 @@ function fill(array, div) {
     div.innerHTML = div.innerHTML + newGenre;
 //get all authors
  let requestAuthor = new XMLHttpRequest();
-    let target = "/get_authors"; 
-    requestAuthor.open("GET", target);
+    let targetAuthor = "/get_authors"; 
+    requestAuthor.open("GET", targetAuthor);
     requestAuthor.send();
        requestAuthor.onreadystatechange = function(){
 		console.log("on ready state function calling: " + requestAuthor.readyState);
