@@ -13,6 +13,66 @@ function fill(array, div) {
     let button = '<br><button class="button" onclick="checkOut()">Check Out</button>';
     emt.innerHTML = button;
     div.appendChild(emt);
+
+ let content = "<h2>Add a Book</h2>";
+
+	content += "<label>Title</label><input type='text' id='title'><br><h3>Genre</h3>";
+   div.innerHTML = div.innerHTML + content;
+//get all the genres</br>
+  let request = new XMLHttpRequest();
+    let target = "/get_genres"; 
+    request.open("GET", target);
+    request.send();
+	   request.onreadystatechange = function(){
+		console.log("on ready state function calling: " + request.readyState);
+		if(request.readyState == 4){
+			var div = document.createElement('div');
+			if(request.status == 200){
+                let array = JSON.parse(request.responseText);
+                if (array.length > 0) {
+                    array.forEach(function(item) {
+                    let choice = `<label>${item.genre}</label>`;
+                      choice += `<input type='radio' name="genre" id='${item.genre_id}''><br>`;
+                      div.innerHTML = div.innerHTML + choice;
+                    });
+                }
+			}else{
+				div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
+            }
+		}
+	}
+
+
+    let newGenre = "<label>Other Genre</label><input type="text" id="new_genre" value=""><br>";
+    div.innerHTML = div.innerHTML + newGenre;
+//get all authors
+ let request = new XMLHttpRequest();
+    let target = "/get_authors"; 
+    request.open("GET", target);
+    request.send();
+	   request.onreadystatechange = function(){
+		console.log("on ready state function calling: " + request.readyState);
+		if(request.readyState == 4){
+			var div = document.createElement('div');
+			if(request.status == 200){
+                let array = JSON.parse(request.responseText);
+                if (array.length > 0) {
+                    array.forEach(function(item) {
+                    let choice = `<label>${item.fname} ${item.lname}</label>`;
+                      choice += `<input type='radio' name="author" id='${item.author_id}'><br>`;
+                      div.innerHTML = div.innerHTML + choice;
+                    });
+                }
+			}else{
+				div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
+            }
+		}
+	}
+
+	let more = '<label>Other Author</label><input type="text" id="fname" value=""><input type="text" id="lname" value=""><br>';
+	more += '<label>year</label><input type="date" id="year"><br><label>Publisher</label>';
+    more += '<input type="text" id="publisher"><br><button class="button" onclick="addBook()">Add Book</button>';
+    div.innerHTML = div.innerHTML + more;
 }
 
 function searchLibrary() {
@@ -74,5 +134,9 @@ function getLibrary() {
 }
 
 function checkOut() {
+
+}
+
+function addBook() {
 
 }

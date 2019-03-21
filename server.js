@@ -15,6 +15,13 @@ app.set("view engine", "ejs");
 app.get("/", redirectUser);
 app.get("/get_library", getLibrary);
 app.get("/search_library", searchLibrary);
+app.get("/get_genres", getGenres);
+app.get("/get_authors", getAuthors);
+
+app.post("/add_author", addAuthor);
+app.post("/add_book", addBook);
+app.post("/add_genre", addGenre);
+
 
 app.listen(app.get('port'), function(){
 	console.log("It's working");
@@ -66,11 +73,11 @@ function getBooks(method, search, callback) {
     let query = "";
     if (search != "") {
 	   if (method == 'lname') {
-		query = "SELECT b.title, a.fname, a.lname, b.year, b.publisher FROM books b INNER JOIN author a ON b.author_id = a.author_id WHERE a.lname LIKE '% $1 %' ORDER BY b.title";
+		query = "SELECT b.title, a.fname, a.lname, b.year, b.publisher FROM books b INNER JOIN author a ON b.author_id = a.author_id WHERE a.lname = $1 ORDER BY b.title";
        } else if (method == 'title') {
-		query = "SELECT b.title, a.fname, a.lname, b.year, b.publisher FROM books b INNER JOIN author a ON b.author_id = a.author_id WHERE b.title LIKE '% $1 %' ORDER BY b.title";	
+		query = "SELECT b.title, a.fname, a.lname, b.year, b.publisher FROM books b INNER JOIN author a ON b.author_id = a.author_id WHERE b.title = $1 ORDER BY b.title";	
 	   } else if (method == 'genre') {
-       	query = "SELECT b.title, a.fname, a.lname, b.year, b.publisher FROM books b INNER JOIN author a ON b.author_id = a.author_id INNER JOIN genre g ON a.genre_id = g.genre_id WHERE g.genre LIKE '% $1 %' ORDER BY b.title";
+       	query = "SELECT b.title, a.fname, a.lname, b.year, b.publisher FROM books b INNER JOIN author a ON b.author_id = a.author_id INNER JOIN genre g ON a.genre_id = g.genre_id WHERE g.genre = $1 ORDER BY b.title";
        } else {
 	     query = "SELECT b.title, a.fname, a.lname, b.year, b.publisher FROM books b INNER JOIN author a ON b.author_id = a.author_id WHERE b.title = $1 ORDER BY b.title";
        }
@@ -79,9 +86,134 @@ function getBooks(method, search, callback) {
     console.log("The search is : " + search);
     pool.query(query, params, function(error, response) {
         if (error) {
-            console.log("There was an error" + error);
+            console.log("There was an error: " + error);
             callback(error, null);
         }
         callback(null, response.rows);
     });
+}
+
+
+
+function getAuthors(req, res) {
+    queryAuthors(function(error, result) {
+        if (error || result == null) {
+            res.status(500).json({success: false, data: error});
+        } else {
+            const books = result;
+            res.status(200).json(books);
+        }
+    });
+}
+
+function queryAuthors(callback) {
+    let query = "SELECT author_id, fname, lname FROM author";
+      pool.query(query, function(error, response) {
+       if(error) {
+           console.log("There was an error: " + error);
+           callback(error, null);
+       } else {
+           callback(null, response.rows);
+       }
+   });
+}
+
+function getGenres(req, res) {
+    queryGenres(function(error, result) {
+        if (error || result == null) {
+            res.status(500).json({success: false, data: error});
+        } else {
+            const books = result;
+            res.status(200).json(books);
+        }
+    });
+}
+
+function queryGenres(callback) {
+   let query = "SELECT genre_id, genre FROM genre";
+   pool.query(query, function(error, response) {
+       if(error) {
+           console.log("There was an error: " + error);
+           callback(error, null);
+       } else {
+           callback(null, response.rows);
+       }
+   });
+}
+
+function addGenre(req, res) {
+    let genre = req.query.genre;
+     postGenre(genre, function(error, result) {
+        if (error || result == null) {
+            console.log("failed to post genre: " + error);
+        } else {
+            console.log("genre posted!");
+        }
+    });
+}
+
+function addBook(req, res) {
+    let title = req.query.title;
+    let author_id = req.query.author_id;
+    let year = req.query.year;
+    let publisher = req.query.publisher;
+        postBook(title, author_id, year, publisher, function(error, result) {
+        if (error || result == null) {
+            console.log("failed to post book: " + error);
+        } else {
+            console.log("book posted!");
+        }
+    });
+}
+
+function addAuthor(req, res) {
+    let fname = req.query.fname;
+    let lname = req.query.lname;
+    let genre_id = req.query.genre_id;
+        postAuthor(fname, lname, genre_id, function(error, result) {
+        if (error || result == null) {
+            console.log("failed to post author: " + error);
+        } else {
+            console.log("author posted!");
+        }
+    });
+}
+
+function postGenre(genre, callback) {
+    let query = "INSERT INTO genre (genre) VALES ( $1 )";
+    params = [genre];
+      pool.query(query, params, function(error, response) {
+       if(error) {
+           console.log("There was an error: " + error);
+           callback(error, null);
+       } else {
+           callback(null, response.rows);
+       }
+   });
+}
+
+function postBook(title, author_id, year, publisher, callback) {
+    let query = "INSERT books (title, author_id, due_date, year, publisher) VALUES ( $1, $2, (SELECT CURRENT_DATE), $3, $4)";
+    let params = [title, author_id, year, publisher];
+      pool.query(query, params, function(error, response) {
+       if(error) {
+           console.log("There was an error: " + error);
+           callback(error, null);
+       } else {
+           callback(null, response.rows);
+       }
+   });
+}
+
+function postAuthor(fname, lname, genre_id, callback) {
+    let query = "INSERT INTO author (author_id, fname, lname) VALUES ( $1, $2, $3 )";
+    let params = [author_id, fname, lname];
+      pool.query(query, params, function(error, response) {
+       if(error) {
+           console.log("There was an error: " + error);
+           callback(error, null);
+       } else {
+           callback(null, response.rows);
+       }
+   });
 }
