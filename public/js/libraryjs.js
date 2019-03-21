@@ -81,10 +81,11 @@ function fill(array, div) {
                 console.log(requestAuthor.responseText);
                 let array = JSON.parse(requestAuthor.responseText);
                 printAuthors(array, subdiv);
+                console.log(subdiv.innerHTML);
 			}else{
 				div.appendChild(document.createTextNodeJSON.stringify(ERROR));
             }
-               div.innerHTML = div.innerHTML + subdiv;
+            div.innerHTML = div.innerHTML + subdiv;
         }
      
 	}
