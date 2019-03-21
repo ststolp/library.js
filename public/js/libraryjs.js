@@ -61,8 +61,8 @@ function fill(array, div) {
 			}else{
 				div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
             }
+            div.innerHTML = div.innerHTML + subdiv;
         }
-        div.innerHTML = div.innerHTML + subdiv;
     }
 
 
@@ -84,8 +84,9 @@ function fill(array, div) {
 			}else{
 				div.appendChild(document.createTextNodeJSON.stringify(ERROR));
             }
+               div.innerHTML = div.innerHTML + subdiv;
         }
-        div.innerHTML = div.innerHTML + subdiv;
+     
 	}
 
 	let more = '<label>Other Author</label><input type="text" id="fname" value=""><input type="text" id="lname" value=""><br>';
