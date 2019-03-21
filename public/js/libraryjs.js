@@ -64,15 +64,13 @@ function fill(array, divBooks) {
                 let array = JSON.parse(request.responseText);
                 printGenres(array, subdiv);
                 divGenre.innerHTML = divGenre.innerHTML + subdiv.innerHTML;
+                let newGenre = "<label>Other Genre</label><input type='text' id='new_genre' value=''><br>";
+                divGenre.innerHTML = divGenre.innerHTML + newGenre;
 			}else{
 				div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
             }
         }
     }
-
-
-    let newGenre = "<label>Other Genre</label><input type='text' id='new_genre' value=''><br>";
-    divGenre.innerHTML = divGenre.innerHTML + newGenre;
 //get all authors
  let requestAuthor = new XMLHttpRequest();
     let targetAuthor = "/get_authors"; 
