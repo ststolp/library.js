@@ -12,9 +12,10 @@ function printGenres(array, subdiv) {
 
 function printAuthors(array, subdiv) {
     if (array.length > 0) {
+        let choice = "";
         array.forEach(function(item) {
             let emt = document.createElement('p');
-            let choice = `<label>${item.fname} ${item.lname}</label>`;
+            choice = `<label>${item.fname} ${item.lname}</label>`;
             choice += `<input type='radio' name="author" id='${item.author_id}'><br>`;
             emt.innerHTML = choice;
         });
