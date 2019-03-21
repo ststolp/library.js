@@ -1,3 +1,28 @@
+function printGenres(array, subdiv) {
+    if (array.length > 0) {
+        array.forEach(function(item) {
+            let emt = document.createElement('p');
+            let choice = `<label>${item.genre}</label>`;
+            choice += `<input type='radio' name='genre' id='${item.genre_id}'><br>`;
+            emt.innerHTML = choice;
+        });
+        subdiv.innerHTML = subdiv.innerHTML + choice;
+    }
+}
+
+function printAuthors(array, subdiv) {
+    if (array.length > 0) {
+        array.forEach(function(item) {
+            let emt = document.createElement('p');
+            let choice = `<label>${item.fname} ${item.lname}</label>`;
+            choice += `<input type='radio' name="author" id='${item.author_id}'><br>`;
+            emt.innerHTML = choice;
+        });
+        subdiv.innerHTML = subdiv.innerHTML + choice;
+    }
+}
+
+
 function fill(array, div) {
     div.innerHTML = "";
     array.forEach(function(item) {
@@ -21,38 +46,21 @@ function fill(array, div) {
 //get all the genres</br>
     let request = new XMLHttpRequest();
     let target = "/get_genres"; 
-        let array = [];
     request.open("GET", target);
     request.send();
 	   request.onreadystatechange = function(){
 		console.log("on ready state function calling: " + request.readyState);
 		if(request.readyState == 4){
-			var div = document.createElement('div');
+			var subdiv = document.createElement('div');
 			if(request.status == 200){
                 console.log(request.responseText);
-                array = JSON.parse(request.responseText);
-                // if (array.length > 0) {
-                //     array.forEach(function(item) {
-                //       let emt = document.createElement('p');
-                //       let choice = `<label>${item.genre}</label>`;
-                //       choice += `<input type='radio' name='genre' id='${item.genre_id}'><br>`;
-                //       emt.innerHTML = choice;
-                //       div.innerHTML = div.innerHTML + choice;
-                //     });
-                // }
+                let array = JSON.parse(request.responseText);
+                printGenres(array, subdiv);
 			}else{
 				div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
             }
-             if (array.length > 0) {
-                    array.forEach(function(item) {
-                      let emt = document.createElement('p');
-                      let choice = `<label>${item.genre}</label>`;
-                      choice += `<input type='radio' name='genre' id='${item.genre_id}'><br>`;
-                      emt.innerHTML = choice;
-                      div.innerHTML = div.innerHTML + choice;
-                    });
-                }
-		}
+        }
+        output.appendChild(subdiv);
     }
 
 
@@ -66,23 +74,16 @@ function fill(array, div) {
        requestAuthor.onreadystatechange = function(){
 		console.log("on ready state function calling: " + requestAuthor.readyState);
 		if(requestAuthor.readyState == 4){
-			var div = document.createElement('div');
+			var subdiv = document.createElement('div');
 			if(requestAuthor.status == 200){
                 console.log(requestAuthor.responseText);
                 let array = JSON.parse(requestAuthor.responseText);
-                if (array.length > 0) {
-                    array.forEach(function(item) {
-                    let emt = document.createElement('p');
-                    let choice = `<label>${item.fname} ${item.lname}</label>`;
-                      choice += `<input type='radio' name="author" id='${item.author_id}'><br>`;
-                      emt.innerHTML = choice;
-                      div.innerHTML = div.innerHTML + choice;
-                    });
-                }
+                printAuthors(array, subdiv);
 			}else{
-				div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
+				div.appendChild(document.createTextNodeJSON.stringify(ERROR)));
             }
-		}
+        }
+        output.appendChild(subdiv);
 	}
 
 	let more = '<label>Other Author</label><input type="text" id="fname" value=""><input type="text" id="lname" value=""><br>';
