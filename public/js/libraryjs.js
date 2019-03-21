@@ -32,8 +32,10 @@ function fill(array, div) {
                 let array = JSON.parse(request.responseText);
                 if (array.length > 0) {
                     array.forEach(function(item) {
-                    let choice = `<label>${item.genre}</label>`;
+                      let emt = document.createElement('p');
+                      let choice = `<label>${item.genre}</label>`;
                       choice += `<input type='radio' name='genre' id='${item.genre_id}'><br>`;
+                      emt.innerHTML = choice;
                       div.innerHTML = div.innerHTML + choice;
                     });
                 }
@@ -60,8 +62,10 @@ function fill(array, div) {
                 let array = JSON.parse(requestAuthor.responseText);
                 if (array.length > 0) {
                     array.forEach(function(item) {
+                    let emt = document.createElement('p');
                     let choice = `<label>${item.fname} ${item.lname}</label>`;
                       choice += `<input type='radio' name="author" id='${item.author_id}'><br>`;
+                      emt.innerHTML = choice;
                       div.innerHTML = div.innerHTML + choice;
                     });
                 }
