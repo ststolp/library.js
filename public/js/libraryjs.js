@@ -28,6 +28,7 @@ function fill(array, div) {
 		if(request.readyState == 4){
 			var div = document.createElement('div');
 			if(request.status == 200){
+                console.log(request.responseText);
                 let array = JSON.parse(request.responseText);
                 if (array.length > 0) {
                     array.forEach(function(item) {
@@ -55,6 +56,7 @@ function fill(array, div) {
 		if(requestAuthor.readyState == 4){
 			var div = document.createElement('div');
 			if(requestAuthor.status == 200){
+                console.log(requestAuthor.responseText);
                 let array = JSON.parse(requestAuthor.responseText);
                 if (array.length > 0) {
                     array.forEach(function(item) {
