@@ -23,14 +23,27 @@ function fill(array, div) {
     let target = "/get_genres"; 
     request.open("GET", target);
     request.send();
+    let array = [];
 	   request.onreadystatechange = function(){
 		console.log("on ready state function calling: " + request.readyState);
 		if(request.readyState == 4){
 			var div = document.createElement('div');
 			if(request.status == 200){
                 console.log(request.responseText);
-                let array = JSON.parse(request.responseText);
-                if (array.length > 0) {
+                array = JSON.parse(request.responseText);
+                // if (array.length > 0) {
+                //     array.forEach(function(item) {
+                //       let emt = document.createElement('p');
+                //       let choice = `<label>${item.genre}</label>`;
+                //       choice += `<input type='radio' name='genre' id='${item.genre_id}'><br>`;
+                //       emt.innerHTML = choice;
+                //       div.innerHTML = div.innerHTML + choice;
+                //     });
+                // }
+			}else{
+				div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
+            }
+             if (array.length > 0) {
                     array.forEach(function(item) {
                       let emt = document.createElement('p');
                       let choice = `<label>${item.genre}</label>`;
@@ -39,9 +52,6 @@ function fill(array, div) {
                       div.innerHTML = div.innerHTML + choice;
                     });
                 }
-			}else{
-				div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
-            }
 		}
 	}
 
