@@ -1,8 +1,9 @@
 function printGenres(array, subdiv) {
     if (array.length > 0) {
+        let choice = "";
         array.forEach(function(item) {
             let emt = document.createElement('p');
-            let choice = `<label>${item.genre}</label>`;
+            choice = `<label>${item.genre}</label>`;
             choice += `<input type='radio' name='genre' id='${item.genre_id}'><br>`;
             emt.innerHTML = choice;
         });
