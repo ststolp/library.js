@@ -26,8 +26,10 @@ function printAuthors(array, subdiv) {
 
 
 function fill(array, divBooks) {
-    divGenre = document.getElementById('genre').innerHTML = "";
-    divAuthor = document.getElementById('author').innerHTML = "";
+    let divGenre = document.getElementById('genre');
+    divGenre.innerHTML = "";
+    let divAuthor = document.getElementById('author');
+    divAuthor.innerHTML = "";
 
     divBooks.innerHTML = "";
     array.forEach(function(item) {
@@ -92,11 +94,12 @@ function fill(array, divBooks) {
         }
      
 	}
-
+  let divForm = document.getElementById('form');
+  divForm.innerHTML = "";
 	let more = '<label>Other Author</label><input type="text" id="fname" value=""><input type="text" id="lname" value=""><br>';
 	more += '<label>year</label><input type="date" id="year"><br><label>Publisher</label>';
     more += '<input type="text" id="publisher"><br><button class="button" onclick="addBook()">Add Book</button>';
-    divAuthor.innerHTML = divAuthor.innerHTML + more;
+    divForm.innerHTML = divForm.innerHTML + more;
 }
 
 function searchLibrary() {
