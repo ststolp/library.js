@@ -17,9 +17,9 @@ function fill(array, div) {
  let content = "<h2>Add a Book</h2>";
 
 	content += "<label>Title</label><input type='text' id='title'><br><h3>Genre</h3>";
-   div.innerHTML = div.innerHTML + content;
+    div.innerHTML = div.innerHTML + content;
 //get all the genres</br>
-  let request = new XMLHttpRequest();
+    let request = new XMLHttpRequest();
     let target = "/get_genres"; 
     request.open("GET", target);
     request.send();
@@ -32,7 +32,7 @@ function fill(array, div) {
                 if (array.length > 0) {
                     array.forEach(function(item) {
                     let choice = `<label>${item.genre}</label>`;
-                      choice += `<input type='radio' name="genre" id='${item.genre_id}''><br>`;
+                      choice += `<input type='radio' name='genre' id='${item.genre_id}'><br>`;
                       div.innerHTML = div.innerHTML + choice;
                     });
                 }
@@ -43,7 +43,7 @@ function fill(array, div) {
 	}
 
 
-    let newGenre = "<label>Other Genre</label><input type="text" id="new_genre" value=""><br>";
+    let newGenre = "<label>Other Genre</label><input type='text' id='new_genre' value=''><br>";
     div.innerHTML = div.innerHTML + newGenre;
 //get all authors
  let request = new XMLHttpRequest();
