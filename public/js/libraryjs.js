@@ -30,7 +30,7 @@ function fill(array, divBooks) {
     divGenre.innerHTML = "";
     let divAuthor = document.getElementById('author');
     divAuthor.innerHTML = "";
-    divBooks = "";
+    divBooks.innerHTML = "";
     let formStart = "<form action='/check_out' method='post'>";
     let books = "";
     array.forEach(function(item) {
