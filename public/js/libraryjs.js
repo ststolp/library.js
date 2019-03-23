@@ -33,18 +33,16 @@ function fill(array, divBooks) {
 
     divBooks.innerHTML = "<form action='/check_out' method='post'>";
     array.forEach(function(item) {
-        let emt = document.createElement('p');
+
         let entry = `<p><b>${item.title}</b> by ${item.fname} ${item.lname}</p>`;
         entry += `<p>Publisher: ${item.publisher}, ${item.year}.</p>`;
 	    entry += "<label>Check out this book</label><br>";
 	    entry += `<input type='checkbox' name='checkout[]' value='${item.book_id}'>`;
-        emt.innerHTML = entry; 
-        divBooks.appendChild(emt)
+        divBooks.innerHTML = divBooks.innerHTML + entry;
     });
-    let emt = document.createElement('p');
     let button = '<br><input type="submit" class="button" value="Check Out"></form>';
-    emt.innerHTML = button;
-    divBooks.appendChild(emt);
+    divBooks.innerHTML = div.innerHTML + button;
+
 
  let content = "<h2>Add a Book</h2><form action='/add_book' method='post'";
 
