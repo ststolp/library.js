@@ -30,18 +30,19 @@ function fill(array, divBooks) {
     divGenre.innerHTML = "";
     let divAuthor = document.getElementById('author');
     divAuthor.innerHTML = "";
-
-    divBooks.innerHTML = "<form action='/check_out' method='post'><p><b>";
+    divBooks = "";
+    let formStart = "<form action='/check_out' method='post'>";
+    let books = "":
     array.forEach(function(item) {
-
-        let entry = `${item.title}</b> by ${item.fname} ${item.lname}</p>`;
+        let entry = `<p><b>${item.title}</b> by ${item.fname} ${item.lname}</p>`;
         entry += `<p>Publisher: ${item.publisher}, ${item.year}.</p>`;
 	    entry += "<label>Check out this book</label><br>";
 	    entry += `<input type='checkbox' name='checkout[]' value='${item.book_id}'>`;
-        divBooks.innerHTML = divBooks.innerHTML + entry;
+        books = books + entry;
     });
     let button = '<br><input type="submit" class="button" value="Check Out"></form>';
-    divBooks.innerHTML = divBooks.innerHTML + button;
+    let wholeForm = formStart + books + button;
+    divBooks.innerHTML = wholeForm;
 
 
  let content = "<h2>Add a Book</h2><form action='/add_book' method='post'";
