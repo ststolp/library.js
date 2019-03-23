@@ -17,7 +17,7 @@ function printAuthors(array, subdiv) {
         array.forEach(function(item) {
             let emt = document.createElement('p');
             choice = `<label>${item.fname} ${item.lname}</label>`;
-            choice += `<input type='radio' name="author" id='${item.author_id}'><br>`;
+            choice += `<input type='radio' name="author" value='${item.author_id}'><br>`;
             emt.innerHTML = choice;
         });
         subdiv.innerHTML = subdiv.innerHTML + choice;
@@ -31,7 +31,7 @@ function fill(array, divBooks) {
     let divAuthor = document.getElementById('author');
     divAuthor.innerHTML = "";
 
-    divBooks.innerHTML = "";
+    divBooks.innerHTML = "<form action='/check_out' method='post'>";
     array.forEach(function(item) {
         let emt = document.createElement('p');
         let entry = `<p><b>${item.title}</b> by ${item.fname} ${item.lname}</p>`;
@@ -42,13 +42,13 @@ function fill(array, divBooks) {
         divBooks.appendChild(emt)
     });
     let emt = document.createElement('p');
-    let button = '<br><button class="button" onclick="checkOut()">Check Out</button>';
+    let button = '<br><input type="submit" class="button" value="Check Out"></form>';
     emt.innerHTML = button;
     divBooks.appendChild(emt);
 
- let content = "<h2>Add a Book</h2>";
+ let content = "<h2>Add a Book</h2><form action='/add_book' method='post'";
 
-	content += "<label>Title</label><input type='text' id='title'><br><h3>Genre</h3>";
+	content += "<label>Title</label><input type='text' name='title'><br><h3>Genre</h3>";
     divGenre.innerHTML = divGenre.innerHTML + content;
 //get all the genres</br>
     let request = new XMLHttpRequest();
@@ -64,7 +64,7 @@ function fill(array, divBooks) {
                 let array = JSON.parse(request.responseText);
                 printGenres(array, subdiv);
                 divGenre.innerHTML = divGenre.innerHTML + subdiv.innerHTML;
-                let newGenre = "<label>Other Genre</label><input type='text' id='new_genre' value=''><br>";
+                let newGenre = "<label>Other Genre</label><input type='text' name='new_genre' value=''><br>";
                 divGenre.innerHTML = divGenre.innerHTML + newGenre;
 			}else{
 				div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
@@ -94,9 +94,9 @@ function fill(array, divBooks) {
 	}
   let divForm = document.getElementById('form');
   divForm.innerHTML = "";
-	let more = '<label>Other Author</label><input type="text" id="fname" value=""><input type="text" id="lname" value=""><br>';
-	more += '<label>year</label><input type="date" id="year"><br><label>Publisher</label>';
-    more += '<input type="text" id="publisher"><br><button class="button" onclick="addBook()">Add Book</button>';
+	let more = '<label>Other Author</label><input type="text" name="fname" value=""><input type="text" name="lname" value=""><br>';
+	more += '<label>year</label><input type="date" name="year"><br><label>Publisher</label>';
+    more += '<input type="text" name="publisher"><br><input type="submit" class="button" value="Add Book">';
     divForm.innerHTML = divForm.innerHTML + more;
 }
 
@@ -162,5 +162,63 @@ function checkOut() {
 }
 
 function addBook() {
+    let genres = document.getElementsByName('genre');
+    let authors = document.getElementsByName('author');
+    let fname = document.getElementById('fname');
+    let lname = document.getElementById('lname');
+    let new_genre = document.getElementById('new_genre');
+    let genre_id = 0;
+    let author_id = 0;
+    if (new_genre.value != "") {
+        // make new genre and return the id
+        let target = "/add_genre";
+        let request = new XMLHttpRequest();
+        request.open("POST", target);
+        request.send();
+        console.log("sending request...");
+        request.onreadystatechange = function(){
+		    if(request.readyState == 4){
+    			if(request.status == 200){
+                    let array = JSON.parse(request.responseText);
+                    genre_id = array.author_id;
+                }
+	    	}
+	    }
+    } else {
+        //iterate through genres
+        for(let i = 0; ; i++) {
+            if (genres[i].checked == true) {
+                genre_id = genres[i].id;
+            }
+            break;
+        }
+    }
+   
+    if (fname.value != "") {
+        let authorTarget = "/add_author"; 
+        let requestAuthor = new XMLHttpRequest();
+        requestAuthor.open("POST", authorTarget);
+        requestrequestAuthor.send();
+        console.log("sending request...");
+        requestAuthor.onreadystatechange = function(){
+		    if(requestAuthor.readyState == 4){
+    			if(requestAuthor.status == 200){
+                    let array = JSON.parse(requestAuthor.responseText);
+                    author_id = array.author_id;
+                }
+	    	}
+	    } 
+    } else {
+        for(let i = 0; ; i++) {
+            if (authors[i].checked == true) {
+                author_id = authors[i].id;
+            }
+            break;
+        }
+    }
+    let title = document.getElementById('title');
 
+    let year = document.getElementById('year');
+    let publisher = document.getElementById('publisher');
+    let body = [title, author_id, year, publisher];
 }

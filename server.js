@@ -1,5 +1,7 @@
-var express = require('express');
-var app = express();
+const express = require('express');
+//const bodyParser = require('body-parser');
+const app = express();
+
 
 const controller = require("./controllers/libraryFunctions.js");
 app.set('port', (process.env.PORT || 5000));
@@ -9,8 +11,8 @@ console.log("The url is: " + connectionString);
 const pool = Pool({connectionString: connectionString});
 
 app.use(express.static("public"));
-app.set("views", "view");
-app.set("view engine", "ejs");
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
 app.get("/", redirectUser);
 app.get("/get_library", getLibrary);
@@ -21,7 +23,7 @@ app.get("/get_authors", getAuthors);
 app.post("/add_author", addAuthor);
 app.post("/add_book", addBook);
 app.post("/add_genre", addGenre);
-
+app.post("/check_out", checkOut);
 
 app.listen(app.get('port'), function(){
 	console.log("It's working");
@@ -100,8 +102,8 @@ function getAuthors(req, res) {
         if (error || result == null) {
             res.status(500).json({success: false, data: error});
         } else {
-            const books = result;
-            res.status(200).json(books);
+            const authors = result;
+            res.status(200).json(authors);
         }
     });
 }
@@ -142,26 +144,28 @@ function queryGenres(callback) {
 }
 
 function addGenre(req, res) {
-    let genre = req.query.genre;
+    let genre = req.body.genre;
      postGenre(genre, function(error, result) {
         if (error || result == null) {
             console.log("failed to post genre: " + error);
         } else {
             console.log("genre posted!");
+            res.status(200).json(result);
         }
     });
 }
 
 function addBook(req, res) {
-    let title = req.query.title;
-    let author_id = req.query.author_id;
-    let year = req.query.year;
-    let publisher = req.query.publisher;
+    let title = req.body.title;
+    let author_id = req.body.author_id;
+    let year = req.body.year;
+    let publisher = req.body.publisher;
         postBook(title, author_id, year, publisher, function(error, result) {
         if (error || result == null) {
             console.log("failed to post book: " + error);
         } else {
             console.log("book posted!");
+            res.status(200).json(result);
         }
     });
 }
@@ -175,6 +179,7 @@ function addAuthor(req, res) {
             console.log("failed to post author: " + error);
         } else {
             console.log("author posted!");
+            res.status(200).json(result);
         }
     });
 }
@@ -187,8 +192,22 @@ function postGenre(genre, callback) {
            console.log("There was an error: " + error);
            callback(error, null);
        } else {
-           callback(null, response.rows);
-       }
+           let queryId = "SELECT genre_id FROM genre WHERE genre = $1";
+           pool.query(queryId, params, function(err, res) {
+               if (error) {
+                   console.log("There was an error: " + error);
+                   error = err;
+               } else {
+                   response = res;
+               }
+           });
+           if (error) {
+               console.log("There was an error: " + error);
+               callback(error, null);
+           } else {
+            callback(null, response.rows);
+           }
+        }
    });
 }
 
@@ -206,14 +225,28 @@ function postBook(title, author_id, year, publisher, callback) {
 }
 
 function postAuthor(fname, lname, genre_id, callback) {
-    let query = "INSERT INTO author (author_id, fname, lname) VALUES ( $1, $2, $3 )";
-    let params = [author_id, fname, lname];
+    let query = "INSERT INTO author (genre_id, fname, lname) VALUES ( $1, $2, $3 )";
+    let params = [genre_id, fname, lname];
       pool.query(query, params, function(error, response) {
        if(error) {
            console.log("There was an error: " + error);
            callback(error, null);
        } else {
+           let queryId = "SELECT author_id FROM author WHERE fname = $1 AND lname = $1";
+           let paramsId = [fname, lname];
+             pool.query(queryId, paramsId, function(err, res) {
+                 if (err) {
+                     console.log("There was an error: " + error);
+                     error = err;
+                 } else {
+                   response = res;
+                 }
+             });
+             if (error) {
+                 console.log("There was an error: " + error);
+             } else {
            callback(null, response.rows);
+             }
        }
    });
 }
