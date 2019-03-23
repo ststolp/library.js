@@ -32,7 +32,7 @@ function fill(array, divBooks) {
     divAuthor.innerHTML = "";
     divBooks = "";
     let formStart = "<form action='/check_out' method='post'>";
-    let books = "":
+    let books = "";
     array.forEach(function(item) {
         let entry = `<p><b>${item.title}</b> by ${item.fname} ${item.lname}</p>`;
         entry += `<p>Publisher: ${item.publisher}, ${item.year}.</p>`;
