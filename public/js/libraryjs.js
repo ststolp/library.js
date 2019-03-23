@@ -126,6 +126,7 @@ function searchLibrary() {
 			}else{
 				div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
             }
+            divBooks.innerHTML = "";
 			divBooks.appendChild(div);
 		}
 	}
