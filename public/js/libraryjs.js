@@ -41,7 +41,7 @@ function fill(array, divBooks) {
         divBooks.innerHTML = divBooks.innerHTML + entry;
     });
     let button = '<br><input type="submit" class="button" value="Check Out"></form>';
-    divBooks.innerHTML = div.innerHTML + button;
+    divBooks.innerHTML = divBooks.innerHTML + button;
 
 
  let content = "<h2>Add a Book</h2><form action='/add_book' method='post'";
