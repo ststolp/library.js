@@ -34,6 +34,10 @@ function redirectUser(req, res) {
     return res.redirect('home_library.html');
 };
 
+function checkOut(req, res) {
+
+}
+
 function getLibrary(req, res) {
     getAllBooks(function(error, result) {
         if (error || result == null) {
