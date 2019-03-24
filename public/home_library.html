@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<head>
+<title>Library</title>
+<link rel="stylesheet" type="text/css" href="lib_style.css">
+<script type="text/javascript" src="/js/libraryjs.js"> </script>
+</head>
+<body>
+
+  <!-- header here -->
+<div>
+<br>
+    <label>Search For:</label>
+    <select id="method">
+      <option value="lname">Author Last name</option>
+      <option value="title">Title</option>
+      <option value="genre">Genre</option>
+    </select>
+ 
+    <input type='text' placeholder='That has...' id='search' value="">
+    <button onclick="searchLibrary()" class="button">Search</button>
+
+</div>
+<h1>Library</h1>
+
+<button onclick="getLibrary()" class="button">See Books</button>
+
+<div id="books"></div>
+<div id="genre"></div>
+<div id="author"></div>
+<div id="form"></div>
+<br>
+<!-- footer here-->
+
+</body>
+</html>
