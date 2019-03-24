@@ -57,6 +57,7 @@ function checkOut(req, response) {
                         console.log(`There was an error ${error}`);
                     } else {
                         result += res;
+                        console.log(`The response: ${res}`);
                     }
                 });
             }
