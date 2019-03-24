@@ -34,8 +34,25 @@ function redirectUser(req, res) {
     return res.redirect('home_library.html');
 };
 
-function checkOut(req, res) {
-
+function checkOut(req, response) {
+    let array = req.body.checkout;
+    let query = "";
+    let list;
+    array.forEach(function(item) {
+       query = `INSERT INTO patron_book (patron_id, book_id) VALUES (1, $1)`;
+       let params = [item.value];
+       pool.query(query, params, function(req, res) {
+            if (error) {
+                console.log(`There was an error: ${error}`);
+                res.status(500).json({success: false,});
+                break;
+            } else {
+                console.log(res);
+                list += res;
+            }
+       });
+    });
+    response.status(200).json(list);
 }
 
 function getLibrary(req, res) {
@@ -161,6 +178,9 @@ function addGenre(req, res) {
 
 function addBook(req, res) {
     let title = req.body.title;
+    let new_genre = req.body.new_genre;
+    let genre = req.body.genre;
+
     let author_id = req.body.author_id;
     let year = req.body.year;
     let publisher = req.body.publisher;
