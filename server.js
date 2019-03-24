@@ -83,6 +83,7 @@ function getChecked(item, callback) {
               console.log("There was an error" + error);
               callback(error, null);
         }
+        console.log("From getChecked: " + res.rows);
         callback(null, res.rows);
     });
 }
