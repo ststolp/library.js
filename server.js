@@ -50,6 +50,7 @@ function checkOut(req, response) {
                 getChecked(item, function(error, res) {
                     if (error || result == null) {
                        console.log("Something wrong happened retrieving books: " + error);
+                       console.log("Res: " + res);
                        return;
                     } else {
                         const books = res;
@@ -63,6 +64,17 @@ function checkOut(req, response) {
     response.status(200).json(result);
 }
 
+// function get_
+//                 getChecked(item, function(error, res) {
+//                     if (error || result == null) {
+//                        console.log("Something wrong happened retrieving books: " + error);
+//                        return;
+//                     } else {
+//                         const books = res;
+//                       //  res.status(200).json(books);
+//                         result += books;
+//                     }
+//                 });
 function getChecked(item, callback) {
        queryInserted = `SELECT book_id FROM patron_book WHERE book_id = $1`;
        let params = [item];
