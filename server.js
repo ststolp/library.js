@@ -40,7 +40,7 @@ function checkOut(req, response) {
     let query = "";
     let list;
     array.forEach(function(item) {
-       console.log(`Id = ${item.value}`);
+       console.log(`Id = ${item}`);
        query = `INSERT INTO patron_book (patron_id, book_id) VALUES (1, $1)`;
        if(item.checked == true) {
            console.log(`The id is: ${item.value}`);
