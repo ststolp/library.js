@@ -44,15 +44,15 @@ function checkOut(req, response) {
         pool.query(query, params, function(error, res) {
             if (error) {
                 console.log(`There was an error: ${error}`);
-                res.status(500).json({success: false,});
+                response.status(500).json({success: false,});
             } else {
                 console.log(res);
                 getChecked(item, function(error, res) {
                     if (error || result == null) {
-                        res.status(500).json({success: false, data: error});
+                        response.status(500).json({success: false, data: error});
                     } else {
                         const books = res;
-                        res.status(200).json(books);
+                      //  res.status(200).json(books);
                         result += books;
                     }
                 });
