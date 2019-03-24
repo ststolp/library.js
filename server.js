@@ -36,9 +36,7 @@ function redirectUser(req, res) {
 
 function checkOut(req, response) {
     let array = req.body.checkout;
-
     let query = "";
-    let list;
     let result;
     array.forEach(function(item) {
        query = `INSERT INTO patron_book (patron_id, book_id) VALUES (1, $1)`;
@@ -49,15 +47,13 @@ function checkOut(req, response) {
                 res.status(500).json({success: false,});
             } else {
                 console.log(res);
-                list += res;
-                queryInserted = `SELECT book_id FROM patron_book WHERE book_id = $1`;
-                let param = [item];
-                pool.query(queryInserted, param, function(error, res) {
-                    if (error) {
-                        console.log(`There was an error ${error}`);
+                getChecked(item, function(error, res) {
+                    if (error || result == null) {
+                        res.status(500).json({success: false, data: error});
                     } else {
-                        result += res;
-                        console.log(`The response: ${res}`);
+                        const books = res;
+                        res.status(200).json(books);
+                        result += books;
                     }
                 });
             }
@@ -65,6 +61,20 @@ function checkOut(req, response) {
     });
     response.status(200).json(result);
 }
+
+function getChecked(item, callback) {
+       queryInserted = `SELECT book_id FROM patron_book WHERE book_id = $1`;
+       let params = [item];
+        pool.query(queryInserted, params, function(error, res) {
+            if (error) {
+              console.log("There was an error" + error);
+              callback(error, null);
+        }
+        callback(null, res.rows);
+    });
+}
+
+           
 
 function getLibrary(req, res) {
     getAllBooks(function(error, result) {
