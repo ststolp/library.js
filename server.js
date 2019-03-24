@@ -40,16 +40,19 @@ function checkOut(req, response) {
     let list;
     array.forEach(function(item) {
        query = `INSERT INTO patron_book (patron_id, book_id) VALUES (1, $1)`;
-       let params = [item.value];
-       pool.query(query, params, function(error, res) {
-            if (error) {
-                console.log(`There was an error: ${error}`);
-                res.status(500).json({success: false,});
-            } else {
-                console.log(res);
-                list += res;
-            }
-       });
+       if(item.checked == true) {
+           console.log(`The id is: ${item.value}`);
+            let params = [item.value];
+            pool.query(query, params, function(error, res) {
+                 if (error) {
+                     console.log(`There was an error: ${error}`);
+                     res.status(500).json({success: false,});
+                 } else {
+                     console.log(res);
+                     list += res;
+                 }
+            });
+        }
     });
     response.status(200).json(list);
 }
