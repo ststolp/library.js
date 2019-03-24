@@ -49,7 +49,8 @@ function checkOut(req, response) {
                 console.log(res);
                 getChecked(item, function(error, res) {
                     if (error || result == null) {
-                        response.status(500).json({success: false, data: error});
+                       console.log("Something wrong happened retrieving books");
+                       return;
                     } else {
                         const books = res;
                       //  res.status(200).json(books);
