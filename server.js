@@ -49,7 +49,7 @@ function checkOut(req, response) {
                 console.log(res);
                 getChecked(item, function(error, res) {
                     if (error || result == null) {
-                       console.log("Something wrong happened retrieving books");
+                       console.log("Something wrong happened retrieving books: " + error);
                        return;
                     } else {
                         const books = res;
