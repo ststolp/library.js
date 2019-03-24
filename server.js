@@ -39,6 +39,7 @@ function checkOut(req, response) {
 
     let query = "";
     let list;
+    let result;
     array.forEach(function(item) {
        query = `INSERT INTO patron_book (patron_id, book_id) VALUES (1, $1)`;
         let params = [item];
@@ -49,10 +50,19 @@ function checkOut(req, response) {
             } else {
                 console.log(res);
                 list += res;
+                queryInserted = `SELECT book_id FROM patron_book WHERE book_id = $1`;
+                let param = [item];
+                pool.query(queryInserted, param, function(error, res) {
+                    if (error) {
+                        console.log(`There was an error ${error}`);
+                    } else {
+                        result += res;
+                    }
+                });
             }
         });
     });
-    response.status(200).json(list);
+    response.status(200).json(result);
 }
 
 function getLibrary(req, res) {
