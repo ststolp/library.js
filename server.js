@@ -41,11 +41,10 @@ function checkOut(req, response) {
     array.forEach(function(item) {
        query = `INSERT INTO patron_book (patron_id, book_id) VALUES (1, $1)`;
        let params = [item.value];
-       pool.query(query, params, function(req, res) {
+       pool.query(query, params, function(error, res) {
             if (error) {
                 console.log(`There was an error: ${error}`);
                 res.status(500).json({success: false,});
-                break;
             } else {
                 console.log(res);
                 list += res;
