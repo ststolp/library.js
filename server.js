@@ -50,6 +50,7 @@ function checkOut(req, response) {
                 response.status(500).json({success: false,});
             } else {
                 console.log(res);
+                console.log("Item: + " + item);
                 if (count == 1) {
                     url += "array[]=" + item;
                 } else {
@@ -58,7 +59,7 @@ function checkOut(req, response) {
             }
         });
     });
-    return response.redirect(`getReceipt.html?${url}`);
+    return response.status(200).redirect(`getReceipt.html?${url}`);
 }
 
 function getChecked(req, res) {
