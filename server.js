@@ -35,6 +35,15 @@ function redirectUser(req, res) {
     return res.redirect('home_library.html');
 };
 
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
+
 function checkOut(req, response) {
     let array = req.body.checkout;
     let query = "";
