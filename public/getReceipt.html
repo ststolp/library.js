@@ -7,7 +7,7 @@
     <title>Receipt</title>
     <script type="text/javascript">
     function getParams() {
-        let url = window.location.search.substring(1);
+        let url = location.search.substring(1);
         console.log("The url: " + url);
         let variables = url.split('&');
         console.log("The var: " + variables[0]);
