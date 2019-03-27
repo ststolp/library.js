@@ -62,6 +62,7 @@ function checkOut(req, response) {
                 console.log("Item: " + item);
                 if (count == 1) {
                     url += "array[]=" + item;
+                       return response.status(200).redirect(`getReceipt.html?${url}`);
                 } else {
                     url += "&array[]=" + item;
                 }
@@ -70,7 +71,7 @@ function checkOut(req, response) {
     });
     sleep(2000);
     console.log("url: " + url);
-    return response.status(200).redirect(`getReceipt.html?${url}`);
+    //return response.status(200).redirect(`getReceipt.html?${url}`);
 }
 
 function getChecked(req, res) {
