@@ -8,10 +8,13 @@
     <script type="text/javascript">
     function getParams() {
         let url = window.location.search.substring(1);
+        console.log("The url: " + url);
         let variables = url.split('&');
+        console.log("The var: " + variables[0]);
         for (let i = 0; i < variables.length; i++) {
             //request each book individually. 
             let book_id = variables[i].split('=');
+            console.log("The id: " + book_id[1]);
             target = `/get_checked?book=${book_id[1]}`;
             let request = new XMLHttpRequest();
             request.open("GET", target);
