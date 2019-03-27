@@ -74,16 +74,15 @@ function getChecked(req, res) {
 }
 
 function queryChecked(book, callback) {
-       
-       queryInserted = `SELECT patron_id, book_title, due_date, checked_out FROM patron_book WHERE book_id = $1`;
-       let params = [book];
-        pool.query(queryInserted, params, function(error, res) {
-            if (error) {
-              console.log("There was an error" + error);
-              callback(error, null);
+    queryInserted = `SELECT patron_id, book_title, due_date, checked_out FROM patron_book WHERE book_id = $1`;
+    let params = [book];
+    pool.query(queryInserted, params, function(error, res) {
+    if (error) {
+        console.log("There was an error" + error);
+            callback(error, null);
+        } else {
+            callback(null, res.rows);
         }
-        console.log("From getChecked: " + res.rows);
-        callback(null, res.rows);
     });
 }
 
