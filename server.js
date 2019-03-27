@@ -58,7 +58,7 @@ function checkOut(req, response) {
             }
         });
     });
-      return response.redirect('getReceipt.html?' + url);
+    return response.redirect(`getReceipt.html?${url}`);
 }
 
 function getChecked(req, res) {

@@ -26,17 +26,21 @@
 		        if(request.readyState == 4){
 			        var div = document.createElement('div');
 			    if(request.status == 200){
-                   let array = JSON.parse(request.responseText);
-                   fill(array, div);
-			    }else{
-				    div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
+                    let array = JSON.parse(request.responseText);
+                    let books = "";
+                    array.forEach(function(item) {
+                      let entry = `<p><b>${item.title}</b> loaned on ${item.check_out}</p>`;
+                      entry += `<p>Due date ${item.due_date}</p>`;
+                      books = books + entry;
+                    });
+                divBooks.innerHTML = books;
+				    //div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
                 }
-                divBooks.innerHTML = "";
-			    divBooks.appendChild(div);
+              //  divBooks.innerHTML = "";
+			    //divBooks.appendChild(div);
 		        }
 	        }
         }
-    
     }
     </script>
 </head>
