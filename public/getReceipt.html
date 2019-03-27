@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Receipt</title>
+    <script type="text/javascript">
+    function getParams() {
+        let url = window.location.search.substring(1);
+        let variables = url.split('&');
+        for (let i = 0; i < variables.length; i++) {
+            //something
+        }
+            target = "/get_checked";
+    let request = new XMLHttpRequest();
+    request.open("GET", target);
+    request.send();
+    console.log("sending request...");
+   let divBooks = document.getElementById('output');
+    request.onreadystatechange = function(){
+		console.log("on ready state function calling: " + request.readyState);
+		if(request.readyState == 4){
+			var div = document.createElement('div');
+			if(request.status == 200){
+                let array = JSON.parse(request.responseText);
+                fill(array, div);
+			}else{
+				div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
+            }
+            divBooks.innerHTML = "";
+			divBooks.appendChild(div);
+		}
+	}
+    }
+    </script>
+</head>
+<body onload="getParams()">
+<div id="output">
+</div>
+</body>
+</html>

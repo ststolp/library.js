@@ -19,6 +19,7 @@ app.get("/get_library", getLibrary);
 app.get("/search_library", searchLibrary);
 app.get("/get_genres", getGenres);
 app.get("/get_authors", getAuthors);
+app.get("/get_checked", getChecked);
 
 app.post("/add_author", addAuthor);
 app.post("/add_book", addBook);
@@ -37,9 +38,11 @@ function redirectUser(req, res) {
 function checkOut(req, response) {
     let array = req.body.checkout;
     let query = "";
-    let result;
+    let url = "";
+    let count = 0;
     array.forEach(function(item) {
-       query = `INSERT INTO patron_book (patron_id, book_id) VALUES (1, $1)`;
+        count++;
+       query = `INSERT INTO patron_book (patron_id, book_id, due_date, checked_out) VALUES (1, $1, CURRENT_DATE + interval '30' day, CURRENT_DATE)`;
         let params = [item];
         pool.query(query, params, function(error, res) {
             if (error) {
@@ -47,36 +50,32 @@ function checkOut(req, response) {
                 response.status(500).json({success: false,});
             } else {
                 console.log(res);
-                getChecked(item, function(error, res) {
-                    if (error || result == null) {
-                       console.log("Something wrong happened retrieving books: " + error);
-                       console.log("Res: " + res);
-                       return;
-                    } else {
-                        const books = res;
-                      //  res.status(200).json(books);
-                        result += books;
-                    }
-                });
+                if (count == 1) {
+                    url += "array[]=" + item;
+                } else {
+                    url += "&array[]=" + item;
+                }
             }
         });
     });
-    response.status(200).json(result);
+      return response.redirect('getReceipt.html?' + url);
 }
 
-// function get_
-//                 getChecked(item, function(error, res) {
-//                     if (error || result == null) {
-//                        console.log("Something wrong happened retrieving books: " + error);
-//                        return;
-//                     } else {
-//                         const books = res;
-//                       //  res.status(200).json(books);
-//                         result += books;
-//                     }
-//                 });
-function getChecked(item, callback) {
-       queryInserted = `SELECT book_id FROM patron_book WHERE book_id = $1`;
+function getChecked(req, res) {
+    let array = req.query.array;
+    queryChecked(array, function(error, result) {
+        if (error || result == null) {
+            res.status(500).json({success: false, data: error});
+        } else {
+            const books = result;
+            res.status(200).json(books);
+        }
+    });
+}
+
+function queryChecked(array, callback) {
+       
+       queryInserted = `SELECT title, due_date, checked_out FROM patron_book WHERE book_id = $1`;
        let params = [item];
         pool.query(queryInserted, params, function(error, res) {
             if (error) {
@@ -271,7 +270,7 @@ function postGenre(genre, callback) {
 }
 
 function postBook(title, author_id, year, publisher, callback) {
-    let query = "INSERT books (title, author_id, due_date, year, publisher) VALUES ( $1, $2, (SELECT CURRENT_DATE), $3, $4)";
+    let query = "INSERT books (title, author_id year, publisher) VALUES ( $1, $2, $3, $4)";
     let params = [title, author_id, year, publisher];
       pool.query(query, params, function(error, response) {
        if(error) {
