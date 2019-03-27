@@ -59,7 +59,7 @@ function checkOut(req, response) {
             }
         });
     });
-    console.log("URL: " + url);
+    sleep(2000);
     return response.status(200).redirect(`getReceipt.html?${url}`);
 }
 
