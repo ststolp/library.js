@@ -10,28 +10,30 @@
         let url = window.location.search.substring(1);
         let variables = url.split('&');
         for (let i = 0; i < variables.length; i++) {
-            //something
+            //request each book individually. 
+            let book_id = variables[i].split('=');
+            target = `/get_checked?book=${book_id[1]}`;
+            let request = new XMLHttpRequest();
+            request.open("GET", target);
+            request.send(); 
+            console.log("sending request...");
+            let divBooks = document.getElementById('output');
+            request.onreadystatechange = function(){
+		        console.log("on ready state function calling: " + request.readyState);
+		        if(request.readyState == 4){
+			        var div = document.createElement('div');
+			    if(request.status == 200){
+                   let array = JSON.parse(request.responseText);
+                   fill(array, div);
+			    }else{
+				    div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
+                }
+                divBooks.innerHTML = "";
+			    divBooks.appendChild(div);
+		        }
+	        }
         }
-            target = "/get_checked";
-    let request = new XMLHttpRequest();
-    request.open("GET", target);
-    request.send();
-    console.log("sending request...");
-   let divBooks = document.getElementById('output');
-    request.onreadystatechange = function(){
-		console.log("on ready state function calling: " + request.readyState);
-		if(request.readyState == 4){
-			var div = document.createElement('div');
-			if(request.status == 200){
-                let array = JSON.parse(request.responseText);
-                fill(array, div);
-			}else{
-				div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
-            }
-            divBooks.innerHTML = "";
-			divBooks.appendChild(div);
-		}
-	}
+    
     }
     </script>
 </head>

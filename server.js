@@ -42,8 +42,8 @@ function checkOut(req, response) {
     let count = 0;
     array.forEach(function(item) {
         count++;
-       query = `INSERT INTO patron_book (patron_id, book_id, due_date, checked_out) VALUES (1, $1, CURRENT_DATE + interval '30' day, CURRENT_DATE)`;
-        let params = [item];
+       query = `INSERT INTO patron_book (patron_id, book_title, book_id, due_date, checked_out) VALUES (1, (SELECT title FROM books WHERE book_id = $1), $2, CURRENT_DATE + interval '30' day, CURRENT_DATE)`;
+        let params = [item, item];
         pool.query(query, params, function(error, res) {
             if (error) {
                 console.log(`There was an error: ${error}`);
@@ -62,8 +62,8 @@ function checkOut(req, response) {
 }
 
 function getChecked(req, res) {
-    let array = req.query.array;
-    queryChecked(array, function(error, result) {
+    let book = req.query.book;
+    queryChecked(book, function(error, result) {
         if (error || result == null) {
             res.status(500).json({success: false, data: error});
         } else {
@@ -73,10 +73,10 @@ function getChecked(req, res) {
     });
 }
 
-function queryChecked(array, callback) {
+function queryChecked(book, callback) {
        
-       queryInserted = `SELECT title, due_date, checked_out FROM patron_book WHERE book_id = $1`;
-       let params = [item];
+       queryInserted = `SELECT patron_id, book_title, due_date, checked_out FROM patron_book WHERE book_id = $1`;
+       let params = [book];
         pool.query(queryInserted, params, function(error, res) {
             if (error) {
               console.log("There was an error" + error);
