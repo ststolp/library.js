@@ -8,7 +8,7 @@ function printGenres(array, subdiv) {
             emt.innerHTML = choice;
         });
         let textN = document.createTextNode(choice);
-        subdiv.appendChild(textN);
+        subdiv.innerHTML = choice;
     }
 }
 
@@ -22,7 +22,7 @@ function printAuthors(array, subdiv) {
             emt.innerHTML = choice;
         });
         let textN = document.createTextNode(choice);
-        subdiv.appendChild(textN);
+        subdiv.innerHTML = choice;
     }
 }
 
@@ -87,7 +87,7 @@ function fill(array, divBooks) {
                 console.log(requestAuthor.responseText);
                 let array = JSON.parse(requestAuthor.responseText);
                 printAuthors(array, authorP);
-                console.log(subdiv.innerHTML);
+              //  console.log(subdiv.innerHTML);
                 divAddBook.insertBefore(authorP, divAddBook.childNodes[2]);
 			}else{
 				div.appendChild(document.createTextNodeJSON.stringify(ERROR));
