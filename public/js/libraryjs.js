@@ -7,7 +7,7 @@ function printGenres(array, subdiv) {
             choice += `<input type='radio' name='genre' id='${item.genre_id}'><br>`;
             emt.innerHTML = choice;
         });
-        subdiv.innerHTML = subdiv.innerHTML + choice;
+        subdiv.innerHTML = choice;
     }
 }
 
@@ -20,7 +20,7 @@ function printAuthors(array, subdiv) {
             choice += `<input type='radio' name="author" value='${item.author_id}'><br>`;
             emt.innerHTML = choice;
         });
-        subdiv.innerHTML = subdiv.innerHTML + choice;
+        subdiv.innerHTML = choice;
     }
 }
 
