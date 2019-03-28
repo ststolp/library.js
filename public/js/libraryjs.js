@@ -63,7 +63,7 @@ function fill(array, divBooks) {
 	   request.onreadystatechange = function(){
 		console.log("on ready state function calling: " + request.readyState);
 		if(request.readyState == 4){
-			let genreP = document.getElementById('genres');
+			let genreP = document.createElement('p');
 			if(request.status == 200){
                 console.log(request.responseText);
                 let array = JSON.parse(request.responseText);
@@ -82,7 +82,7 @@ function fill(array, divBooks) {
        requestAuthor.onreadystatechange = function(){
 		console.log("on ready state function calling: " + requestAuthor.readyState);
 		if(requestAuthor.readyState == 4){
-			var authorP = document.getElementById('authors');
+			var authorP = document.createElement('authors');
 			if(requestAuthor.status == 200){
                 console.log(requestAuthor.responseText);
                 let array = JSON.parse(requestAuthor.responseText);
