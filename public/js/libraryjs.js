@@ -48,10 +48,10 @@ function fill(array, divBooks) {
 
 
  let content = "<h2>Add a Book</h2><form action='/add_book' method='post'";
-   let formStart = document.createElement('p');
+   let formBookStart = document.createElement('p');
     content += "<label>Title</label><input type='text' name='title'><br><h3>Genre</h3>";
-    formStart.appendChild(content);
-    divAddBook.insertBefore(formStart, divAddBook.childNodes[0]);
+    formBookStart.appendChild(content);
+    divAddBook.insertBefore(formBookStart, divAddBook.childNodes[0]);
 //get all the genres</br>
     let request = new XMLHttpRequest();
     let target = "/get_genres"; 
