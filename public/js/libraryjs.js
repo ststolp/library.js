@@ -48,9 +48,10 @@ function fill(array, divBooks) {
 
 
  let content = "<h2>Add a Book</h2><form action='/add_book' method='post'";
-
-	content += "<label>Title</label><input type='text' name='title'><br><h3>Genre</h3>";
-    divAddBook.innerHTML = divAddBook.innerHTML + content;
+   let formStart = document.createElement('p');
+    content += "<label>Title</label><input type='text' name='title'><br><h3>Genre</h3>";
+    formStart.appendChild(content);
+    divAddBook.insertBefore(formStart, divAddBook.childNodes[0]);
 //get all the genres</br>
     let request = new XMLHttpRequest();
     let target = "/get_genres"; 
@@ -59,12 +60,12 @@ function fill(array, divBooks) {
 	   request.onreadystatechange = function(){
 		console.log("on ready state function calling: " + request.readyState);
 		if(request.readyState == 4){
-			var subdiv = document.createElement('div');
+			let genreP = document.getElementById('genres');
 			if(request.status == 200){
                 console.log(request.responseText);
                 let array = JSON.parse(request.responseText);
-                printGenres(array, subdiv);
-                divAddBook.innerHTML = divAddBook.innerHTML + subdiv.innerHTML;
+                printGenres(array, genreP);
+                //genreP.innerHTML = genreP.innerHTML + subdiv.innerHTML;
 			}else{
 				div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
             }
@@ -78,19 +79,19 @@ function fill(array, divBooks) {
        requestAuthor.onreadystatechange = function(){
 		console.log("on ready state function calling: " + requestAuthor.readyState);
 		if(requestAuthor.readyState == 4){
-			var subdiv = document.createElement('div');
+			var authorP = document.getElementById('authors');
 			if(requestAuthor.status == 200){
                 console.log(requestAuthor.responseText);
                 let array = JSON.parse(requestAuthor.responseText);
-                printAuthors(array, subdiv);
+                printAuthors(array, authorP);
                 console.log(subdiv.innerHTML);
-                divAddBook.innerHTML = divAddBook.innerHTML + subdiv.innerHTML;
+                //divAddBook.innerHTML = divAddBook.innerHTML + subdiv.innerHTML;
 			}else{
 				div.appendChild(document.createTextNodeJSON.stringify(ERROR));
             }
         }
      
-	}
+    }
 	let more = '<label>year</label><input type="date" name="year"><br><label>Publisher</label>';
     more += '<input type="text" name="publisher"><br><input type="submit" class="button" value="Add Book">';
     divAddBook.innerHTML = divAddBook.innerHTML + more;
