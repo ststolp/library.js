@@ -1,6 +1,6 @@
 function printGenres(array, subdiv) {
     if (array.length > 0) {
-        let choice = "";
+        let choice = "<h3>Select Genre</h3>";
         array.forEach(function(item) {
             let emt = document.createElement('p');
             choice = `<label>${item.genre}</label>`;
@@ -26,6 +26,8 @@ function printAuthors(array, subdiv) {
 
 
 function fill(array, divBooks) {
+     document.getElementById("AddBookHeader").style.visibility = "visible";
+
     let divGenre = document.getElementById('addGenre');
     divGenre.innerHTML = "";
     let divAuthor = document.getElementById('addAuthor');
@@ -47,9 +49,8 @@ function fill(array, divBooks) {
     divBooks.innerHTML = wholeForm;
 
 
- let content = "<h2>Add a Book</h2><form action='/add_book' method='post'";
    let formBookStart = document.createElement('p');
-    content += "<label>Title</label><input type='text' name='title'><br><h3>Genre</h3>";
+    content = "<label>Title</label><input type='text' name='title'><br><h3>Genre</h3>";
     formBookStart.innerHTML = content;
     divAddBook.insertBefore(formBookStart, divAddBook.childNodes[0]);
 //get all the genres</br>
@@ -65,7 +66,7 @@ function fill(array, divBooks) {
                 console.log(request.responseText);
                 let array = JSON.parse(request.responseText);
                 printGenres(array, genreP);
-                //genreP.innerHTML = genreP.innerHTML + subdiv.innerHTML;
+                divAddBook.insertBefore(genreP, divAddBook.childNodes[1]);
 			}else{
 				div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
             }
@@ -85,7 +86,7 @@ function fill(array, divBooks) {
                 let array = JSON.parse(requestAuthor.responseText);
                 printAuthors(array, authorP);
                 console.log(subdiv.innerHTML);
-                //divAddBook.innerHTML = divAddBook.innerHTML + subdiv.innerHTML;
+                divAddBook.insertBefore(authorP, divAddBook.childNodes[2]);
 			}else{
 				div.appendChild(document.createTextNodeJSON.stringify(ERROR));
             }
