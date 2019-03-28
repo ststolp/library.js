@@ -26,9 +26,11 @@ function printAuthors(array, subdiv) {
 
 
 function fill(array, divBooks) {
-    let divGenre = document.getElementById('genre');
+    let divGenre = document.getElementById('addGenre');
     divGenre.innerHTML = "";
-    let divAuthor = document.getElementById('author');
+    let divAuthor = document.getElementById('addAuthor');
+    let divAddBook = document.getElementById('addBook');
+    divAddBook.innerHTML = "";
     divAuthor.innerHTML = "";
     divBooks.innerHTML = "";
     let formStart = "<form action='/check_out' method='post'>";
@@ -48,7 +50,7 @@ function fill(array, divBooks) {
  let content = "<h2>Add a Book</h2><form action='/add_book' method='post'";
 
 	content += "<label>Title</label><input type='text' name='title'><br><h3>Genre</h3>";
-    divGenre.innerHTML = divGenre.innerHTML + content;
+    divAddBook.innerHTML = divAddBook.innerHTML + content;
 //get all the genres</br>
     let request = new XMLHttpRequest();
     let target = "/get_genres"; 
@@ -62,9 +64,7 @@ function fill(array, divBooks) {
                 console.log(request.responseText);
                 let array = JSON.parse(request.responseText);
                 printGenres(array, subdiv);
-                divGenre.innerHTML = divGenre.innerHTML + subdiv.innerHTML;
-                let newGenre = "<label>Other Genre</label><input type='text' name='new_genre' value=''><br>";
-                divGenre.innerHTML = divGenre.innerHTML + newGenre;
+                divAddBook.innerHTML = divAddBook.innerHTML + subdiv.innerHTML;
 			}else{
 				div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
             }
@@ -84,19 +84,16 @@ function fill(array, divBooks) {
                 let array = JSON.parse(requestAuthor.responseText);
                 printAuthors(array, subdiv);
                 console.log(subdiv.innerHTML);
-                divAuthor.innerHTML = divAuthor.innerHTML + subdiv.innerHTML;
+                divAddBook.innerHTML = divAddBook.innerHTML + subdiv.innerHTML;
 			}else{
 				div.appendChild(document.createTextNodeJSON.stringify(ERROR));
             }
         }
      
 	}
-  let divForm = document.getElementById('form');
-  divForm.innerHTML = "";
-	let more = '<label>Other Author</label><input type="text" name="fname" value=""><input type="text" name="lname" value=""><br>';
-	more += '<label>year</label><input type="date" name="year"><br><label>Publisher</label>';
+	let more = '<label>year</label><input type="date" name="year"><br><label>Publisher</label>';
     more += '<input type="text" name="publisher"><br><input type="submit" class="button" value="Add Book">';
-    divForm.innerHTML = divForm.innerHTML + more;
+    divAddBook.innerHTML = divAddBook.innerHTML + more;
 }
 
 function searchLibrary() {
@@ -157,68 +154,68 @@ function getLibrary() {
 	}
 }
 
-function checkOut() {
+// function checkOut() {
 
-}
+// }
 
-function addBook() {
-    let genres = document.getElementsByName('genre');
-    let authors = document.getElementsByName('author');
-    let fname = document.getElementById('fname');
-    let lname = document.getElementById('lname');
-    let new_genre = document.getElementById('new_genre');
-    let genre_id = 0;
-    let author_id = 0;
-    if (new_genre.value != "") {
-        // make new genre and return the id
-        let target = "/add_genre";
-        let request = new XMLHttpRequest();
-        request.open("POST", target);
-        request.send();
-        console.log("sending request...");
-        request.onreadystatechange = function(){
-		    if(request.readyState == 4){
-    			if(request.status == 200){
-                    let array = JSON.parse(request.responseText);
-                    genre_id = array.author_id;
-                }
-	    	}
-	    }
-    } else {
-        //iterate through genres
-        for(let i = 0; ; i++) {
-            if (genres[i].checked == true) {
-                genre_id = genres[i].id;
-            }
-            break;
-        }
-    }
+// function addBook() {
+//     let genres = document.getElementsByName('genre');
+//     let authors = document.getElementsByName('author');
+//     let fname = document.getElementById('fname');
+//     let lname = document.getElementById('lname');
+//     let new_genre = document.getElementById('new_genre');
+//     let genre_id = 0;
+//     let author_id = 0;
+//     if (new_genre.value != "") {
+//         // make new genre and return the id
+//         let target = "/add_genre";
+//         let request = new XMLHttpRequest();
+//         request.open("POST", target);
+//         request.send();
+//         console.log("sending request...");
+//         request.onreadystatechange = function(){
+// 		    if(request.readyState == 4){
+//     			if(request.status == 200){
+//                     let array = JSON.parse(request.responseText);
+//                     genre_id = array.author_id;
+//                 }
+// 	    	}
+// 	    }
+//     } else {
+//         //iterate through genres
+//         for(let i = 0; ; i++) {
+//             if (genres[i].checked == true) {
+//                 genre_id = genres[i].id;
+//             }
+//             break;
+//         }
+//     }
    
-    if (fname.value != "") {
-        let authorTarget = "/add_author"; 
-        let requestAuthor = new XMLHttpRequest();
-        requestAuthor.open("POST", authorTarget);
-        requestrequestAuthor.send();
-        console.log("sending request...");
-        requestAuthor.onreadystatechange = function(){
-		    if(requestAuthor.readyState == 4){
-    			if(requestAuthor.status == 200){
-                    let array = JSON.parse(requestAuthor.responseText);
-                    author_id = array.author_id;
-                }
-	    	}
-	    } 
-    } else {
-        for(let i = 0; ; i++) {
-            if (authors[i].checked == true) {
-                author_id = authors[i].id;
-            }
-            break;
-        }
-    }
-    let title = document.getElementById('title');
+//     if (fname.value != "") {
+//         let authorTarget = "/add_author"; 
+//         let requestAuthor = new XMLHttpRequest();
+//         requestAuthor.open("POST", authorTarget);
+//         requestrequestAuthor.send();
+//         console.log("sending request...");
+//         requestAuthor.onreadystatechange = function(){
+// 		    if(requestAuthor.readyState == 4){
+//     			if(requestAuthor.status == 200){
+//                     let array = JSON.parse(requestAuthor.responseText);
+//                     author_id = array.author_id;
+//                 }
+// 	    	}
+// 	    } 
+//     } else {
+//         for(let i = 0; ; i++) {
+//             if (authors[i].checked == true) {
+//                 author_id = authors[i].id;
+//             }
+//             break;
+//         }
+//     }
+//     let title = document.getElementById('title');
 
-    let year = document.getElementById('year');
-    let publisher = document.getElementById('publisher');
-    let body = [title, author_id, year, publisher];
-}
+//     let year = document.getElementById('year');
+//     let publisher = document.getElementById('publisher');
+//     let body = [title, author_id, year, publisher];
+// }

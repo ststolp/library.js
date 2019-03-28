@@ -69,7 +69,7 @@ function checkOut(req, response) {
             }
         });
     });
-    sleep(2000);
+    //sleep(2000);
     console.log("url: " + url);
     //return response.status(200).redirect(`getReceipt.html?${url}`);
 }
@@ -217,16 +217,14 @@ function addGenre(req, res) {
             console.log("failed to post genre: " + error);
         } else {
             console.log("genre posted!");
-            res.status(200).json(result);
+            console.log(result);
+            res.redirect("home_library.html");
         }
     });
 }
 
 function addBook(req, res) {
     let title = req.body.title;
-    let new_genre = req.body.new_genre;
-    let genre = req.body.genre;
-
     let author_id = req.body.author_id;
     let year = req.body.year;
     let publisher = req.body.publisher;
@@ -235,21 +233,23 @@ function addBook(req, res) {
             console.log("failed to post book: " + error);
         } else {
             console.log("book posted!");
-            res.status(200).json(result);
+            console.log(result);
+            res.redirect("home_library.html");
         }
     });
 }
 
 function addAuthor(req, res) {
-    let fname = req.query.fname;
-    let lname = req.query.lname;
+    let fname = req.body.fname;
+    let lname = req.body.lname;
     let genre_id = req.query.genre_id;
         postAuthor(fname, lname, genre_id, function(error, result) {
         if (error || result == null) {
             console.log("failed to post author: " + error);
         } else {
             console.log("author posted!");
-            res.status(200).json(result);
+            console.log(result);
+            res.redirect("home_library.html");
         }
     });
 }
@@ -261,28 +261,14 @@ function postGenre(genre, callback) {
        if(error) {
            console.log("There was an error: " + error);
            callback(error, null);
-       } else {
-           let queryId = "SELECT genre_id FROM genre WHERE genre = $1";
-           pool.query(queryId, params, function(err, res) {
-               if (error) {
-                   console.log("There was an error: " + error);
-                   error = err;
-               } else {
-                   response = res;
-               }
-           });
-           if (error) {
-               console.log("There was an error: " + error);
-               callback(error, null);
-           } else {
+        } else {
             callback(null, response.rows);
-           }
         }
    });
 }
 
 function postBook(title, author_id, year, publisher, callback) {
-    let query = "INSERT books (title, author_id year, publisher) VALUES ( $1, $2, $3, $4)";
+    let query = "INSERT books (title, author_id, year, publisher) VALUES ( $1, $2, $3, $4)";
     let params = [title, author_id, year, publisher];
       pool.query(query, params, function(error, response) {
        if(error) {
@@ -302,21 +288,21 @@ function postAuthor(fname, lname, genre_id, callback) {
            console.log("There was an error: " + error);
            callback(error, null);
        } else {
-           let queryId = "SELECT author_id FROM author WHERE fname = $1 AND lname = $1";
-           let paramsId = [fname, lname];
-             pool.query(queryId, paramsId, function(err, res) {
-                 if (err) {
-                     console.log("There was an error: " + error);
-                     error = err;
-                 } else {
-                   response = res;
-                 }
-             });
-             if (error) {
-                 console.log("There was an error: " + error);
-             } else {
+        //    let queryId = "SELECT author_id FROM author WHERE fname = $1 AND lname = $1";
+        //    let paramsId = [fname, lname];
+        //      pool.query(queryId, paramsId, function(err, res) {
+        //          if (err) {
+        //              console.log("There was an error: " + error);
+        //              error = err;
+        //          } else {
+        //            response = res;
+        //          }
+        //      });
+        //      if (error) {
+        //          console.log("There was an error: " + error);
+        //      } else {
            callback(null, response.rows);
-             }
+            //  }
        }
    });
 }
