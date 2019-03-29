@@ -61,7 +61,7 @@ function Register() {
       document.getElementById("LibHead").style.visibility = "hidden";
      document.getElementById("searchDiv").style.visibility = "hidden";
         document.getElementById("seeBookHead").style.visibility = "hidden";
-        let html = "<form action='/add_user' method='post'><h2>Sign In</h2><br><label>Username</label><input type='text' name='username' placeholder='username...'>";
+        let html = "<form action='/add_user' method='post'><h2>Sign Up</h2><br><label>Username</label><input type='text' name='username' placeholder='username...'>";
         html += "<label>Password</label><input name='password' type='password' placeholder='enter password...'><input type='submit' value='Register'></form>";
         document.getElementById("books").innerHTML = html;
 }

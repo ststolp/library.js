@@ -336,7 +336,7 @@ function queryMyBooks(user_id, callback) {
 
 function register(req, res) {
     const username = req.body.username;
-    const password = req.body.passsword;
+    const password = req.body.password;
     console.log("Password: " + password);
     bcrypt.genSalt(saltRounds, function(err, salt) {
         if (err) {
