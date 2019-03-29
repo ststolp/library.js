@@ -62,6 +62,9 @@ function checkOut(req, response) {
                 console.log("Item: " + item);
                 if (count == 1) {
                     url += "array[]=" + item;
+                     if ((index + 1) == array.length) {
+                      return response.status(200).redirect(`getReceipt.html?${url}`);
+                    }
                       // return response.status(200).redirect(`getReceipt.html?${url}`);
                 } else {
                     url += "&array[]=" + item;

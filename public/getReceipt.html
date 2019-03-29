@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Receipt</title>
-    <script type="text/javascript" src="/js/libraryjs.js"> </script>
+   <!-- <script type="text/javascript" src="/js/libraryjs.js"> </script> -->
+    <script type="stylesheet" type="text/css" href="lib.css"></script>
     <script type="text/javascript">
     function getParams() {
         let url = location.search.substring(1);
         console.log("The url: " + url);
         let variables = url.split('&');
+        console.log("The variables: " + variables);
         console.log("The var: " + variables[0]);
         for (let i = 0; i < variables.length; i++) {
             //request each book individually. 
@@ -44,7 +46,6 @@
         }
     }
     </script>
-    <script type="stylesheet" type="text/css" href="lib.css"></script>
 </head>
 <body onload="getParams()">
     <div class='header'>
