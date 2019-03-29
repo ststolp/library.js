@@ -50,25 +50,26 @@ function checkOut(req, response) {
     let array = req.body.checkout;
     let query = "";
     let url = "checkOut=true";
-    let count = 0;
     array.forEach(function(item, index, array) {
-        count++;
-       query = `INSERT INTO patron_book (patron_id, book_title, book_id, due_date, checked_out) VALUES (1, (SELECT title FROM books WHERE book_id = $1), $2, CURRENT_DATE + interval '30' day, CURRENT_DATE)`;
-        let params = [item, item];
-        pool.query(query, params, function(error, res) {
-            if (error) {
-                console.log(`There was an error: ${error}`);
-                response.redirect(`home_library.html?${url}`);
-            } else {
-                console.log(res);
-                console.log("Item: " + item);
-                    url += "&array[]=" + item;
-                    console.log("Index: " + index + " arrayLength: " + array.length);
-                    if ((index + 1) == array.length) {
-                      return response.status(200).redirect(`home_library.html?${url}`);
+        if (!item) {  return response.status(200).redirect(`home_library.html?${url}`);} 
+        else {
+            query = `INSERT INTO patron_book (patron_id, book_title, book_id, due_date, checked_out) VALUES (1, (SELECT title FROM books WHERE book_id = $1), $2, CURRENT_DATE + interval '30' day, CURRENT_DATE)`;
+            let params = [item, item];
+            pool.query(query, params, function(error, res) {
+                if (error) {
+                    console.log(`There was an error: ${error}`);
+                    response.redirect(`home_library.html?${url}`);
+                } else {
+                    console.log(res);
+                    console.log("Item: " + item);
+                        url += "&array[]=" + item;
+                        console.log("Index: " + index + " arrayLength: " + array.length);
+                        // if (!valid) {
+                        //   return response.status(200).redirect(`home_library.html?${url}`);
+                    }
                 }
-            }
-        });
+            });
+        }
     });
     //sleep(2000);
     console.log("url: " + url);
