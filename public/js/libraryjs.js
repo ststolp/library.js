@@ -18,7 +18,7 @@ function printAuthors(array, subdiv) {
         array.forEach(function(item) {
             let emt = document.createElement('p');
             choice += `<label>${item.fname} ${item.lname}</label>`;
-            choice += `<input type='radio' name="author" value='${item.author_id}'><br>`;
+            choice += `<input type='radio' name="author_id" value='${item.author_id}'><br>`;
             emt.innerHTML = choice;
         });
         let textN = document.createTextNode(choice);
