@@ -49,7 +49,7 @@ function sleep(milliseconds) {
 function checkOut(req, response) {
     let array = req.body.checkout;
     let query = "";
-    let url =  `checkOut=true&items=${array.length}`;
+    let url =  `checkOut=true`;
     count = 0;
     for (let index = 0; index < array.length; index++) {
         // console.log("value : " + array[index+1] == array.length)
