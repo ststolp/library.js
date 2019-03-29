@@ -65,6 +65,7 @@ function checkOut(req, response) {
                        return response.status(200).redirect(`getReceipt.html?${url}`);
                 } else {
                     url += "&array[]=" + item;
+                      return response.status(200).redirect(`getReceipt.html?${url}`);
                 }
             }
         });
