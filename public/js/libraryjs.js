@@ -59,7 +59,7 @@ function fill(array, divBooks) {
 
     let authorName = document.createElement('p');
     authorName.innHTML = "<label>First Name</label><insert type='text' name='fname'><label>Last Name</label><insert type='text' name='lname'>";
-    divAuthor.insertBefore(authorName, divAuthor.childNode[0]);
+    divAuthor.insertBefore(authorName, divAuthor.childNodes[0]);
     let authorSubmit = document.createElement('p');
     authorSubmit.innerHTML = "<input type='submit' value='Add Author'>";
     divAuthor.insertBefore(authorSubmit, divAuthor.childNodes[2]);
