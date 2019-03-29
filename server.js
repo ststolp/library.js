@@ -281,6 +281,7 @@ function postBook(title, author_id, year, publisher, callback) {
 }
 
 function postAuthor(fname, lname, genre_id, callback) {
+    console.log("The value of genre_id is: " + genre_id);
     let query = "INSERT INTO author (genre_id, fname, lname) VALUES ( $1, $2, $3 )";
     let params = [genre_id, fname, lname];
       pool.query(query, params, function(error, response) {
