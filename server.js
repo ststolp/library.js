@@ -51,7 +51,7 @@ function checkOut(req, response) {
     let query = "";
     let url = "checkOut=true";
     array.forEach(function(item, index, array) {
-        if (!item) {  
+        if (array[index + 1] == array.length) {  
             return response.status(200).redirect(`home_library.html?${url}`);
         } else {
             query = `INSERT INTO patron_book (patron_id, book_title, book_id, due_date, checked_out) VALUES (1, (SELECT title FROM books WHERE book_id = $1), $2, CURRENT_DATE + interval '30' day, CURRENT_DATE)`;
