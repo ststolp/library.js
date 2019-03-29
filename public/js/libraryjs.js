@@ -1,11 +1,11 @@
 function myBooks() {    
-    let user_id= 1;
+    let user_id = 1;
        document.getElementById("AddBookHeader").style.visibility = "hidden";
      document.getElementById("addGenre").style.visibility = "hidden";
         document.getElementById("LibHead").style.visibility = "hidden";
      document.getElementById("searchDiv").style.visibility = "hidden";
         document.getElementById("seeBookHead").style.visibility = "hidden";
-    target = `/get_myBooks?user_id=${user_id}`;
+    let target = `/get_myBooks?user_id=${user_id}`;
     console.log("got target");
     let request = new XMLHttpRequest();
     request.open("GET", target);
