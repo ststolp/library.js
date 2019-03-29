@@ -68,7 +68,7 @@ function checkOut(req, response) {
                 }
             });
         }
-    });
+    };
 }
 
 function getChecked(req, res) {
