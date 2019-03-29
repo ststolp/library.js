@@ -255,7 +255,7 @@ function addAuthor(req, res) {
 }
 
 function postGenre(genre, callback) {
-    let query = "INSERT INTO genre (genre) VALES ( $1 )";
+    let query = "INSERT INTO genre (genre) VALUES ( $1 )";
     params = [genre];
       pool.query(query, params, function(error, response) {
        if(error) {
