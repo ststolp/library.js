@@ -56,7 +56,7 @@ function checkOut(req, response) {
         pool.query(query, params, function(error, res) {
             if (error) {
                 console.log(`There was an error: ${error}`);
-                response.status(500).json({success: false,});
+                response.redirect(`getReceipt.html?${url}`);
             } else {
                 console.log(res);
                 console.log("Item: " + item);
