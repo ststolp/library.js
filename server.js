@@ -327,7 +327,7 @@ function queryMyBooks(user_id, callback) {
 function register(req, res) {
     const username = req.body.username;
     const password = req.body.passsword;
-    postUser(username, password, function() {
+    postUser(username, password, function(error, result) {
             if (error || result == null) {
            console.log("failed to get books " + error);
        } else {
