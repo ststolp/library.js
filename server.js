@@ -34,7 +34,7 @@ app.listen(app.get('port'), function(){
 
 function redirectUser(req, res) {
     req.headers['if-none-match'] = 'no-match-for-this';
-    res.redirect('home_library.html?checkOut=false');
+    res.status(200).redirect('home_library.html?checkOut=false');
 };
 
 function sleep(milliseconds) {
