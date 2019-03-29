@@ -51,8 +51,9 @@ function checkOut(req, response) {
     let query = "";
     let url = "checkOut=true";
     array.forEach(function(item, index, array) {
-        if (!item) {  return response.status(200).redirect(`home_library.html?${url}`);} 
-        else {
+        if (!item) {  
+            return response.status(200).redirect(`home_library.html?${url}`);
+        } else {
             query = `INSERT INTO patron_book (patron_id, book_title, book_id, due_date, checked_out) VALUES (1, (SELECT title FROM books WHERE book_id = $1), $2, CURRENT_DATE + interval '30' day, CURRENT_DATE)`;
             let params = [item, item];
             pool.query(query, params, function(error, res) {
@@ -62,18 +63,12 @@ function checkOut(req, response) {
                 } else {
                     console.log(res);
                     console.log("Item: " + item);
-                        url += "&array[]=" + item;
-                        console.log("Index: " + index + " arrayLength: " + array.length);
-                        // if (!valid) {
-                        //   return response.status(200).redirect(`home_library.html?${url}`);
-                    }
+                    url += "&array[]=" + item;
+                    console.log("Index: " + index + " arrayLength: " + array.length);
                 }
             });
         }
     });
-    //sleep(2000);
-    console.log("url: " + url);
-    //return response.status(200).redirect(`getReceipt.html?${url}`);
 }
 
 function getChecked(req, res) {
