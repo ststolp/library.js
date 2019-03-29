@@ -106,7 +106,7 @@ function fill(array, divBooks) {
     more += '<input type="text" name="publisher"><br><input type="submit" class="button" value="Add Book">';
     let bookAddButton = document.createElement('p');
     bookAddButton.innerHTML = more;
-    divAddBook.insertBefore(bookAddButton, divAddBook.cheldNodes[3]);
+    divAddBook.insertBefore(bookAddButton, divAddBook.childNodes[3]);
 }
 
 function searchLibrary() {
