@@ -51,7 +51,7 @@ function home() {
 		if(request.readyState == 4){
 			let genreP = document.createElement('p');
 			if(request.status == 200){
-               
+               location.reload();
 			}else{
 
             }
