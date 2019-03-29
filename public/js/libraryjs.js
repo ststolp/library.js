@@ -29,7 +29,7 @@ function printAuthors(array, subdiv) {
 
 function fill(array, divBooks) {
      document.getElementById("AddBookHeader").style.visibility = "visible";
-
+     document.getElementById("addGenre").style.visibility = "visible";
     let divGenre = document.getElementById('addGenre');
     let divAuthor = document.getElementById('addAuthor');
 
@@ -104,9 +104,9 @@ function fill(array, divBooks) {
     }
 	let more = '<label>year</label><input type="date" name="year"><br><label>Publisher</label>';
     more += '<input type="text" name="publisher"><br><input type="submit" class="button" value="Add Book">';
-    divAddBook.innerHTML = divAddBook.innerHTML + more;
-
-
+    let bookAddButton = document.createElement('p');
+    bookAddButton.innerHTML = more;
+    divAddBook.insertBefore(bookAddButton, divAddBook.cheldNodes[3]);
 }
 
 function searchLibrary() {
