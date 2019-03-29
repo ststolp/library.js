@@ -17,7 +17,7 @@
   <button onclick="myBooks()">My Books</button>
 </div>
   <!-- header here -->
-<div>
+<div id="searchDiv">
 <br>
     <label>Search For:</label>
     <select id="method">
@@ -30,9 +30,9 @@
     <button onclick="searchLibrary()" class="button">Search</button>
 
 </div>
-<h1>Library</h1>
+<h1 id="LibHead">Library</h1>
 
-<button onclick="getLibrary()" class="button">See Books</button>
+<button id="seeBookHead" onclick="getLibrary()" class="button">See Books</button>
 
 <div id="books"></div>
 <h2 id="AddBookHeader" style="visibility: hidden">Add Book</h2>

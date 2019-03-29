@@ -20,6 +20,7 @@ app.get("/search_library", searchLibrary);
 app.get("/get_genres", getGenres);
 app.get("/get_authors", getAuthors);
 app.get("/get_checked", getChecked);
+app.get("/get_myBooks", getMyBooks);
 
 app.post("/add_author", addAuthor);
 app.post("/add_book", addBook);
@@ -298,4 +299,29 @@ function postAuthor(fname, lname, genre_id, callback) {
            callback(null, response.rows);
        }
    });
+}
+
+function getMyBooks(req, res) {
+    let user_id = req.request.user_id;
+    queryMyBooks(user_id, function(error, result) {
+       if (error || result == null) {
+           console.log("failed to get books " + error);
+       } else {
+           console.log(result);
+           res.status(200).json(result);
+       }
+    });
+}
+
+function queryMyBooks(user_id, callback) {
+    let query = "SELECT book_title, due_date, checked_out FROM patron_book WHERE patron_id = $1";
+    let param = [user_id];
+    pool.query(query, param, function(error, response) {
+         if(error) {
+           console.log("There was an error: " + error);
+           callback(error, null);
+       } else {
+           callback(null, response.rows);
+       }
+    });
 }

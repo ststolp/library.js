@@ -1,5 +1,44 @@
-function myBooks() {
+function myBooks() {    
+    let user_id= 1;
+       document.getElementById("AddBookHeader").style.visibility = "hidden";
+     document.getElementById("addGenre").style.visibility = "hidden";
+        document.getElementById("LibHead").style.visibility = "hidden";
+     document.getElementById("searchDiv").style.visibility = "hidden";
+        document.getElementById("seeBookHead").style.visibility = "hidden";
+    target = `/get_myBooks?user_id=${user_id}`;
+    console.log("got target");
+    let request = new XMLHttpRequest();
+    request.open("GET", target);
+    request.send();
+    console.log("sending request...");
+    let divBooks = document.getElementById('books');
+    request.onreadystatechange = function(){
+		console.log("on ready state function calling: " + request.readyState);
+		if(request.readyState == 4){
+			var div = document.createElement('div');
+			if(request.status == 200){
+                let array = JSON.parse(request.responseText);
+                currentBooks(array, div);
+			}else{
+				div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
+            }
+            divBooks.innerHTML = "";
+			divBooks.appendChild(div);
+		}
+	}
+}
 
+function currentBooks(array, divBooks) {
+    let formStart = "<h2>Your Boooks</h2>";
+    let books = "";
+    array.forEach(function(item) {
+        let entry = `<p><b>${item.book_title}</b><p>`;
+        entry += `<p>Checkd Out: ${item.checked_out}</p>`;
+	    entry += `<p>Due Date: ${item.due_date}`;
+        books = books + entry;
+    });
+    let wholeForm = formStart + books;
+    divBooks.innerHTML = wholeForm;
 }
 
 function home() {
@@ -60,6 +99,9 @@ function printAuthors(array, subdiv) {
 function fill(array, divBooks) {
      document.getElementById("AddBookHeader").style.visibility = "visible";
      document.getElementById("addGenre").style.visibility = "visible";
+      document.getElementById("LibHead").style.visibility = "visible";
+     document.getElementById("searchDiv").style.visibility = "visible";
+        document.getElementById("seeBookHead").style.visibility = "visible";
     let divGenre = document.getElementById('addGenre');
     let divAuthor = document.getElementById('addAuthor');
 
