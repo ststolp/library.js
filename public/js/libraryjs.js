@@ -1,10 +1,10 @@
 function myBooks() {    
     let user_id = 1;
-    //    document.getElementById("AddBookHeader").style.visibility = "hidden";
-    //  document.getElementById("addGenre").style.visibility = "hidden";
-    //     document.getElementById("LibHead").style.visibility = "hidden";
-    //  document.getElementById("searchDiv").style.visibility = "hidden";
-    //     document.getElementById("seeBookHead").style.visibility = "hidden";
+       document.getElementById("AddBookHeader").style.visibility = "hidden";
+     document.getElementById("addGenre").style.visibility = "hidden";
+        document.getElementById("LibHead").style.visibility = "hidden";
+     document.getElementById("searchDiv").style.visibility = "hidden";
+        document.getElementById("seeBookHead").style.visibility = "hidden";
     let target = `/get_myBooks?user_id=${user_id}`;
     console.log("got target");
     let request = new XMLHttpRequest();
@@ -29,7 +29,7 @@ function myBooks() {
 }
 
 function currentBooks(array, divBooks) {
-    let formStart = "<h2>Your Boooks</h2>";
+   let formStart = "<h2>Your Boooks</h2>";
     let books = "";
     array.forEach(function(item) {
         let entry = `<p><b>${item.book_title}</b><p>`;
@@ -234,11 +234,15 @@ function getLibrary() {
 
 function getParams() {
         let url = location.search.substring(1);
+        if (!url) {
+
+        } else {
         console.log("The url: " + url);
         let variables = url.split('&');
         console.log("The variables: " + variables);
         console.log("The var: " + variables[0]);
-        for (let i = 0; i < variables.length; i++) {
+
+        for (let i = 1; i < variables.length; i++) {
             //request each book individually. 
             let book_id = variables[i].split('=');
             console.log("The id: " + book_id[1]);
@@ -269,3 +273,4 @@ function getParams() {
 	        }
         }
     }
+}

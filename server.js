@@ -48,7 +48,7 @@ function sleep(milliseconds) {
 function checkOut(req, response) {
     let array = req.body.checkout;
     let query = "";
-    let url = "";
+    let url = "checkOut=true";
     let count = 0;
     array.forEach(function(item, index, array) {
         count++;
@@ -57,21 +57,21 @@ function checkOut(req, response) {
         pool.query(query, params, function(error, res) {
             if (error) {
                 console.log(`There was an error: ${error}`);
-                response.redirect(`getReceipt.html?${url}`);
+                response.redirect(`home_library.html?${url}`);
             } else {
                 console.log(res);
                 console.log("Item: " + item);
-                if (count == 1) {
-                    url += "array[]=" + item;
-                     if ((index + 1) == array.length) {
-                      return response.status(200).redirect(`getReceipt.html?${url}`);
-                    }
-                      // return response.status(200).redirect(`getReceipt.html?${url}`);
-                } else {
+                // if (count == 1) {
+                //     url += "array[]=" + item;
+                //      if ((index + 1) == array.length) {
+                //       return response.status(200).redirect(`home_library.html?${url}`);
+                //     }
+                //       // return response.status(200).redirect(`getReceipt.html?${url}`);
+                // } else {
                     url += "&array[]=" + item;
                     if ((index + 1) == array.length) {
-                      return response.status(200).redirect(`getReceipt.html?${url}`);
-                    }
+                      return response.status(200).redirect(`home_library.html?${url}`);
+                    // }
                 }
             }
         });
