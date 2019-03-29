@@ -56,27 +56,27 @@ function checkOut(req, response) {
         // if (array[index + 1] === array.length) {  
         //     return response.status(200).redirect(`home_library.html?${url}`);
         // } else {
-            query = `INSERT INTO patron_book (patron_id, book_title, book_id, due_date, checked_out) VALUES (1, (SELECT title FROM books WHERE book_id = $1), $2, CURRENT_DATE + interval '30' day, CURRENT_DATE)`;
-            let params = [array[index], array[index]];
-            pool.query(query, params, function(error, res) {
-                if (error) {
-                    console.log(`There was an error: ${error}`);
-                    response.redirect(`home_library.html?${url}`);
-                } else {
-                    console.log(res);
-                    count++;
-                    console.log("Item: " + array[index]);
-                    url += "&array[]=" + array[index];
-                    console.log("Index: " + index + " arrayLength: " + array.length);
-                         console.log("value : " + array[index+1] == array.length)
-                    if (count == array.length) {  
-                        return response.status(200).redirect(`home_library.html?${url}`);
-                    }
+        query = `INSERT INTO patron_book (patron_id, book_title, book_id, due_date, checked_out) VALUES (1, (SELECT title FROM books WHERE book_id = $1), $2, CURRENT_DATE + interval '30' day, CURRENT_DATE)`;
+        let params = [array[index], array[index]];
+        pool.query(query, params, function(error, res) {
+            if (error) {
+                console.log(`There was an error: ${error}`);
+                response.redirect(`home_library.html?${url}`);
+            } else {
+                console.log(res);
+                count++;
+                console.log("Item: " + array[index]);
+                url += "&array[]=" + array[index];
+                console.log("Index: " + index + " arrayLength: " + array.length);
+                console.log("value : " + array[index+1] == array.length)
+                if (count == array.length) {  
+                    return response.status(200).redirect(`home_library.html?${url}`);
                 }
-            });
-        }
-    };
+            }
+        });
+    }
 }
+
 
 function getChecked(req, res) {
     let book = req.query.book;
