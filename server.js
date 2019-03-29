@@ -33,7 +33,7 @@ app.listen(app.get('port'), function(){
 /*************************************** */
 
 function redirectUser(req, res) {
-    res.redirect('home_library.html');
+    res.redirect('home_library.html?checkOut=false');
 };
 
 function sleep(milliseconds) {
