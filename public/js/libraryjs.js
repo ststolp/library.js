@@ -3,7 +3,7 @@ function printGenres(array, subdiv) {
         let choice = "<h3>Select Genre</h3>";
         array.forEach(function(item) {
             let emt = document.createElement('p');
-            choice = `<label>${item.genre}</label>`;
+            choice += `<label>${item.genre}</label>`;
             choice += `<input type='radio' name='genre' id='${item.genre_id}'><br>`;
             emt.innerHTML = choice;
         });
@@ -14,10 +14,10 @@ function printGenres(array, subdiv) {
 
 function printAuthors(array, subdiv) {
     if (array.length > 0) {
-        let choice = "";
+        let choice = "<h3>Select Author</h3>";
         array.forEach(function(item) {
             let emt = document.createElement('p');
-            choice = `<label>${item.fname} ${item.lname}</label>`;
+            choice += `<label>${item.fname} ${item.lname}</label>`;
             choice += `<input type='radio' name="author" value='${item.author_id}'><br>`;
             emt.innerHTML = choice;
         });
@@ -31,8 +31,8 @@ function fill(array, divBooks) {
      document.getElementById("AddBookHeader").style.visibility = "visible";
 
     let divGenre = document.getElementById('addGenre');
-    divGenre.innerHTML = "";
     let divAuthor = document.getElementById('addAuthor');
+
     let divAddBook = document.getElementById('addBook');
     divAddBook.innerHTML = "";
     divAuthor.innerHTML = "";
@@ -52,10 +52,17 @@ function fill(array, divBooks) {
 
 
    let formBookStart = document.createElement('p');
-    content = "<label>Title</label><input type='text' name='title'><br><h3>Genre</h3>";
+    content = "<label>Title</label><input type='text' name='title'><br>";
     formBookStart.innerHTML = content;
     divAddBook.insertBefore(formBookStart, divAddBook.childNodes[0]);
 //get all the genres</br>
+
+    let authorName = document.createElement('p');
+    authorName.innHTML = "<label>First Name</label><insert type='text' name='fname'><label>Last Name</label><insert type='text' name='lname'>";
+    divAuthor.insertBefore(authorName, divAuthor.childNode[0]);
+    let authorSubmit = document.createElement('p');
+    authorSubmit.innerHTML = "<input type='submit' value='Add Author'>";
+    divAuthor.insertBefore(authorSubmit, divAuthor.childNodes[2]);
     let request = new XMLHttpRequest();
     let target = "/get_genres"; 
     request.open("GET", target);
@@ -68,7 +75,7 @@ function fill(array, divBooks) {
                 console.log(request.responseText);
                 let array = JSON.parse(request.responseText);
                 printGenres(array, genreP);
-                divAddBook.insertBefore(genreP, divAddBook.childNodes[1]);
+                divAuthor.insertBefore(genreP, divAuthor.childNodes[1]);
 			}else{
 				div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
             }
@@ -98,6 +105,8 @@ function fill(array, divBooks) {
 	let more = '<label>year</label><input type="date" name="year"><br><label>Publisher</label>';
     more += '<input type="text" name="publisher"><br><input type="submit" class="button" value="Add Book">';
     divAddBook.innerHTML = divAddBook.innerHTML + more;
+
+
 }
 
 function searchLibrary() {
