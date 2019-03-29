@@ -394,6 +394,7 @@ function getHashed(username, callback) {
             console.log("There was an error: " + error);
             callback(error, null);
          } else {
+             console.log("From getHashed: " + response.rows);
             callback(null, response.rows);
         }
     });
