@@ -62,17 +62,10 @@ function checkOut(req, response) {
             } else {
                 console.log(res);
                 console.log("Item: " + item);
-                // if (count == 1) {
-                //     url += "array[]=" + item;
-                //      if ((index + 1) == array.length) {
-                //       return response.status(200).redirect(`home_library.html?${url}`);
-                //     }
-                //       // return response.status(200).redirect(`getReceipt.html?${url}`);
-                // } else {
                     url += "&array[]=" + item;
+                    console.log("Index: " + index + " arrayLength: " + array.length);
                     if ((index + 1) == array.length) {
                       return response.status(200).redirect(`home_library.html?${url}`);
-                    // }
                 }
             }
         });
