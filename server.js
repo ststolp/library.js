@@ -363,7 +363,7 @@ function register(req, res) {
 function signIn(req, res) {
     const username = req.body.username;
     const password = req.body.password;
-
+    console.log("Username: " + username);
     getHashed(username, function(error, hash) {
             if (error || hash == null) {
            console.log("failed to get user " + error);
