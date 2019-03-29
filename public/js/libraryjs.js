@@ -247,7 +247,7 @@ function getParams() {
             request.open("GET", target);
             request.send(); 
             console.log("sending request...");
-            let divBooks = document.getElementById('output');
+            let divBooks = document.getElementById('books');
             request.onreadystatechange = function(){
 		        console.log("on ready state function calling: " + request.readyState);
 		        if(request.readyState == 4){
