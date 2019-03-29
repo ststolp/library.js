@@ -235,7 +235,7 @@ function getLibrary() {
 function getParams() {
     let url = location.search.substring(1);
     if (!url) {
-
+       return;
     } else {
     console.log("The url: " + url);
     let variables = url.split('&');
