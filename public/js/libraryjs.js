@@ -89,7 +89,7 @@ function fill(array, divBooks) {
        requestAuthor.onreadystatechange = function(){
 		console.log("on ready state function calling: " + requestAuthor.readyState);
 		if(requestAuthor.readyState == 4){
-			var authorP = document.createElement('authors');
+			var authorP = document.createElement('p');
 			if(requestAuthor.status == 200){
                 console.log(requestAuthor.responseText);
                 let array = JSON.parse(requestAuthor.responseText);
