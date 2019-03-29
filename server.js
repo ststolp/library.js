@@ -49,7 +49,7 @@ function checkOut(req, response) {
     let query = "";
     let url = "";
     let count = 0;
-    array.forEach(function(item) {
+    array.forEach(function(item, index, array) {
         count++;
        query = `INSERT INTO patron_book (patron_id, book_title, book_id, due_date, checked_out) VALUES (1, (SELECT title FROM books WHERE book_id = $1), $2, CURRENT_DATE + interval '30' day, CURRENT_DATE)`;
         let params = [item, item];
@@ -62,10 +62,12 @@ function checkOut(req, response) {
                 console.log("Item: " + item);
                 if (count == 1) {
                     url += "array[]=" + item;
-                       return response.status(200).redirect(`getReceipt.html?${url}`);
+                      // return response.status(200).redirect(`getReceipt.html?${url}`);
                 } else {
                     url += "&array[]=" + item;
+                    if ((index + 1) == array.length) {
                       return response.status(200).redirect(`getReceipt.html?${url}`);
+                    }
                 }
             }
         });
