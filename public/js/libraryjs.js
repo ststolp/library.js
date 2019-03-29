@@ -1,10 +1,10 @@
 function myBooks() {    
     let user_id = 1;
-       document.getElementById("AddBookHeader").style.visibility = "hidden";
-     document.getElementById("addGenre").style.visibility = "hidden";
-        document.getElementById("LibHead").style.visibility = "hidden";
-     document.getElementById("searchDiv").style.visibility = "hidden";
-        document.getElementById("seeBookHead").style.visibility = "hidden";
+    //    document.getElementById("AddBookHeader").style.visibility = "hidden";
+    //  document.getElementById("addGenre").style.visibility = "hidden";
+    //     document.getElementById("LibHead").style.visibility = "hidden";
+    //  document.getElementById("searchDiv").style.visibility = "hidden";
+    //     document.getElementById("seeBookHead").style.visibility = "hidden";
     let target = `/get_myBooks?user_id=${user_id}`;
     console.log("got target");
     let request = new XMLHttpRequest();
@@ -51,7 +51,7 @@ function home() {
 		if(request.readyState == 4){
 			let genreP = document.createElement('p');
 			if(request.status == 200){
-             //  location.reload();
+               location.reload();
 			}else{
 
             }
