@@ -231,3 +231,41 @@ function getLibrary() {
 		}
 	}
 }
+
+function getParams() {
+        let url = location.search.substring(1);
+        console.log("The url: " + url);
+        let variables = url.split('&');
+        console.log("The variables: " + variables);
+        console.log("The var: " + variables[0]);
+        for (let i = 0; i < variables.length; i++) {
+            //request each book individually. 
+            let book_id = variables[i].split('=');
+            console.log("The id: " + book_id[1]);
+            target = `/get_checked?book=${book_id[1]}`;
+            let request = new XMLHttpRequest();
+            request.open("GET", target);
+            request.send(); 
+            console.log("sending request...");
+            let divBooks = document.getElementById('output');
+            request.onreadystatechange = function(){
+		        console.log("on ready state function calling: " + request.readyState);
+		        if(request.readyState == 4){
+			        var div = document.createElement('div');
+			    if(request.status == 200){
+                    let array = JSON.parse(request.responseText);
+                    let books = "";
+                    array.forEach(function(item) {
+                      let entry = `<p><b>${item.book_title}</b> loaned on ${item.checked_out}</p>`;
+                      entry += `<p>Due date ${item.due_date}</p>`;
+                      books = books + entry;
+                    });
+                divBooks.innerHTML = books;
+				    //div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
+                }
+              //  divBooks.innerHTML = "";
+			    //divBooks.appendChild(div);
+		        }
+	        }
+        }
+    }
