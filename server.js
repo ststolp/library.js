@@ -337,7 +337,7 @@ function queryMyBooks(user_id, callback) {
 function register(req, res) {
     const username = req.body.username;
     const password = req.body.passsword;
-    bcrypt.hash(password, salt, function(err, hash) {
+    bcrypt.hash(password, saltRounds, function(err, hash) {
         // Store hash in your password DB.
         postUser(username, password, function(error, result) {
             if (error || result == null) {  
