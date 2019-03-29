@@ -1,7 +1,10 @@
 const express = require('express');
 //const bodyParser = require('body-parser');
 const app = express();
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
+const session = require('express-session');
 
 const controller = require("./controllers/libraryFunctions.js");
 app.set('port', (process.env.PORT || 5000));
@@ -10,6 +13,13 @@ const connectionString = process.env.DATABASE_URL;
 console.log("The url is: " + connectionString);
 const pool = Pool({connectionString: connectionString});
 
+app.use(session({
+  name: 'server-session-cookie-id',
+  secret: 'my express secret',
+  saveUninitialized: true,
+  resave: true,
+  store: new FileStore()
+}));
 app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
@@ -20,12 +30,14 @@ app.get("/search_library", searchLibrary);
 app.get("/get_genres", getGenres);
 app.get("/get_authors", getAuthors);
 app.get("/get_checked", getChecked);
-app.get("/get_myBooks", getMyBooks);
+app.get("/get_myBooks", requireLogin, getMyBooks);
+app.get('/sign_in', signIn);
+app.get('/sign_out', signOut);
 
 app.post("/add_author", addAuthor);
 app.post("/add_book", addBook);
 app.post("/add_genre", addGenre);
-app.post("/check_out", checkOut);
+app.post("/check_out", requireLogin, checkOut);
 app.post("/add_user", register);
 
 app.listen(app.get('port'), function(){
@@ -38,14 +50,13 @@ function redirectUser(req, res) {
     res.status(200).redirect('home_library.html');
 };
 
-function sleep(milliseconds) {
-  var start = new Date().getTime();
-  for (var i = 0; i < 17; i++) {
-    if ((new Date().getTime() - start) > milliseconds){
-      break;
-    }
+function requireLogin (req, res, next) {
+  if (!req.user) {
+    res.redirect('home_library.html?login=false');
+  } else {
+    next();
   }
-}
+};
 
 function checkOut(req, response) {
     let array = req.body.checkout;
@@ -57,8 +68,8 @@ function checkOut(req, response) {
         // if (array[index + 1] === array.length) {  
         //     return response.status(200).redirect(`home_library.html?${url}`);
         // } else {
-        query = `INSERT INTO patron_book (patron_id, book_title, book_id, due_date, checked_out) VALUES (1, (SELECT title FROM books WHERE book_id = $1), $2, CURRENT_DATE + interval '30' day, CURRENT_DATE)`;
-        let params = [array[index], array[index]];
+        query = `INSERT INTO patron_book (patron_id, book_title, book_id, due_date, checked_out) VALUES ($3, (SELECT title FROM books WHERE book_id = $1), $2, CURRENT_DATE + interval '30' day, CURRENT_DATE)`;
+        let params = [array[index], array[index], req.session.user];
         pool.query(query, params, function(error, res) {
             if (error) {
                 console.log(`There was an error: ${error}`);
@@ -300,8 +311,7 @@ function postAuthor(fname, lname, genre_id, callback) {
 }
 
 function getMyBooks(req, res) {
-    let user_id = req.query.user_id;
-    queryMyBooks(user_id, function(error, result) {
+    queryMyBooks(req.session.user, function(error, result) {
        if (error || result == null) {
            console.log("failed to get books " + error);
        } else {
@@ -327,13 +337,49 @@ function queryMyBooks(user_id, callback) {
 function register(req, res) {
     const username = req.body.username;
     const password = req.body.passsword;
-    postUser(username, password, function(error, result) {
-            if (error || result == null) {
+    bcrypt.hash(password, salt, function(err, hash) {
+        // Store hash in your password DB.
+        postUser(username, password, function(error, result) {
+            if (error || result == null) {  
+                console.log("failed to get books " + error);
+            } else {
+                console.log(result);
+                res.status(200).redirect(`home_library.html?register=true`);
+            }
+        });
+    });
+}
+
+function signIn(req, res) {
+    const username = req.body.username;
+    const password = req.body.passsword;
+
+    getHashed(username, function(error, hash) {
+            if (error || hash == null) {
            console.log("failed to get books " + error);
        } else {
-           console.log(result);
-           res.status(200).json(result);
+           console.log(hash);
+           bcrypt.compare(password, hash.password).then(function(response) {
+               if (response) {
+                   req.session.user = hash.patron_id;
+                  res.status(200).redirect(`home_library.html?login=true`);
+               }
+           });
+          // res.status(200).redirect(`home_library.html?patron_id=${result}`);
        }
+    });
+}
+
+function getHashed(username, callback) {
+    let query = "SELECT patron_id, password FROM patron WHERE username = $1";
+    let param = [username];
+    pool.query(query, param, function(error, response) {
+        if(error) {
+            console.log("There was an error: " + error);
+            callback(error, null);
+         } else {
+            callback(null, response.rows);
+        }
     });
 }
 
@@ -348,4 +394,9 @@ function postUser(username, password, callback) {
             callback(null, response.rows);
         }
     });
+}
+
+function signOut(req, res) {
+    req.session.reset();
+    res.redirect('home_library.html');
 }

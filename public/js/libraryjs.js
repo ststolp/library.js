@@ -1,11 +1,12 @@
-function myBooks() {    
-    let user_id = 1;
+let USER_ID = 0;
+
+function myBooks() {   
        document.getElementById("AddBookHeader").style.visibility = "hidden";
      document.getElementById("addGenre").style.visibility = "hidden";
         document.getElementById("LibHead").style.visibility = "hidden";
      document.getElementById("searchDiv").style.visibility = "hidden";
         document.getElementById("seeBookHead").style.visibility = "hidden";
-    let target = `/get_myBooks?user_id=${user_id}`;
+    let target = `/get_myBooks`;
     console.log("got target");
     let request = new XMLHttpRequest();
     request.open("GET", target);
@@ -86,7 +87,34 @@ function addUser() {
     }
 }
 function signIn() {
-
+            document.getElementById("AddBookHeader").style.visibility = "hidden";
+     document.getElementById("addGenre").style.visibility = "hidden";
+     document.getElementById("addAuthor").innerHTML = "";
+      document.getElementById("addBook").innerHTML = "";
+      document.getElementById("LibHead").style.visibility = "hidden";
+     document.getElementById("searchDiv").style.visibility = "hidden";
+        document.getElementById("seeBookHead").style.visibility = "hidden";
+       let InorOut = document.getElementByIde('signButton');
+       let html = "";
+       if (InorOut.innerHTML == "Sign In") {
+        html = "<form action='/sign_in' method='get'><h2>Sign In</h2><br><label>Username</label><input type='text' name='username' placeholder='username...'>";
+        html += "<label>Password</label><input name='password' type='password' placeholder='enter password...'><input type='submit' value='Sign In'></form>";
+           InorOut.innerHTML = "Sign Out";
+        } else {
+            let request = new XMLHttpRequest();
+            let target = "/sign_out"; 
+            request.open("GET", target);
+            request.send();
+	        request.onreadystatechange = function(){
+		        console.log("on ready state function calling: " + request.readyState);
+		        if(request.readyState == 4){
+			         if(request.status == 200){
+                    }  
+                }
+            }
+          InorOut.innerHTML = "Sign In";
+        }
+    document.getElementById("books").innerHTML = html;
 }
 
 function printGenres(array, subdiv) {
@@ -258,6 +286,32 @@ function getParams() {
     let url = location.search.substring(1);
     if (!url) {
        return;
+    } 
+   let SignVariables = url.split('&');
+    let SignVarArray = SignVariables[0].split('=');
+    if (SignVarArray[0] == "patron_id") {
+
+        USER_ID = SignVarArray[1];
+    } else if (SignVarArray[0] == 'login') {
+        if (SignVarArray[1] == false) {
+                     document.getElementById("AddBookHeader").style.visibility = "hidden";
+     document.getElementById("addGenre").style.visibility = "hidden";
+        document.getElementById("LibHead").style.visibility = "hidden";
+     document.getElementById("searchDiv").style.visibility = "hidden";
+        document.getElementById("seeBookHead").style.visibility = "hidden";
+          let divBooks = document.getElementById('books');
+          divBooks.innerHTML = "<h2>Please Login</h2>";
+        } else {
+            document.getElementById('signButton').innerHTML = "Sign Out";
+        }
+    } else if (SignVarArray[0] == 'register') {
+           document.getElementById("AddBookHeader").style.visibility = "hidden";
+     document.getElementById("addGenre").style.visibility = "hidden";
+        document.getElementById("LibHead").style.visibility = "hidden";
+     document.getElementById("searchDiv").style.visibility = "hidden";
+        document.getElementById("seeBookHead").style.visibility = "hidden";
+        let welcome = document.getElementById('books');
+        welcome.innerHTML = "<h2>You have successfully registered. Feel free to sign in.</h2>";
     } else {
      document.getElementById("AddBookHeader").style.visibility = "hidden";
      document.getElementById("addGenre").style.visibility = "hidden";
