@@ -338,17 +338,24 @@ function register(req, res) {
     const username = req.body.username;
     const password = req.body.passsword;
     bcrypt.genSalt(saltRounds, function(err, salt) {
-        bcrypt.hash(password, salt, function(err, hash) {
-        // Store hash in your password DB.
-            postUser(username, hash, function(error, result) {
-                if (error || result == null) {  
-                    console.log("failed to get books " + error);
-                } else {
-                    console.log(result);
-                res.status(200).redirect(`home_library.html?register=true`);
+        if (err) {
+            console.log(err);
+        } else {
+            bcrypt.hash(password, salt, function(err, hash) {
+              // Store hash in your password DB.
+                if (err) {
+                    console.log(err);
                 }
+                postUser(username, hash, function(error, result) {
+                    if (error || result == null) {  
+                        console.log("failed to get books " + error);
+                    } else {
+                        console.log(result);
+                    res.status(200).redirect(`home_library.html?register=true`);
+                    }   
+                });
             });
-        });
+        }
     });
 }
 
