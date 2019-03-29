@@ -44,6 +44,8 @@ function currentBooks(array, divBooks) {
 function home() {
          document.getElementById("AddBookHeader").style.visibility = "hidden";
      document.getElementById("addGenre").style.visibility = "hidden";
+     document.getElementById("addAuthor").innerHTML = "";
+      document.getElementById("addBook").innerHTML = "";
       document.getElementById("LibHead").style.visibility = "visible";
      document.getElementById("searchDiv").style.visibility = "visible";
         document.getElementById("seeBookHead").style.visibility = "visible";
@@ -51,9 +53,38 @@ function home() {
 
 }
 function register() {
-
+     document.getElementById("AddBookHeader").style.visibility = "hidden";
+     document.getElementById("addGenre").style.visibility = "hidden";
+     document.getElementById("addAuthor").innerHTML = "";
+      document.getElementById("addBook").innerHTML = "";
+      document.getElementById("LibHead").style.visibility = "hidden";
+     document.getElementById("searchDiv").style.visibility = "hidden";
+        document.getElementById("seeBookHead").style.visibility = "hidden";
+        let html = "<form action='/add_user' method='post'><h2>Sign In</h2><br><label>Username</label><input type='text' name='username' placeholder='username...'>";
+        html += "<label>Password</label><input name='password' type='password' placeholder='enter password...'><input type='submit' value='Register'></form>";
+        document.getElementById("books").innerHTML = html;
 }
 
+function addUser() {
+    let request = new XMLHttpRequest();
+    let target = "/add_user"; 
+    request.open("POST", target);
+    request.send();
+	   request.onreadystatechange = function(){
+		console.log("on ready state function calling: " + request.readyState);
+		if(request.readyState == 4){
+			let genreP = document.createElement('p');
+			if(request.status == 200){
+                console.log(request.responseText);
+                let array = JSON.parse(request.responseText);
+                printGenres(array, genreP);
+                divAuthor.insertBefore(genreP, divAuthor.childNodes[1]);
+			}else{
+				div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
+            }
+        }
+    }
+}
 function signIn() {
 
 }
@@ -228,7 +259,7 @@ function getParams() {
     if (!url) {
        return;
     } else {
-                   document.getElementById("AddBookHeader").style.visibility = "hidden";
+     document.getElementById("AddBookHeader").style.visibility = "hidden";
      document.getElementById("addGenre").style.visibility = "hidden";
         document.getElementById("LibHead").style.visibility = "hidden";
      document.getElementById("searchDiv").style.visibility = "hidden";

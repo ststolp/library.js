@@ -26,6 +26,7 @@ app.post("/add_author", addAuthor);
 app.post("/add_book", addBook);
 app.post("/add_genre", addGenre);
 app.post("/check_out", checkOut);
+app.post("/add_user", register);
 
 app.listen(app.get('port'), function(){
 	console.log("It's working");
@@ -320,5 +321,31 @@ function queryMyBooks(user_id, callback) {
        } else {
            callback(null, response.rows);
        }
+    });
+}
+
+function register(req, res) {
+    const username = req.body.username;
+    const password = req.body.passsword;
+    postUser(username, password, function() {
+            if (error || result == null) {
+           console.log("failed to get books " + error);
+       } else {
+           console.log(result);
+           res.status(200).json(result);
+       }
+    });
+}
+
+function postUser(username, password, callback) {
+    let query = "INSERT INTO patron(username, password) VALUES ($1, $2) RETURNING patron_id";
+    let param = [username, password];
+    pool.query(query, param, function(error, response) {
+        if(error) {
+            console.log("There was an error: " + error);
+            callback(error, null);
+         } else {
+            callback(null, response.rows);
+        }
     });
 }
