@@ -302,7 +302,7 @@ function postAuthor(fname, lname, genre_id, callback) {
 }
 
 function getMyBooks(req, res) {
-    let user_id = req.request.user_id;
+    let user_id = req.query.user_id;
     queryMyBooks(user_id, function(error, result) {
        if (error || result == null) {
            console.log("failed to get books " + error);
