@@ -50,6 +50,7 @@ function checkOut(req, response) {
     let array = req.body.checkout;
     let query = "";
     let url = "checkOut=true";
+    count = 0;
     for (let index = 0; index < array.length; index++) {
         // console.log("value : " + array[index+1] == array.length)
         // if (array[index + 1] === array.length) {  
@@ -63,11 +64,12 @@ function checkOut(req, response) {
                     response.redirect(`home_library.html?${url}`);
                 } else {
                     console.log(res);
+                    count++;
                     console.log("Item: " + array[index]);
                     url += "&array[]=" + array[index];
                     console.log("Index: " + index + " arrayLength: " + array.length);
                          console.log("value : " + array[index+1] == array.length)
-                    if (array[index + 1] === array.length) {  
+                    if (count == array.length) {  
                         return response.status(200).redirect(`home_library.html?${url}`);
                     }
                 }
