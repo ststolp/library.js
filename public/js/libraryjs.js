@@ -52,7 +52,7 @@ function home() {
         document.getElementById("books").innerHTML = "";
 
 }
-function register() {
+function Register() {
      document.getElementById("AddBookHeader").style.visibility = "hidden";
      document.getElementById("addGenre").style.visibility = "hidden";
      document.getElementById("addAuthor").innerHTML = "";
