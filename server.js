@@ -289,21 +289,7 @@ function postAuthor(fname, lname, genre_id, callback) {
            console.log("There was an error: " + error);
            callback(error, null);
        } else {
-        //    let queryId = "SELECT author_id FROM author WHERE fname = $1 AND lname = $1";
-        //    let paramsId = [fname, lname];
-        //      pool.query(queryId, paramsId, function(err, res) {
-        //          if (err) {
-        //              console.log("There was an error: " + error);
-        //              error = err;
-        //          } else {
-        //            response = res;
-        //          }
-        //      });
-        //      if (error) {
-        //          console.log("There was an error: " + error);
-        //      } else {
            callback(null, response.rows);
-            //  }
        }
    });
 }

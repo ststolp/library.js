@@ -1,3 +1,32 @@
+function myBooks() {
+
+}
+
+function home() {
+    let target = "/";
+    request.open("GET", target);
+    request.send();
+	   request.onreadystatechange = function(){
+		console.log("on ready state function calling: " + request.readyState);
+		if(request.readyState == 4){
+			let genreP = document.createElement('p');
+			if(request.status == 200){
+               
+			}else{
+
+            }
+        }
+    }
+
+}
+function register() {
+
+}
+
+function signIn() {
+
+}
+
 function printGenres(array, subdiv) {
     if (array.length > 0) {
         let choice = "<h3>Select Genre</h3>";
