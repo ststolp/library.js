@@ -33,12 +33,13 @@ app.listen(app.get('port'), function(){
 /*************************************** */
 
 function redirectUser(req, res) {
+    req.headers['if-none-match'] = 'no-match-for-this';
     res.redirect('home_library.html?checkOut=false');
 };
 
 function sleep(milliseconds) {
   var start = new Date().getTime();
-  for (var i = 0; i < 1e7; i++) {
+  for (var i = 0; i < 17; i++) {
     if ((new Date().getTime() - start) > milliseconds){
       break;
     }
