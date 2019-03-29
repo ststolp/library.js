@@ -233,6 +233,11 @@ function getLibrary() {
 }
 
 function getParams() {
+           document.getElementById("AddBookHeader").style.visibility = "hidden";
+     document.getElementById("addGenre").style.visibility = "hidden";
+        document.getElementById("LibHead").style.visibility = "hidden";
+     document.getElementById("searchDiv").style.visibility = "hidden";
+        document.getElementById("seeBookHead").style.visibility = "hidden";
     let url = location.search.substring(1);
     if (!url) {
        return;
