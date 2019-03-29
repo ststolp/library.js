@@ -94,7 +94,7 @@ function signIn() {
       document.getElementById("LibHead").style.visibility = "hidden";
      document.getElementById("searchDiv").style.visibility = "hidden";
         document.getElementById("seeBookHead").style.visibility = "hidden";
-       let InorOut = document.getElementByIde('signButton');
+       let InorOut = document.getElementById('signButton');
        let html = "";
        if (InorOut.innerHTML == "Sign In") {
         html = "<form action='/sign_in' method='get'><h2>Sign In</h2><br><label>Username</label><input type='text' name='username' placeholder='username...'>";
