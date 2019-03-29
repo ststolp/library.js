@@ -33,7 +33,7 @@ app.listen(app.get('port'), function(){
 /*************************************** */
 
 function redirectUser(req, res) {
-    //req.headers['if-none-match'] = 'no-match-for-this';
+    req.headers['if-none-match'] = 'no-match-for-this';
     res.status(200).redirect('home_library.html');
 };
 
