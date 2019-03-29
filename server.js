@@ -358,16 +358,20 @@ function signIn(req, res) {
 
     getHashed(username, function(error, hash) {
             if (error || hash == null) {
-           console.log("failed to get books " + error);
+           console.log("failed to get user " + error);
        } else {
            console.log(hash);
-           bcrypt.compare(password, hash.password).then(function(response) {
-               if (response) {
+           bcrypt.compare(password, hash.password, function(err, response) {
+               if (err) {
+                   console.log(err);
+                   res.status(500).redirect(`home_library.html?login=false`);
+               } else if (response) {
                    req.session.user = hash.patron_id;
                   res.status(200).redirect(`home_library.html?login=true`);
+               } else {
+                    res.status(500).redirect(`home_library.html?login=false`);
                }
            });
-          // res.status(200).redirect(`home_library.html?patron_id=${result}`);
        }
     });
 }
