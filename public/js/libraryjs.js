@@ -241,8 +241,16 @@ function getParams() {
         let variables = url.split('&');
         console.log("The variables: " + variables);
         console.log("The var: " + variables[0]);
+        let itemArray = variables[1].split('=');
+        let items = itemArray[1];
+        let itemsP = document.createElement('p');
+        itemsP.innerHTML = `<h2>TOTAL: ${items}</h2>`;
+        let Head = document.createElement('p');
+        Head.innerHTML = "<h1>Checkout Receipt</h1>"
         let divBooks = document.getElementById('books');
-        for (let i = 1; i < variables.length; i++) {
+        divBooks.appendChild(Head);
+        divBooks.appendChild(itemsP);
+        for (let i = 2; i < variables.length; i++) {
             //request each book individually. 
             let book_id = variables[i].split('=');
             console.log("The id: " + book_id[1]);
