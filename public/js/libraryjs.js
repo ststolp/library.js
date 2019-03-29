@@ -151,18 +151,11 @@ function searchLibrary() {
    let divBooks = document.getElementById('books');
     request.onreadystatechange = function(){
 		console.log("on ready state function calling: " + request.readyState);
-		if(request.readyState == 4){
+        if(request.readyState == 4){
 			var div = document.createElement('div');
 			if(request.status == 200){
                 let array = JSON.parse(request.responseText);
-                if (array.length > 0) {
-                    fill(array, div);
-                }
-                else {
-                    let p = document.createElement('p');
-                    p.innerHTML = "No Results";
-                    div.appendChild(p);
-                }
+                fill(array, div);
 			}else{
 				div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
             }
@@ -196,69 +189,3 @@ function getLibrary() {
 		}
 	}
 }
-
-// function checkOut() {
-
-// }
-
-// function addBook() {
-//     let genres = document.getElementsByName('genre');
-//     let authors = document.getElementsByName('author');
-//     let fname = document.getElementById('fname');
-//     let lname = document.getElementById('lname');
-//     let new_genre = document.getElementById('new_genre');
-//     let genre_id = 0;
-//     let author_id = 0;
-//     if (new_genre.value != "") {
-//         // make new genre and return the id
-//         let target = "/add_genre";
-//         let request = new XMLHttpRequest();
-//         request.open("POST", target);
-//         request.send();
-//         console.log("sending request...");
-//         request.onreadystatechange = function(){
-// 		    if(request.readyState == 4){
-//     			if(request.status == 200){
-//                     let array = JSON.parse(request.responseText);
-//                     genre_id = array.author_id;
-//                 }
-// 	    	}
-// 	    }
-//     } else {
-//         //iterate through genres
-//         for(let i = 0; ; i++) {
-//             if (genres[i].checked == true) {
-//                 genre_id = genres[i].id;
-//             }
-//             break;
-//         }
-//     }
-   
-//     if (fname.value != "") {
-//         let authorTarget = "/add_author"; 
-//         let requestAuthor = new XMLHttpRequest();
-//         requestAuthor.open("POST", authorTarget);
-//         requestrequestAuthor.send();
-//         console.log("sending request...");
-//         requestAuthor.onreadystatechange = function(){
-// 		    if(requestAuthor.readyState == 4){
-//     			if(requestAuthor.status == 200){
-//                     let array = JSON.parse(requestAuthor.responseText);
-//                     author_id = array.author_id;
-//                 }
-// 	    	}
-// 	    } 
-//     } else {
-//         for(let i = 0; ; i++) {
-//             if (authors[i].checked == true) {
-//                 author_id = authors[i].id;
-//             }
-//             break;
-//         }
-//     }
-//     let title = document.getElementById('title');
-
-//     let year = document.getElementById('year');
-//     let publisher = document.getElementById('publisher');
-//     let body = [title, author_id, year, publisher];
-// }
