@@ -359,6 +359,8 @@ function signIn(req, res) {
     getHashed(username, function(error, hash) {
             if (error || hash == null) {
            console.log("failed to get user " + error);
+           console.log("hash: " + hash.passord);
+           console.log("patron: " + hash.patron_id);
        } else {
            console.log(hash);
            bcrypt.compare(password, hash.password, function(err, response) {
