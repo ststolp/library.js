@@ -15,7 +15,9 @@
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
+    "morgan": "^1.9.1",
     "pg": "^7.9.0",
+    "session-file-store": "^1.2.0",
     "wordnet": "^0.1.2"
   }
 }

@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 const session = require('express-session');
-
+var FileStore = require('session-file-store')(session);
 const controller = require("./controllers/libraryFunctions.js");
 app.set('port', (process.env.PORT || 5000));
 const { Pool } = require("pg");
@@ -18,7 +18,7 @@ app.use(session({
   secret: 'my express secret',
   saveUninitialized: true,
   resave: true,
- // store: new FileStore()
+  store: new FileStore()
 }));
 app.use(express.static("public"));
 app.use(express.json());
@@ -337,15 +337,17 @@ function queryMyBooks(user_id, callback) {
 function register(req, res) {
     const username = req.body.username;
     const password = req.body.passsword;
-    bcrypt.hash(password, saltRounds, function(err, hash) {
+    bcrypt.genSalt(saltRounds, function(err, salt) {
+        bcrypt.hash(password, salt, function(err, hash) {
         // Store hash in your password DB.
-        postUser(username, password, function(error, result) {
-            if (error || result == null) {  
-                console.log("failed to get books " + error);
-            } else {
-                console.log(result);
+            postUser(username, hash, function(error, result) {
+                if (error || result == null) {  
+                    console.log("failed to get books " + error);
+                } else {
+                    console.log(result);
                 res.status(200).redirect(`home_library.html?register=true`);
-            }
+                }
+            });
         });
     });
 }
