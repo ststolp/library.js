@@ -58,7 +58,7 @@ function fill(array, divBooks) {
 //get all the genres</br>
 
     let authorName = document.createElement('p');
-    authorName.innerHTML = '<h3>Add Author</h3><label>First Name</label><insert type="text" name="fname"><label>Last Name</label><insert type="text" name="lname">';
+    authorName.innerHTML = '<h3>Add Author</h3><label>First Name</label><input type="text" name="fname"><label>Last Name</label><input type="text" name="lname">';
     divAuthor.insertBefore(authorName, divAuthor.childNodes[0]);
     let authorSubmit = document.createElement('p');
     authorSubmit.innerHTML = "<input type='submit' value='Add Author'>";
@@ -95,7 +95,7 @@ function fill(array, divBooks) {
                 let array = JSON.parse(requestAuthor.responseText);
                 printAuthors(array, authorP);
               //  console.log(subdiv.innerHTML);
-                divAddBook.insertBefore(authorP, divAddBook.childNodes[2]);
+                divAddBook.insertBefore(authorP, divAddBook.childNodes[1]);
 			}else{
 				div.appendChild(document.createTextNodeJSON.stringify(ERROR));
             }
