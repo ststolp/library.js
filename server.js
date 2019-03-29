@@ -242,7 +242,7 @@ function addBook(req, res) {
 function addAuthor(req, res) {
     let fname = req.body.fname;
     let lname = req.body.lname;
-    let genre_id = req.query.genre_id;
+    let genre_id = req.query.genre;
         postAuthor(fname, lname, genre_id, function(error, result) {
         if (error || result == null) {
             console.log("failed to post author: " + error);
