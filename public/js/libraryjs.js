@@ -4,6 +4,7 @@ function myBooks() {
 
 function home() {
     let target = "/";
+    let request = new XMLHttpRequest();
     request.open("GET", target);
     request.send();
 	   request.onreadystatechange = function(){
