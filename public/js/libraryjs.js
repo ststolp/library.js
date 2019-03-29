@@ -48,21 +48,6 @@ function home() {
      document.getElementById("searchDiv").style.visibility = "visible";
         document.getElementById("seeBookHead").style.visibility = "visible";
         document.getElementById("books").innerHTML = "";
-    // let target = "/";
-    // let request = new XMLHttpRequest();
-    // request.open("GET", target);
-    // request.send();
-	//    request.onreadystatechange = function(){
-	// 	console.log("on ready state function calling: " + request.readyState);
-	// 	if(request.readyState == 4){
-	// 		let genreP = document.createElement('p');
-	// 		if(request.status == 200){
-    //           //location.reload();
-	// 		}else{
-
-    //         }
-    //     }
-    // }
 
 }
 function register() {
