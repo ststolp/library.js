@@ -233,15 +233,15 @@ function getLibrary() {
 }
 
 function getParams() {
-           document.getElementById("AddBookHeader").style.visibility = "hidden";
-     document.getElementById("addGenre").style.visibility = "hidden";
-        document.getElementById("LibHead").style.visibility = "hidden";
-     document.getElementById("searchDiv").style.visibility = "hidden";
-        document.getElementById("seeBookHead").style.visibility = "hidden";
     let url = location.search.substring(1);
     if (!url) {
        return;
     } else {
+                   document.getElementById("AddBookHeader").style.visibility = "hidden";
+     document.getElementById("addGenre").style.visibility = "hidden";
+        document.getElementById("LibHead").style.visibility = "hidden";
+     document.getElementById("searchDiv").style.visibility = "hidden";
+        document.getElementById("seeBookHead").style.visibility = "hidden";
         console.log("The url: " + url);
         let variables = url.split('&');
         console.log("The variables: " + variables);
