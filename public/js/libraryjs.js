@@ -283,6 +283,7 @@ function getLibrary() {
 }
 
 function getParams() {
+    document.getElementById("signButton").innerHTML = "Sign In";
     let url = location.search.substring(1);
     if (!url) {
        return;
@@ -301,7 +302,7 @@ function getParams() {
         document.getElementById("seeBookHead").style.visibility = "hidden";
           let divBooks = document.getElementById('books');
           divBooks.innerHTML = "<h2>Please Login</h2>";
-        } else {
+        } else if (SignVarArray[1] == true) {
             document.getElementById('signButton').innerHTML = "Sign Out";
         }
     } else if (SignVarArray[0] == 'register') {
