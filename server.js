@@ -370,8 +370,10 @@ function signIn(req, res) {
            console.log("hash: " + hash.passord);
            console.log("patron: " + hash.patron_id);
        } else {
-           console.log("Hash.password.value: " + hash.password.value);
-           bcrypt.compare(password, hash.password.value, function(err, response) {
+           console.log("typeof(hash): " + typeof(hash));
+           let jsonHash = JSON.parse(hash);
+           console.log("Hash.password.value: " + jsonHash.password);
+           bcrypt.compare(password, hash.password, function(err, response) {
                if (err) {
                    console.log(err);
                    res.status(500).redirect(`home_library.html?login=false`);
@@ -380,7 +382,8 @@ function signIn(req, res) {
                        if (error) {
                            console.log(error);
                        } else {
-                        req.session.user = res;
+                           let jsonId = JSON.parse(res);
+                        req.session.user = jsonId.patron_id;
                        }
                    });
                   res.status(200).redirect(`home_library.html?login=true`);
