@@ -371,7 +371,6 @@ function signIn(req, res) {
            console.log("patron: " + hash.patron_id);
        } else {
            console.log("typeof(hash): " + typeof(hash));
-           console.log("Hash.password.value: " + jsonHash.password);
            bcrypt.compare(password, hash[0].password, function(err, response) {
                if (err) {
                    console.log(err);
