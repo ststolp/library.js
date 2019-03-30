@@ -371,12 +371,18 @@ function signIn(req, res) {
            console.log("patron: " + hash.patron_id);
        } else {
            console.log(hash);
-           bcrypt.compare(password, hash.password, function(err, response) {
+           bcrypt.compare(password, hash, function(err, response) {
                if (err) {
                    console.log(err);
                    res.status(500).redirect(`home_library.html?login=false`);
                } else if (response) {
-                   req.session.user = hash.patron_id;
+                   getId(username, function(error, res) {
+                       if (error) {
+                           console.log(error);
+                       } else {
+                        req.session.user = res;
+                       }
+                   });
                   res.status(200).redirect(`home_library.html?login=true`);
                } else {
                     res.status(500).redirect(`home_library.html?login=false`);
@@ -386,8 +392,21 @@ function signIn(req, res) {
     });
 }
 
+function getId(username, callback) {
+    let query = "SELECT patron_id FROM patron WHERE username = $1";
+    let param = [username];
+    pool.query(query, param, function(error, response) {
+        if(error) {
+            console.log("There was an error: " + error);
+            callback(error, null);
+         } else {
+             console.log("From getId: " + response.rows);
+            callback(null, response.rows);
+        }
+    });
+}
 function getHashed(username, callback) {
-    let query = "SELECT patron_id, password FROM patron WHERE username = $1";
+    let query = "SELECT password FROM patron WHERE username = $1";
     let param = [username];
     pool.query(query, param, function(error, response) {
         if(error) {
