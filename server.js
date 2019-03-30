@@ -370,8 +370,8 @@ function signIn(req, res) {
            console.log("hash: " + hash.passord);
            console.log("patron: " + hash.patron_id);
        } else {
-           console.log(hash);
-           bcrypt.compare(password, hash, function(err, response) {
+           console.log("Hash.password.value: " + hash.password.value);
+           bcrypt.compare(password, hash.password.value, function(err, response) {
                if (err) {
                    console.log(err);
                    res.status(500).redirect(`home_library.html?login=false`);
