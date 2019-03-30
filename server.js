@@ -20,6 +20,21 @@ app.use(session({
   resave: true,
   store: new FileStore()
 }));
+var rp = require('request-promise').defaults({
+  jar: true
+});
+
+function requestPage() {
+  return rp(app.get('port'));
+}
+requestPage()
+  .then(console.dir)
+  .then(requestPage)
+  .then(console.dir)
+  .then(requestPage)
+  .then(console.dir)
+  .catch(console.error);
+
 app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
@@ -37,7 +52,7 @@ app.get('/sign_out', signOut);
 app.post("/add_author", addAuthor);
 app.post("/add_book", addBook);
 app.post("/add_genre", addGenre);
-app.post("/check_out", checkOut);
+app.post("/check_out", requireLogin, checkOut);
 app.post("/add_user", register);
 
 app.listen(app.get('port'), function(){
@@ -51,12 +66,12 @@ function redirectUser(req, res) {
 };
 
 function requireLogin (req, res, next) {
-//   if (!req.session.user) {
-//     res.redirect('home_library.html?login=false');
-//   } else {
+  if (!req.session.user) {
+    res.redirect('home_library.html?login=false');
+  } else {
     console.log("user: " + req.session.user);
     next();
-  //}
+  }
 };
 
 function checkOut(req, response) {
