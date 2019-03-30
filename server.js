@@ -51,7 +51,7 @@ function redirectUser(req, res) {
 };
 
 function requireLogin (req, res, next) {
-  if (!req.user) {
+  if (!req.session.user) {
     res.redirect('home_library.html?login=false');
   } else {
     next();
