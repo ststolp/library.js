@@ -401,6 +401,11 @@ function signIn(req, res) {
                         req.session.user = res[0].patron_id;
                         console.log("user: " + req.session.user);
                        }
+			    req.session.save(function(err) {
+                           if(err) {
+                               console.log(err);
+                           }
+                       });
                    });
                   res.status(200).redirect(`home_library.html?login=true`);
                } else {
