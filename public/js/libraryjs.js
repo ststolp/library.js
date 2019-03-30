@@ -340,7 +340,7 @@ function getParams() {
         let divBooks = document.getElementById('books');
         divBooks.appendChild(Head);
         divBooks.appendChild(itemsP);
-        for (let i = 1; i < variables.length; ) {
+        for (let i = 1; i < variables.length; i++) {
             //request each book individually. 
             let book_id = variables[i].split('=');
             console.log("The id: " + book_id[1]);
@@ -352,10 +352,8 @@ function getParams() {
             request.onreadystatechange = function(){
                 console.log("on ready state function calling: " + request.readyState);
                 if(request.readyState == 4){
-
                     var p = document.createElement('p');
                     if(request.status == 200){
-                        i++;
                         let array = JSON.parse(request.responseText);
                         let books = "";
                         array.forEach(function(item) {
@@ -365,11 +363,9 @@ function getParams() {
                         });
                         p.innerHTML = books;
                         divBooks.appendChild(p);
-                        //location.search = "";
                     }
     		    }
             }
         }
     }
-
 }
