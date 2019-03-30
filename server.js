@@ -37,7 +37,7 @@ app.get('/sign_out', signOut);
 app.post("/add_author", addAuthor);
 app.post("/add_book", addBook);
 app.post("/add_genre", addGenre);
-app.post("/check_out", requireLogin, checkOut);
+app.post("/check_out", checkOut);
 app.post("/add_user", register);
 
 app.listen(app.get('port'), function(){
