@@ -303,6 +303,7 @@ function getParams() {
           let divBooks = document.getElementById('books');
           divBooks.innerHTML = "<h2>Please Login</h2>";
         } else if (SignVarArray[1] == true) {
+            console.log("successfully sihned in");
             document.getElementById('signButton').innerHTML = "Sign Out";
                  document.getElementById("AddBookHeader").style.visibility = "hidden";
      document.getElementById("addGenre").style.visibility = "hidden";
