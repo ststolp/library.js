@@ -443,5 +443,8 @@ function postUser(username, password, callback) {
 
 function signOut(req, res) {
     req.session.reset();
+    req.session.save(function(err) {
+        console.log(err);
+    });
     res.redirect('home_library.html');
 }
