@@ -17,7 +17,7 @@ app.use(session({
   name: 'server-session-cookie-id',
   secret: 'my express secret',
   saveUninitialized: true,
-  resave: true,
+  resave: false,
   store: new FileStore()
 }));
 
@@ -67,12 +67,12 @@ function redirectUser(req, res) {
     res.status(200).redirect('home_library.html');
 };
 
-function requireLogin (req, res, next) {
-  if (!req.session.user) {
-    res.redirect('home_library.html?login=false');
+function requireLogin(req, res, next) {
+  if (req.session.user) {
+      next();
   } else {
     console.log("user: " + req.session.user);
-    next();
+    res.redirect('home_library.html?login=false');
   }
 };
 
