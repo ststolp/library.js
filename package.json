@@ -20,6 +20,7 @@
     "request": "^2.88.0",
     "request-promise": "^4.2.4",
     "session-file-store": "^1.2.0",
+    "tough-cookie-filestore": "0.0.1",
     "wordnet": "^0.1.2"
   }
 }
