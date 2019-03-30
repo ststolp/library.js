@@ -1,4 +1,4 @@
-let USER_ID = 0;
+
 
 function myBooks() {   
        document.getElementById("AddBookHeader").style.visibility = "hidden";
@@ -340,7 +340,7 @@ function getParams() {
         let divBooks = document.getElementById('books');
         divBooks.appendChild(Head);
         divBooks.appendChild(itemsP);
-        for (let i = 1; i < variables.length; i++) {
+        for (let i = 1; i < variables.length; ) {
             //request each book individually. 
             let book_id = variables[i].split('=');
             console.log("The id: " + book_id[1]);
@@ -355,6 +355,7 @@ function getParams() {
 
                     var p = document.createElement('p');
                     if(request.status == 200){
+                        i++;
                         let array = JSON.parse(request.responseText);
                         let books = "";
                         array.forEach(function(item) {
