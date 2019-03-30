@@ -17,24 +17,8 @@ app.use(session({
   secret: 'my express secret',
   saveUninitialized: true,
   resave: false,
-}));
+}))
 
-//app.use(requireLogin);
-//   var FileCookieStore = require('tough-cookie-filestore');
-// var requestPromise = require('request-promise');
-// var rp = requestPromise.defaults({
-//   jar: requestPromise.jar(new FileCookieStore('cookies.json'))
-//});
-// function requestPage() {
-//   return rp(app.get('port'));
-// }
-// requestPage()
-//   .then(console.dir)
-//   .then(requestPage)
-//   .then(console.dir)
-//   .then(requestPage)
-//   .then(console.dir)
-//   .catch(console.error);
 
 app.use(express.static("public"));
 app.use(express.json());
@@ -400,7 +384,13 @@ function signIn(req, res) {
                        } else {
                         req.session.user = res[0].patron_id;
                         console.log("user: " + req.session.user);
+
                        }
+                       req.session.save(function(err) {
+                           if(err) {
+                               console.log(err);
+                           }
+                       });
                    });
                   res.status(200).redirect(`home_library.html?login=true`);
                } else {
