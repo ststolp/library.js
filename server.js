@@ -397,6 +397,7 @@ function signIn(req, res) {
                            console.log(error);
                        } else {
                         req.session.user = res[0].patron_id;
+                        console.log("user: " + req.session.user);
                        }
                    });
                   res.status(200).redirect(`home_library.html?login=true`);
