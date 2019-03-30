@@ -51,11 +51,12 @@ function redirectUser(req, res) {
 };
 
 function requireLogin (req, res, next) {
-  if (!req.session.user) {
-    res.redirect('home_library.html?login=false');
-  } else {
+//   if (!req.session.user) {
+//     res.redirect('home_library.html?login=false');
+//   } else {
+    console.log("user: " + req.session.user);
     next();
-  }
+  //}
 };
 
 function checkOut(req, response) {
