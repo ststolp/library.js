@@ -5,12 +5,11 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 const session = require('express-session');
-var FileStore = require('session-file-store')(session);
+//var FileStore = require('session-file-store')(session);
 const controller = require("./controllers/libraryFunctions.js");
 app.set('port', (process.env.PORT || 5000));
 const { Pool } = require("pg");
 const connectionString = process.env.DATABASE_URL;
-console.log("The url is: " + connectionString);
 const pool = Pool({connectionString: connectionString});
 
 app.use(session({
@@ -18,24 +17,24 @@ app.use(session({
   secret: 'my express secret',
   saveUninitialized: true,
   resave: false,
-  store: new FileStore()
 }));
 
-  var FileCookieStore = require('tough-cookie-filestore');
-var requestPromise = require('request-promise');
-var rp = requestPromise.defaults({
-  jar: requestPromise.jar(new FileCookieStore('cookies.json'))
-});
-function requestPage() {
-  return rp(app.get('port'));
-}
-requestPage()
-  .then(console.dir)
-  .then(requestPage)
-  .then(console.dir)
-  .then(requestPage)
-  .then(console.dir)
-  .catch(console.error);
+//app.use(requireLogin);
+//   var FileCookieStore = require('tough-cookie-filestore');
+// var requestPromise = require('request-promise');
+// var rp = requestPromise.defaults({
+//   jar: requestPromise.jar(new FileCookieStore('cookies.json'))
+//});
+// function requestPage() {
+//   return rp(app.get('port'));
+// }
+// requestPage()
+//   .then(console.dir)
+//   .then(requestPage)
+//   .then(console.dir)
+//   .then(requestPage)
+//   .then(console.dir)
+//   .catch(console.error);
 
 app.use(express.static("public"));
 app.use(express.json());
@@ -69,6 +68,7 @@ function redirectUser(req, res) {
 
 function requireLogin(req, res, next) {
   if (req.session.user) {
+      console.log(req.session.user);
       next();
   } else {
     console.log("user: " + req.session.user);
