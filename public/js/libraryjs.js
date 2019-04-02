@@ -1,5 +1,7 @@
 
 function myBooks() {   
+    document.getElementById("addBook").innerHTML = "";
+    document.getElemtneById("addAuthor").innerHTML = "";
        document.getElementById("AddBookHeader").style.visibility = "hidden";
      document.getElementById("addGenre").style.visibility = "hidden";
         document.getElementById("LibHead").style.visibility = "hidden";
@@ -152,7 +154,6 @@ function fill(array, divBooks) {
       document.getElementById("LibHead").style.visibility = "visible";
      document.getElementById("searchDiv").style.visibility = "visible";
         document.getElementById("seeBookHead").style.visibility = "visible";
-    let divGenre = document.getElementById('addGenre');
     let divAuthor = document.getElementById('addAuthor');
 
     let divAddBook = document.getElementById('addBook');
@@ -180,7 +181,7 @@ function fill(array, divBooks) {
 //get all the genres</br>
 
     let authorName = document.createElement('p');
-    authorName.innerHTML = '<h3>Add Author</h3><label>First Name</label><input type="text" name="fname"><label>Last Name</label><input type="text" name="lname">';
+    authorName.innerHTML = '<h3>Add Author</h3><label>First Name </label><br><input type="text" name="fname"><label>Last Name </label><br><input type="text" name="lname">';
     divAuthor.insertBefore(authorName, divAuthor.childNodes[0]);
     let authorSubmit = document.createElement('p');
     authorSubmit.innerHTML = "<input type='submit' value='Add Author'>";
