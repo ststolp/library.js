@@ -1,5 +1,4 @@
 
-
 function myBooks() {   
        document.getElementById("AddBookHeader").style.visibility = "hidden";
      document.getElementById("addGenre").style.visibility = "hidden";
@@ -99,7 +98,7 @@ function signIn() {
        if (InorOut.innerHTML == "Sign In") {
         html = "<form action='/sign_in' method='get'><h2>Sign In</h2><br><label>Username</label><input type='text' name='username' placeholder='username...'>";
         html += "<label>Password</label><input name='password' type='password' placeholder='enter password...'><input type='submit' value='Sign In'></form>";
-           InorOut.innerHTML = "Sign Out";
+        InorOut.innerHTML = "Sign Out";
         } else {
             let request = new XMLHttpRequest();
             let target = "/sign_out"; 
@@ -113,6 +112,7 @@ function signIn() {
                 }
             }
           InorOut.innerHTML = "Sign In";
+          html = "<h2>Please come again!</h2>";
         }
     document.getElementById("books").innerHTML = html;
 }
@@ -286,6 +286,7 @@ function getParams() {
     let url = location.search.substring(1);
     if (!url) {
         document.getElementById("signButton").innerHTML = "Sign In";
+        home();
        return;
     } 
    let SignVariables = url.split('&');

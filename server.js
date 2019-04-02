@@ -180,8 +180,6 @@ function getBooks(method, search, callback) {
     });
 }
 
-
-
 function getAuthors(req, res) {
     queryAuthors(function(error, result) {
         if (error || result == null) {
@@ -371,6 +369,7 @@ function signIn(req, res) {
            console.log("failed to get user " + error);
            console.log("hash: " + hash.passord);
            console.log("patron: " + hash.patron_id);
+           res.redirect('home_library.html');
        } else {
            console.log("typeof(hash): " + typeof(hash));
            bcrypt.compare(password, hash[0].password, function(err, response) {
