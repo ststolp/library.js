@@ -1,7 +1,7 @@
 
 function myBooks() {   
     document.getElementById("addBook").innerHTML = "";
-    document.getElemtneById("addAuthor").innerHTML = "";
+    document.getElementById("addAuthor").innerHTML = "";
        document.getElementById("AddBookHeader").style.visibility = "hidden";
      document.getElementById("addGenre").style.visibility = "hidden";
         document.getElementById("LibHead").style.visibility = "hidden";
