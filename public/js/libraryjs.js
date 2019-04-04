@@ -297,33 +297,35 @@ function getParams() {
         }
         home();
        return;
-    } 
+    } else {
+        document.getElementById("signButton").innerHTML = "Sign Out";
+    }
    let SignVariables = url.split('&');
     let SignVarArray = SignVariables[0].split('=');
     if (SignVarArray[0] == "patron_id") {
 
         USER_ID = SignVarArray[1];
     } else if (SignVarArray[0] == 'login') {
-        if (SignVarArray[1] == false) {
-            alert("The login is false" + SignVarArray[1]);
-            document.getElementById("signButton").innerHTML = "Sign In";
-            document.getElementById("AddBookHeader").style.visibility = "hidden";
-            document.getElementById("addGenre").style.visibility = "hidden";
-            document.getElementById("LibHead").style.visibility = "hidden";
-            document.getElementById("searchDiv").style.visibility = "hidden";
-            document.getElementById("seeBookHead").style.visibility = "hidden";
-             let divBooks = document.getElementById('books');
-            divBooks.innerHTML = "<h2>Please Login</h2>";
-        } else if (SignVarArray[1] == true) {
-            alert("The login is true:" + SignVarArray[1]);
-            document.getElementById('signButton').innerHTML = "Sign Out";
-            document.getElementById("AddBookHeader").style.visibility = "hidden";
-            document.getElementById("addGenre").style.visibility = "hidden";
-            document.getElementById("LibHead").style.visibility = "visible";
-            document.getElementById("searchDiv").style.visibility = "visible";
-            document.getElementById("seeBookHead").style.visibility = "visible";
-             document.getElementById('books').innerHTML = "";
-        }
+        // if (SignVarArray[1] == false) {
+        //     alert("The login is false" + SignVarArray[1]);
+        //     document.getElementById("signButton").innerHTML = "Sign In";
+        //     document.getElementById("AddBookHeader").style.visibility = "hidden";
+        //     document.getElementById("addGenre").style.visibility = "hidden";
+        //     document.getElementById("LibHead").style.visibility = "hidden";
+        //     document.getElementById("searchDiv").style.visibility = "hidden";
+        //     document.getElementById("seeBookHead").style.visibility = "hidden";
+        //      let divBooks = document.getElementById('books');
+        //     divBooks.innerHTML = "<h2>Please Login</h2>";
+        // } else if (SignVarArray[1] == true) {
+        //     alert("The login is true:" + SignVarArray[1]);
+        //     document.getElementById('signButton').innerHTML = "Sign Out";
+        //     document.getElementById("AddBookHeader").style.visibility = "hidden";
+        //     document.getElementById("addGenre").style.visibility = "hidden";
+        //     document.getElementById("LibHead").style.visibility = "visible";
+        //     document.getElementById("searchDiv").style.visibility = "visible";
+        //     document.getElementById("seeBookHead").style.visibility = "visible";
+        //      document.getElementById('books').innerHTML = "";
+        // }
     } else if (SignVarArray[0] == 'register') {
            document.getElementById("AddBookHeader").style.visibility = "hidden";
      document.getElementById("addGenre").style.visibility = "hidden";
