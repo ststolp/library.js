@@ -52,6 +52,7 @@ function home() {
 
 function Register() {
     hideTags();
+    document.getElementById("signButton").innerHTML = "Sign In";
     eraseForms();
     let html = "<form action='/add_user' method='post'><h2>Sign Up</h2><br><label>Username</label><input type='text' name='username' placeholder='username...'>";
     html += "<label>Password</label><input name='password' type='password' placeholder='enter password...'><input type='submit' value='Register'></form>";
