@@ -10,7 +10,7 @@ function myBooks() {
     let target = `/get_myBooks`;
     console.log("got target");
     let request = new XMLHttpRequest();
-    request.open("GET", target);
+    request.open("GET", target, false);
     request.send();
     console.log("sending request...");
     let divBooks = document.getElementById('books');
