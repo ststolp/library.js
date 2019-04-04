@@ -291,7 +291,7 @@ function getLibrary() {
 function getParams() {
     let url = location.search.substring(1);
     if (!url) {
-        document.getElementById("signButton").innerHTML = "Sign In";
+        //document.getElementById("signButton").innerHTML = "Sign In";
         home();
        return;
     } 
