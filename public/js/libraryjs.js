@@ -375,7 +375,7 @@ function getParams() {
                          let array = JSON.parse(request.responseText);
                          let books = "";
                          array.forEach(function(item) {
-                             let entry = `<p><b>${item.book_title}</b> loaned on ${item.checed_out}</p>`;
+                             let entry = `<p><b>${item.book_title}</b> loaned on ${item.checked_out}</p>`;
                              entry += `<p>Due date ${item.due_date}</p>`;
                              books = books + entry;
                          });
