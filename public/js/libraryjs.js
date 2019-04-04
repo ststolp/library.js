@@ -354,7 +354,7 @@ function getParams() {
         divBooks.appendChild(Head);
         divBooks.appendChild(itemsP);
         let nextReq = true;
-        for (let i = 1; i < variables.length; ) {
+        for (let i = 1; i < variables.length;  ) {
             //request each book individually.
             if(nextReq)
             { 
@@ -372,6 +372,7 @@ function getParams() {
                      var p = document.createElement('p');
                      if(request.status == 200){
                          nextReq = true;
+                         i++;
                          let array = JSON.parse(request.responseText);
                          let books = "";
                          array.forEach(function(item) {
