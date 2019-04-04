@@ -1,3 +1,4 @@
+const http = require('http');
 const express = require('express');
 //const bodyParser = require('body-parser');
 const app = express();
@@ -365,11 +366,12 @@ function signIn(req, res) {
     const password = req.query.password;
     console.log("Username: " + username);
     getHashed(username, function(error, hash) {
-            if (error || hash == null) {
+            if (error || hash == null || typeof hash[0] === undefined) {
            console.log("failed to get user " + error);
            console.log("hash: " + hash.passord);
            console.log("patron: " + hash.patron_id);
-           res.redirect('home_library.html');
+           res.writeHead(200, {'Content-Type': 'text/html'});
+           res.write("<h3>Invalid username or password</h3>");
        } else {
            console.log("typeof(hash): " + typeof(hash));
            bcrypt.compare(password, hash[0].password, function(err, response) {
