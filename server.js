@@ -441,7 +441,7 @@ function postUser(username, password, callback) {
 }
 
 function signOut(req, res) {
-    req.session.reset();
+    req.session.destroy();
     req.session.save(function(err) {
         console.log(err);
     });
