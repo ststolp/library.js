@@ -54,7 +54,6 @@ function buttonSignIn() {
      document.getElementById("signButton").innerHTML = "Sign In";
 }
 
- document.getElementById("signButton").innerHTML = "Sign In";
 function Register() {
     hideTags();
     document.getElementById("signButton").innerHTML = "Sign In";
