@@ -87,6 +87,11 @@ function addUser() {
         }
     }
 }
+
+function changeButton() {
+    document.getElementById("signButton").innerHTML = "Sign Out";
+}
+
 function signIn() {
             document.getElementById("AddBookHeader").style.visibility = "hidden";
      document.getElementById("addGenre").style.visibility = "hidden";
@@ -99,8 +104,8 @@ function signIn() {
        let html = "";
        if (InorOut.innerHTML == "Sign In") {
         html = "<form action='/sign_in' method='get'><h2>Sign In</h2><br><label>Username</label><input type='text' name='username' placeholder='username...'>";
-        html += "<label>Password</label><input name='password' type='password' placeholder='enter password...'><input type='submit' value='Sign In'></form>";
-        InorOut.innerHTML = "Sign Out";
+        html += "<label>Password</label><input name='password' type='password' placeholder='enter password...'><input type='submit' value='Sign In' onmousedown='changeButton()'></form>";
+
         } else {
             let request = new XMLHttpRequest();
             let target = "/sign_out"; 
