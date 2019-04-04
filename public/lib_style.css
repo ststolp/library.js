@@ -17,7 +17,7 @@ body {
 }
 
 
-.top a {
+.top button {
      background-color: rgb(71, 63, 184);
     float: left;
     color: rgb(177, 231, 231);
@@ -28,11 +28,11 @@ body {
     text-decoration: none;
 }
 
-.top a:hover {
+.top button:hover {
     background-color: rgb(143, 136, 136);
 }
 
-.top a.active {
+.top button.active {
     background-color: rgb(121, 190, 190);
 }
 p {
