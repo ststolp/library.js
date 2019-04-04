@@ -14,7 +14,7 @@ function myBooks() {
     request.send();
     console.log("sending request...");
     let divBooks = document.getElementById('books');
-    request.onreadystatechange = funtion(){
+    request.onreadystatechange = function(){
 		console.log("on ready state function calling: " + request.readyState);
 		if(request.readyState == 4){
 			var div = document.createElement('div');
