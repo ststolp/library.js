@@ -375,12 +375,11 @@ function getParams() {
                             // i++;
                             console.log(`incrementing i: ${i}`);
                             let array = JSON.parse(request.responseText);
+                            console.log("Array" + array);
                             let books = "";
-                            array.forEach(function(item) {
-                                let entry = `<p><b>${item.book_title}</b> loaned on ${item.checked_out}</p>`;
-                                entry += `<p>Due date ${item.due_date}</p>`;
+                                let entry = `<p><b>${array.book_title}</b> loaned on ${array.checked_out}</p>`;
+                                entry += `<p>Due date ${array.due_date}</p>`;
                                 books = books + entry;
-                            });
                             p.innerHTML = books;
                             divBooks.appendChild(p);
                         }
