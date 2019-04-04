@@ -1,60 +1,49 @@
 <!DOCTYPE html>
 <head>
-<title>Library</title>
-<link rel="stylesheet" type="text/css" href="lib_style.css">
-<script type="text/javascript" src="/js/libraryjs.js"></script>
-<script type="stylesheet" type="text/css" href="lib.css"></script>
+  <title>Library</title>
+  <link rel="stylesheet" type="text/css" href="lib_style.css">
+  <script type="text/javascript" src="/js/libraryjs.js"></script>
+  <script type="stylesheet" type="text/css" href="lib.css"></script>
 </head>
 <body onload="getParams()">
-<div class='header'>
-  <h1>Best Library</h1>
+  <div class='header'>
+    <h1>Best Library</h1>
   </div>
-<div class='top'>
-  <button onclick="home()">Home</button>
-  <button onclick="Register()">Register</button>
-  <button id="signButton" onclick="signIn()">Sign In</button>
-  <!--<a href='Authentication.php?sign_out=true'>Sign Out</a>-->
-  <button onclick="myBooks()">My Books</button>
-</div>
-  <!-- header here -->
-<div id="searchDiv">
-<br>
+  <div class='top'>
+    <button onclick="home()">Home</button>
+    <button onclick="Register()">Register</button>
+    <button id="signButton" onclick="signIn()">Sign In</button>
+    <button onclick="myBooks()">My Books</button>
+  </div>
+  <div id="searchDiv">
+    <br>
     <label>Search For:</label>
     <select id="method">
       <option value="lname">Author Last name</option>
       <option value="title">Title</option>
       <option value="genre">Genre</option>
     </select>
- 
     <input type='text' placeholder='That has...' id='search' value="">
     <button onclick="searchLibrary()" class="button">Search</button>
-
-</div>
-<h1 id="LibHead">Library</h1>
-
-<button id="seeBookHead" onclick="getLibrary()" class="button">See Books</button>
-
-<div id="books"></div>
-<br><br>
-<h2 id="AddBookHeader" style="visibility: hidden">Add Book</h2>
-  <form id="addBook" action='/add_book' method='post'></form>
-
- <form id="addAuthor" action="/add_author" method='post'></form>
-
-
-<form style="visibility: hidden" id="addGenre" action="/add_genre" method="post">
-  <h3>Add Genre</h3>
-  <label>Genre</label>
-   <input type="text" name="genre">
-   <input type="submit" value="Add Genre">
-  </form>
-
-</div>
-<br>
-
-<br><br><br><br><br><br><br><br>
-<footer class='footer'>
-<h2>Best Library | created by Steven Stolp</h2>
- </footer>
+  </div>
+  <h1 id="LibHead">Library</h1>
+  <button id="seeBookHead" onclick="getLibrary()" class="button">See Books</button>
+  <div id="books"></div>
+    <br><br>
+    <h2 id="AddBookHeader" style="visibility: hidden">Add Book</h2>
+    <form id="addBook" action='/add_book' method='post'></form>
+    <form id="addAuthor" action="/add_author" method='post'></form>
+    <form style="visibility: hidden" id="addGenre" action="/add_genre" method="post">
+      <h3>Add Genre</h3>
+      <label>Genre</label>
+      <input type="text" name="genre">
+      <input type="submit" value="Add Genre">
+    </form>
+  </div>
+  <br>
+  <br><br><br><br><br><br><br><br>
+  <footer class='footer'>
+    <h2>Best Library | created by Steven Stolp</h2>
+  </footer>
 </body>
 </html>

@@ -119,8 +119,6 @@ function queryChecked(book, user, callback) {
     });
 }
 
-           
-
 function getLibrary(req, res) {
     getAllBooks(function(error, result) {
         if (error || result == null) {
