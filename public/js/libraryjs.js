@@ -291,6 +291,7 @@ function getLibrary() {
 function getParams() {
     let url = location.search.substring(1);
     if (!url) {
+        alert("Here with no url: " + url);
         if (document.getElementById("signButton").innerHTML != "Sign Out") {
             document.getElementById("signButton").innerHTML = "Sign In";
         }
@@ -304,7 +305,7 @@ function getParams() {
         USER_ID = SignVarArray[1];
     } else if (SignVarArray[0] == 'login') {
         if (SignVarArray[1] == false) {
-            console.log("The login is false" + SignVarArray[1]);
+            alert("The login is false" + SignVarArray[1]);
             document.getElementById("signButton").innerHTML = "Sign In";
             document.getElementById("AddBookHeader").style.visibility = "hidden";
             document.getElementById("addGenre").style.visibility = "hidden";
@@ -314,7 +315,7 @@ function getParams() {
              let divBooks = document.getElementById('books');
             divBooks.innerHTML = "<h2>Please Login</h2>";
         } else if (SignVarArray[1] == true) {
-            console.log("The login is true:" + SignVarArray[1]);
+            alert("The login is true:" + SignVarArray[1]);
             document.getElementById('signButton').innerHTML = "Sign Out";
             document.getElementById("AddBookHeader").style.visibility = "hidden";
             document.getElementById("addGenre").style.visibility = "hidden";
