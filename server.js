@@ -94,8 +94,9 @@ function checkOut(req, response) {
 
 
 function getChecked(req, res) {
+    let user = req.session.user;
     let book = req.query.book;
-    queryChecked(book, function(error, result) {
+    queryChecked(book, user, function(error, result) {
         if (error || result == null) {
             res.status(500).json({success: false, data: error});
         } else {
@@ -105,9 +106,9 @@ function getChecked(req, res) {
     });
 }
 
-function queryChecked(book, callback) {
-    queryInserted = `SELECT patron_id, book_title, due_date, checked_out FROM patron_book WHERE book_id = $1`;
-    let params = [book];
+function queryChecked(book, user, callback) {
+    queryInserted = `SELECT patron_id, book_title, due_date, checked_out FROM patron_book WHERE book_id = $1 AND patron_id = $2`;
+    let params = [book, user];
     pool.query(queryInserted, params, function(error, res) {
     if (error) {
         console.log("There was an error" + error);

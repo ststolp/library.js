@@ -377,8 +377,8 @@ function getParams() {
                             let array = JSON.parse(request.responseText);
                             console.log("Array" + array);
                             let books = "";
-                                let entry = `<p><b>${array.book_title}</b> loaned on ${array.checked_out}</p>`;
-                                entry += `<p>Due date ${array.due_date}</p>`;
+                                let entry = `<p><b>${array[0].book_title}</b> loaned on ${array[0].checked_out}</p>`;
+                                entry += `<p>Due date ${array[0].due_date}</p>`;
                                 books = books + entry;
                             p.innerHTML = books;
                             divBooks.appendChild(p);
