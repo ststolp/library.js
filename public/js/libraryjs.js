@@ -10,11 +10,11 @@ function myBooks() {
     let target = `/get_myBooks`;
     console.log("got target");
     let request = new XMLHttpRequest();
-    request.open("GET", target, false);
+    request.open("GET", target);
     request.send();
     console.log("sending request...");
     let divBooks = document.getElementById('books');
-    request.onreadystatechange = function(){
+    request.onreadystatechange = funtion(){
 		console.log("on ready state function calling: " + request.readyState);
 		if(request.readyState == 4){
 			var div = document.createElement('div');
@@ -353,32 +353,38 @@ function getParams() {
         let divBooks = document.getElementById('books');
         divBooks.appendChild(Head);
         divBooks.appendChild(itemsP);
-        for (let i = 1; i < variables.length; i++) {
-            //request each book individually. 
-            let book_id = variables[i].split('=');
-            console.log("The id: " + book_id[1]);
-            target = `/get_checked?book=${book_id[1]}`;
-            let request = new XMLHttpRequest();
-            request.open("GET", target);
-            request.send(); 
-            console.log("sending request...");
-            request.onreadystatechange = function(){
-                console.log("on ready state function calling: " + request.readyState);
-                if(request.readyState == 4){
-                    var p = document.createElement('p');
-                    if(request.status == 200){
-                        let array = JSON.parse(request.responseText);
-                        let books = "";
-                        array.forEach(function(item) {
-                            let entry = `<p><b>${item.book_title}</b> loaned on ${item.checked_out}</p>`;
-                            entry += `<p>Due date ${item.due_date}</p>`;
-                            books = books + entry;
-                        });
-                        p.innerHTML = books;
-                        divBooks.appendChild(p);
+        let nextReq = true;
+        for (let i = 1; i < variables.length; ) {
+            //request each book individually.
+            if(nextReq)
+            { 
+                nextReq = false;
+             let book_id = variables[i].split('=');
+             console.log("The id: " + book_id[1]);
+              target = `/get_checked?book=${book_id[1]}`;
+             let request = new XMLHttpRequest();
+             request.open("GET", target);
+             request.send(); 
+             console.log("sending request...");
+             request.onreadystatechange = function(){
+                 console.log("on ready state function calling: " + request.readyState);
+                 if(request.readyState == 4){
+                     var p = document.createElement('p');
+                     if(request.status == 200){
+                         nextReq = true;
+                         let array = JSON.parse(request.responseText);
+                         let books = "";
+                         array.forEach(function(item) {
+                             let entry = `<p><b>${item.book_title}</b> loaned on ${item.checed_out}</p>`;
+                             entry += `<p>Due date ${item.due_date}</p>`;
+                             books = books + entry;
+                         });
+                         p.innerHTML = books;
+                         divBooks.appendChild(p);
                     }
     		    }
             }
         }
     }
+}
 }
