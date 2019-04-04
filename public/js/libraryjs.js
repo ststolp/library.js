@@ -104,7 +104,7 @@ function signIn() {
        let html = "";
        if (InorOut.innerHTML == "Sign In") {
         html = "<form action='/sign_in' method='get'><h2>Sign In</h2><br><label>Username</label><input type='text' name='username' placeholder='username...'>";
-        html += "<label>Password</label><input name='password' type='password' placeholder='enter password...'><input type='submit' value='Sign In' onmousedown='changeButton()'></form>";
+        html += "<label>Password</label><input name='password' type='password' placeholder='enter password...'><input type='submit' value='Sign In' onclicked='changeButton()'></form>";
 
         } else {
             let request = new XMLHttpRequest();
