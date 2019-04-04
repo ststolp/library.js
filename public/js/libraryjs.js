@@ -291,7 +291,6 @@ function getLibrary() {
 function getParams() {
     let url = location.search.substring(1);
     if (!url) {
-        alert("Here with no url: " + url);
         if (document.getElementById("signButton").innerHTML != "Sign Out") {
             document.getElementById("signButton").innerHTML = "Sign In";
         }
@@ -353,12 +352,12 @@ function getParams() {
         let divBooks = document.getElementById('books');
         divBooks.appendChild(Head);
         divBooks.appendChild(itemsP);
-        let nextReq = true;
-        for (let i = 1; i < variables.length;  ) {
+        //let nextReq = true;
+        for (let i = 1; i < variables.length;i++  ) {
             //request each book individually.
-            if(nextReq)
-            { 
-                nextReq = false;
+            //if(nextReq)
+            //{ 
+             //   nextReq = false;
              let book_id = variables[i].split('=');
              console.log("The id: " + book_id[1]);
               target = `/get_checked?book=${book_id[1]}`;
@@ -372,7 +371,7 @@ function getParams() {
                      var p = document.createElement('p');
                      if(request.status == 200){
                          nextReq = true;
-                         i++;
+                        // i++;
                          let array = JSON.parse(request.responseText);
                          let books = "";
                          array.forEach(function(item) {
@@ -388,4 +387,4 @@ function getParams() {
         }
     }
 }
-}
+//}
