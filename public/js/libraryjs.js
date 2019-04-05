@@ -228,7 +228,11 @@ function searchLibrary() {
 			var div = document.createElement('div');
 			if(request.status == 200){
                 let array = JSON.parse(request.responseText);
+                if (array.length == 0) {
+                    div.innerHTML = "<h3>No Results</h3>";
+                } else {
                 fill(array, div);
+                }
 			}else{
 				div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
             }
