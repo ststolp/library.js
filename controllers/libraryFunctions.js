@@ -24,7 +24,7 @@ function checkOut(req, response) {
     const array = req.body.checkout;
     let query = "";
     let url =  `checkOut=true`;
-    cunt = 0;
+    let count = 0;
     for (let index = 0; index < array.length; index++) {
         query = `INSERT INTO patron_book (patron_id, book_title, book_id, due_date, checked_out) VALUES ($3, (SELECT title FROM books WHERE book_id = $1), $2, (SELECT CURRENT_DATE + interval '30' day), (SELECT CURRENT_DATE))`;
         const params = [array[index], array[index], req.session.user];
