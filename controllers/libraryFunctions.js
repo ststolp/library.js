@@ -181,47 +181,59 @@ function queryGenres(callback) {
 }
 
 function addGenre(req, res) {
-    const genre = req.body.genre;
-     postGenre(genre, function(error, result) {
-        if (error || result == null) {
-            console.log("failed to post genre: " + error);
-        } else {
-            console.log("genre posted!");
-            console.log(result);
-            res.redirect("home_library.html");
-        }
-    });
+    if(req.session.user) {
+        const genre = req.body.genre;
+         postGenre(genre, function(error, result) {
+            if (error || result == null) {
+                console.log("failed to post genre: " + error);
+            } else {
+                console.log("genre posted!");
+                console.log(result);
+                res.redirect("home_library.html?login=true");
+            }
+        });
+    } else { 
+        res.redirect("home_library.html");
+    }
 }
 
 function addBook(req, res) {
-    const title = req.body.title;
-    const author_id = req.body.author_id;
-    const year = req.body.year;
-    const publisher = req.body.publisher;
-        postBook(title, author_id, year, publisher, function(error, result) {
-        if (error || result == null) {
-            console.log("failed to post book: " + error);
-        } else {
-            console.log("book posted!");
-            console.log(result);
-            res.redirect("home_library.html");
-        }
-    });
+    if(req.session.user) {
+        const title = req.body.title;
+        const author_id = req.body.author_id;
+        const year = req.body.year;
+        const publisher = req.body.publisher;
+            postBook(title, author_id, year, publisher, function(error, result) {
+            if (error || result == null) {
+                console.log("failed to post book: " + error);
+            } else {
+                console.log("book posted!");
+                console.log(result);
+                res.redirect("home_library.html?login=true");
+            }
+        });
+    } else {
+        res.redirect("home_library.html");
+    }
 }
 
 function addAuthor(req, res) {
-    const fname = req.body.fname;
-    const lname = req.body.lname;
-    const genre_id = req.body.genre_id;
-        postAuthor(fname, lname, genre_id, function(error, result) {
-        if (error || result == null) {
-            console.log("failed to post author: " + error);
-        } else {
-            console.log("author posted!");
-            console.log(result);
-            res.redirect("home_library.html");
-        }
-    });
+    if(req.session.user) {
+        const fname = req.body.fname;
+        const lname = req.body.lname;
+        const genre_id = req.body.genre_id;
+            postAuthor(fname, lname, genre_id, function(error, result) {
+            if (error || result == null) {
+                console.log("failed to post author: " + error);
+            } else {
+                console.log("author posted!");
+                console.log(result);
+                res.redirect("home_library.html?login=true");
+            }
+        });
+    } else {
+        res.redirect("home_library.html");
+    }
 }
 
 function postGenre(genre, callback) {
