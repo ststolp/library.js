@@ -287,7 +287,7 @@ function getParams() {
                 document.getElementById("signButton").innerHTML = "Sign In";
         let welcome = document.getElementById('books');
         welcome.innerHTML = "<h2>You have successfully registered. Feel free to sign in.</h2>";
-    } else if (SignVarArry[0] == 'checkOut') {
+    } else if (SignVarArray[0] == 'checkOut') {
         hideTags();
         let variables = url.split('&');
         let items = variables.length - 1;
