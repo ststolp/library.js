@@ -22,6 +22,9 @@ label {
       white-space: pre;
 }
 
+input {
+    border-radius: 15px 50px;
+}
 .top {
     list-style-type: none;
      margin: 0;

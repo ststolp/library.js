@@ -163,7 +163,7 @@ function fill(array, divBooks) {
     let wholeForm = formStart + books + button;
     divBooks.innerHTML = wholeForm;
    let formBookStart = document.createElement('p');
-    content = "<label>Title</label><input type='text' name='title'><br>";
+    content = "<label>Title </label><input type='text' name='title'><br>";
     formBookStart.innerHTML = content;
     divAddBook.insertBefore(formBookStart, divAddBook.childNodes[0]);
 //get all the genres</br>
