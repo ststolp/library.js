@@ -21,13 +21,13 @@ function requireLogin(req, res, next) {
 };
 
 function checkOut(req, response) {
-    let array = req.body.checkout;
+    const array = req.body.checkout;
     let query = "";
     let url =  `checkOut=true`;
-    count = 0;
+    cunt = 0;
     for (let index = 0; index < array.length; index++) {
         query = `INSERT INTO patron_book (patron_id, book_title, book_id, due_date, checked_out) VALUES ($3, (SELECT title FROM books WHERE book_id = $1), $2, (SELECT CURRENT_DATE + interval '30' day), (SELECT CURRENT_DATE))`;
-        let params = [array[index], array[index], req.session.user];
+        const params = [array[index], array[index], req.session.user];
         pool.query(query, params, function(error, res) {
             if (error) {
                 console.log(`There was an error: ${error}`);
@@ -49,8 +49,8 @@ function checkOut(req, response) {
 
 
 function getChecked(req, res) {
-    let user = req.session.user;
-    let book = req.query.book;
+    const user = req.session.user;
+    const book = req.query.book;
     queryChecked(book, user, function(error, result) {
         if (error || result == null) {
             res.status(500).json({success: false, data: error});
@@ -62,8 +62,8 @@ function getChecked(req, res) {
 }
 
 function queryChecked(book, user, callback) {
-    queryInserted = `SELECT patron_id, book_title, due_date, checked_out FROM patron_book WHERE book_id = $1 AND patron_id = $2`;
-    let params = [book, user];
+    const queryInserted = `SELECT patron_id, book_title, due_date, checked_out FROM patron_book WHERE book_id = $1 AND patron_id = $2`;
+    const params = [book, user];
     pool.query(queryInserted, params, function(error, res) {
     if (error) {
         console.log("There was an error" + error);
@@ -100,7 +100,6 @@ function getAllBooks(callback_lib) {
 function searchLibrary(req, response) {
     const method = req.query.method;
     const search = "%" + req.query.search + "%";
-    
     getBooks(method, search, function(error, result) {
               if (error || result == null) {
 			response.status(500).json({success: false, data: error});
@@ -147,7 +146,7 @@ function getAuthors(req, res) {
 }
 
 function queryAuthors(callback) {
-    let query = "SELECT author_id, fname, lname FROM author";
+    const query = "SELECT author_id, fname, lname FROM author";
       pool.query(query, function(error, response) {
        if(error) {
            console.log("There was an error: " + error);
@@ -170,7 +169,7 @@ function getGenres(req, res) {
 }
 
 function queryGenres(callback) {
-   let query = "SELECT genre_id, genre FROM genre";
+   const query = "SELECT genre_id, genre FROM genre";
    pool.query(query, function(error, response) {
        if(error) {
            console.log("There was an error: " + error);
@@ -182,7 +181,7 @@ function queryGenres(callback) {
 }
 
 function addGenre(req, res) {
-    let genre = req.body.genre;
+    const genre = req.body.genre;
      postGenre(genre, function(error, result) {
         if (error || result == null) {
             console.log("failed to post genre: " + error);
@@ -195,10 +194,10 @@ function addGenre(req, res) {
 }
 
 function addBook(req, res) {
-    let title = req.body.title;
-    let author_id = req.body.author_id;
-    let year = req.body.year;
-    let publisher = req.body.publisher;
+    const title = req.body.title;
+    const author_id = req.body.author_id;
+    const year = req.body.year;
+    const publisher = req.body.publisher;
         postBook(title, author_id, year, publisher, function(error, result) {
         if (error || result == null) {
             console.log("failed to post book: " + error);
@@ -211,9 +210,9 @@ function addBook(req, res) {
 }
 
 function addAuthor(req, res) {
-    let fname = req.body.fname;
-    let lname = req.body.lname;
-    let genre_id = req.body.genre_id;
+    const fname = req.body.fname;
+    const lname = req.body.lname;
+    const genre_id = req.body.genre_id;
         postAuthor(fname, lname, genre_id, function(error, result) {
         if (error || result == null) {
             console.log("failed to post author: " + error);
@@ -226,7 +225,7 @@ function addAuthor(req, res) {
 }
 
 function postGenre(genre, callback) {
-    let query = "INSERT INTO genre (genre) VALUES ( $1 )";
+    const query = "INSERT INTO genre (genre) VALUES ( $1 )";
     params = [genre];
       pool.query(query, params, function(error, response) {
        if(error) {
@@ -239,8 +238,8 @@ function postGenre(genre, callback) {
 }
 
 function postBook(title, author_id, year, publisher, callback) {
-    let query = "INSERT INTO books (title, author_id, year, publisher) VALUES ( $1, $2, $3, $4)";
-    let params = [title, author_id, year, publisher];
+    const query = "INSERT INTO books (title, author_id, year, publisher) VALUES ( $1, $2, $3, $4)";
+    const params = [title, author_id, year, publisher];
       pool.query(query, params, function(error, response) {
        if(error) {
            console.log("There was an error: " + error);
@@ -253,8 +252,8 @@ function postBook(title, author_id, year, publisher, callback) {
 
 function postAuthor(fname, lname, genre_id, callback) {
     console.log("The value of genre_id is: " + genre_id);
-    let query = "INSERT INTO author (genre_id, fname, lname) VALUES ( $1, $2, $3 )";
-    let params = [genre_id, fname, lname];
+    const query = "INSERT INTO author (genre_id, fname, lname) VALUES ( $1, $2, $3 )";
+    const params = [genre_id, fname, lname];
       pool.query(query, params, function(error, response) {
        if(error) {
            console.log("There was an error: " + error);
@@ -277,8 +276,8 @@ function getMyBooks(req, res) {
 }
 
 function queryMyBooks(user_id, callback) {
-    let query = "SELECT book_title, due_date, checked_out FROM patron_book WHERE patron_id = $1";
-    let param = [user_id];
+    const query = "SELECT book_title, due_date, checked_out FROM patron_book WHERE patron_id = $1";
+    const param = [user_id];
     pool.query(query, param, function(error, response) {
          if(error) {
            console.log("There was an error: " + error);
@@ -357,8 +356,8 @@ function signIn(req, res) {
 }
 
 function getId(username, callback) {
-    let query = "SELECT patron_id FROM patron WHERE username = $1";
-    let param = [username];
+    const query = "SELECT patron_id FROM patron WHERE username = $1";
+    const param = [username];
     pool.query(query, param, function(error, response) {
         if(error) {
             console.log("There was an error: " + error);
@@ -370,8 +369,8 @@ function getId(username, callback) {
     });
 }
 function getHashed(username, callback) {
-    let query = "SELECT password FROM patron WHERE username = $1";
-    let param = [username];
+    const query = "SELECT password FROM patron WHERE username = $1";
+    const param = [username];
     pool.query(query, param, function(error, response) {
         if(error) {
             console.log("There was an error: " + error);
@@ -384,8 +383,8 @@ function getHashed(username, callback) {
 }
 
 function postUser(username, password, callback) {
-    let query = "INSERT INTO patron(username, password) VALUES ($1, $2) RETURNING patron_id";
-    let param = [username, password];
+    const query = "INSERT INTO patron(username, password) VALUES ($1, $2) RETURNING patron_id";
+    const param = [username, password];
     pool.query(query, param, function(error, response) {
         if(error) {
             console.log("There was an error: " + error);
