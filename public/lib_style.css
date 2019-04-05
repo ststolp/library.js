@@ -19,6 +19,7 @@ body {
 label {
     color: rgb(29, 28, 28);
     font-family: Verdana;
+      white-space: pre;
 }
 
 .top {

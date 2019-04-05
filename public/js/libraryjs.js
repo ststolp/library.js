@@ -168,10 +168,10 @@ function fill(array, divBooks) {
     divAddBook.insertBefore(formBookStart, divAddBook.childNodes[0]);
 //get all the genres</br>
     let authorName = document.createElement('p');
-    authorName.innerHTML = '<h3>Add Author</h3><label>First Name </label><br><input type="text" name="fname"><label>Last Name </label><br><input type="text" name="lname">';
+    authorName.innerHTML = '<h3>Add Author</h3><label>First Name </label><input type="text" name="fname"><br><label>Last Name </label><input type="text" name="lname">';
     divAuthor.insertBefore(authorName, divAuthor.childNodes[0]);
     let authorSubmit = document.createElement('p');
-    authorSubmit.innerHTML = "<input type='submit' value='Add Author'>";
+    authorSubmit.innerHTML = "<br><input type='submit' value='Add Author'>";
     divAuthor.insertBefore(authorSubmit, divAuthor.childNodes[2]);
     let request = new XMLHttpRequest();
     let target = "/get_genres"; 
@@ -208,8 +208,8 @@ function fill(array, divBooks) {
             }
         }
     }
-	let more = '<label>year</label><input type="date" name="year"><br><label>Publisher</label>';
-    more += '<input type="text" name="publisher"><br><input type="submit" class="button" value="Add Book">';
+	let more = '<label>Year </label><input type="date" name="year"><br><label>Publisher</label>';
+    more += '<input type="text" name="publisher"><br><br><input type="submit" class="button" value="Add Book">';
     let bookAddButton = document.createElement('p');
     bookAddButton.innerHTML = more;
     divAddBook.insertBefore(bookAddButton, divAddBook.childNodes[3]);
