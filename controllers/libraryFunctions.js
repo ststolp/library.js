@@ -1,6 +1,9 @@
 const { Pool } = require("pg");
 const connectionString = process.env.DATABASE_URL;
 const pool = Pool({connectionString: connectionString});
+const bodyParser = require('body-parser');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 function redirectUser(req, res) {
     req.headers['if-none-match'] = 'no-match-for-this';
