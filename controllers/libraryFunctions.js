@@ -146,7 +146,7 @@ function getAuthors(req, res) {
 }
 
 function queryAuthors(callback) {
-    const query = "SELECT author_id, fname, lname FROM author";
+    const query = "SELECT author_id, fname, lname FROM author ORDER BY lname";
       pool.query(query, function(error, response) {
        if(error) {
            console.log("There was an error: " + error);
@@ -169,7 +169,7 @@ function getGenres(req, res) {
 }
 
 function queryGenres(callback) {
-   const query = "SELECT genre_id, genre FROM genre";
+   const query = "SELECT genre_id, genre FROM genre ORDER BY genre";
    pool.query(query, function(error, response) {
        if(error) {
            console.log("There was an error: " + error);
