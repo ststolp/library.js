@@ -16,6 +16,10 @@ body {
     padding: 2%;
 }
 
+label {
+    color: rgb(29, 28, 28);
+    font-family: Verdana;
+}
 
 .top button {
      background-color: rgb(71, 63, 184);
@@ -35,6 +39,7 @@ body {
 .top button.active {
     background-color: rgb(121, 190, 190);
 }
+
 p {
     font-family: Verdana, sans-serif;
     color: rgb(54, 71, 71);
@@ -56,7 +61,4 @@ h3 {
     font-family: Helvetica, sans-serif;
 }
 
-form {
-
-}
 
