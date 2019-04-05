@@ -1,3 +1,7 @@
+const { Pool } = require("pg");
+const connectionString = process.env.DATABASE_URL;
+const pool = Pool({connectionString: connectionString});
+
 function redirectUser(req, res) {
     req.headers['if-none-match'] = 'no-match-for-this';
     res.status(200).redirect('home_library.html');
