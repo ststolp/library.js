@@ -21,6 +21,13 @@ label {
     font-family: Verdana;
 }
 
+.top {
+    list-style-type: none;
+     margin: 0;
+     padding: 0;
+     overflow: hidden;
+}
+
 .top button {
      background-color: rgb(71, 63, 184);
     float: left;
