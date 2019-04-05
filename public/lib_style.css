@@ -59,6 +59,9 @@ h3 {
     white-space: pre;
 }
 
+#content {
+    padding-right: 5%;
+}
 .button {
     background-color: rgb(190, 157, 10);
     border: none;
