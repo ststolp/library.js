@@ -1,0 +1,81 @@
+body {
+    margin: 0;
+}
+
+.header {
+   background-color: rgb(58, 91, 238);
+   color: white;
+   font-family: Helvetica;
+   padding: 4%;
+   text-shadow: 2px 2px 1px #eeca01;
+}
+
+.footer {
+    background-color: rgb(58, 91, 238);
+    color: white;
+    font-family: Helvetica;
+    padding: 2%;
+}
+
+label {
+    color: rgb(29, 28, 28);
+    font-family: Verdana;
+      white-space: pre;
+}
+
+input {
+    border-radius: 10px;
+}
+.top {
+    list-style-type: none;
+     margin: 0;
+     padding: 0;
+     overflow: hidden;
+        background-color: rgb(71, 63, 184);
+}
+
+.top button {
+     background-color: rgb(71, 63, 184);
+    float: left;
+    color: rgb(177, 231, 231);
+    text-align: center;
+    padding: 1%;
+    display: block;
+    overflow: hidden;
+    text-decoration: none;
+    border: none;
+}
+
+.top button:hover {
+    background-color: rgb(143, 136, 136);
+}
+
+.top button.active {
+    background-color: rgb(121, 190, 190);
+}
+
+p {
+    font-family: Verdana, sans-serif;
+    color: rgb(54, 71, 71);
+    white-space: pre;
+}
+
+h3 {
+    white-space: pre;
+}
+
+#content {
+    margin-left: 5%;
+}
+.button {
+    background-color: rgb(190, 157, 10);
+    border: none;
+    color: rgb(241, 226, 158);
+    padding: 0.5%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-family: Helvetica, sans-serif;
+}
+
+
