@@ -58,8 +58,8 @@ function Register() {
     hideTags();
     document.getElementById("signButton").innerHTML = "Sign In";
     eraseForms();
-    let html = "<form action='/add_user' method='post'><h2>Sign Up</h2><br><label>Username</label><input type='text' name='username' placeholder='username...'>";
-    html += "<label>Password</label><input name='password' type='password' placeholder='enter password...'><input type='submit' value='Register' onclick='buttonSignIn()'></form>";
+    let html = "<form action='/add_user' method='post'><h2>Sign Up</h2><br><label>Username</label><input type='text' name='username' placeholder='username...' required>";
+    html += "<label>Password</label><input name='password' type='password' placeholder='enter password...' required><input type='submit' value='Register' onclick='buttonSignIn()'></form>";
     document.getElementById("books").innerHTML = html;
 }
 
@@ -92,8 +92,8 @@ function signIn() {
        let InorOut = document.getElementById('signButton');
        let html = "";
        if (InorOut.innerHTML == "Sign In") {
-        html = "<form action='/sign_in' method='get'><h2>Sign In</h2><br><label>Username</label><input type='text' name='username' placeholder='username...'>";
-        html += "<label>Password</label><input name='password' type='password' placeholder='enter password...'><input type='submit' value='Sign In' onclick='changeButton()'></form>";
+        html = "<form action='/sign_in' method='get'><h2>Sign In</h2><br><label>Username</label><input type='text' name='username' placeholder='username...' required>";
+        html += "<label>Password</label><input name='password' type='password' placeholder='enter password...' required><input type='submit' value='Sign In' onclick='changeButton()'></form>";
 
         } else {
             let request = new XMLHttpRequest();
@@ -163,12 +163,12 @@ function fill(array, divBooks) {
     let wholeForm = formStart + books + button;
     divBooks.innerHTML = wholeForm;
    let formBookStart = document.createElement('p');
-    content = "<label>Title </label><input type='text' name='title'><br>";
+    content = "<label>Title </label><input type='text' name='title' required><br>";
     formBookStart.innerHTML = content;
     divAddBook.insertBefore(formBookStart, divAddBook.childNodes[0]);
 //get all the genres</br>
     let authorName = document.createElement('p');
-    authorName.innerHTML = '<h3>Add Author</h3><label>First Name </label><input type="text" name="fname"><br><br><label>Last Name </label><input type="text" name="lname">';
+    authorName.innerHTML = '<h3>Add Author</h3><label>First Name </label><input type="text" name="fname" required><br><br><label>Last Name </label><input type="text" name="lname" required>';
     divAuthor.insertBefore(authorName, divAuthor.childNodes[0]);
     let authorSubmit = document.createElement('p');
     authorSubmit.innerHTML = "<input type='submit' value='Add Author'>";
@@ -208,8 +208,8 @@ function fill(array, divBooks) {
             }
         }
     }
-let more = '<label>Year </label><input type="date" name="year"><br><br><label>Publisher </label>';
-    more += '<input type="text" name="publisher"><br><br><input type="submit" class="button" value="Add Book">';
+let more = '<label>Year </label><input type="date" name="year" required><br><br><label>Publisher </label>';
+    more += '<input type="text" name="publisher" required><br><br><input type="submit" class="button" value="Add Book">';
     let bookAddButton = document.createElement('p');
     bookAddButton.innerHTML = more;
     divAddBook.insertBefore(bookAddButton, divAddBook.childNodes[3]);
