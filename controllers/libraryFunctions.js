@@ -20,6 +20,7 @@ function requireLogin(req, res, next) {
   }
 };
 
+//  checkOut puts books onto the users account
 function checkOut(req, response) {
     const array = req.body.checkout;
     let query = "";
@@ -47,7 +48,8 @@ function checkOut(req, response) {
     }
 }
 
-
+/*  getChecked is called to retrieve a book that the client checked out 
+    to form the receipt.  */
 function getChecked(req, res) {
     const user = req.session.user;
     const book = req.query.book;
@@ -146,7 +148,7 @@ function getAuthors(req, res) {
 }
 
 function queryAuthors(callback) {
-    const query = "SELECT author_id, fname, lname FROM author";
+    const query = "SELECT author_id, fname, lname FROM author ORDER BY lname";
       pool.query(query, function(error, response) {
        if(error) {
            console.log("There was an error: " + error);
@@ -169,7 +171,7 @@ function getGenres(req, res) {
 }
 
 function queryGenres(callback) {
-   const query = "SELECT genre_id, genre FROM genre";
+   const query = "SELECT genre_id, genre FROM genre ORDER BY genre";
    pool.query(query, function(error, response) {
        if(error) {
            console.log("There was an error: " + error);
@@ -276,6 +278,7 @@ function postAuthor(fname, lname, genre_id, callback) {
    });
 }
 
+// getMyBooks retrieves all of the books currently on the user's account
 function getMyBooks(req, res) {
     queryMyBooks(req.session.user, function(error, result) {
        if (error || result == null) {
@@ -309,7 +312,6 @@ function register(req, res) {
             console.log(err);
         } else {
             bcrypt.hash(password, salt, function(err, hash) {
-              // Store hash in your password DB.
                 if (err) {
                     console.log(err);
                 }
