@@ -1,7 +1,7 @@
 function myBooks() {   
     eraseForms();
     hideTags();
-    let target = `/get_myBooks`;
+    const target = `/get_myBooks`;
     let request = new XMLHttpRequest();
     request.open("GET", target);
     request.send();
@@ -22,8 +22,9 @@ function myBooks() {
 	}
 }
 
+// Display the users books provided in the array
 function currentBooks(array, divBooks) {
-   let formStart = "<h2>Your Boooks</h2>";
+   const formStart = "<h2>Your Boooks</h2>";
     let books = "";
     array.forEach(function(item) {
         let entry = `<p><b>${item.book_title}</b><p>`;
@@ -31,7 +32,7 @@ function currentBooks(array, divBooks) {
 	    entry += `<p>Due Date: ${item.due_date}`;
         books = books + entry;
     });
-    let wholeForm = formStart + books;
+    const wholeForm = formStart + books;
     divBooks.innerHTML = wholeForm;
 }
 
@@ -51,7 +52,7 @@ function home() {
 }
 
 function buttonSignIn() {
-     document.getElementById("signButton").innerHTML = "Sign In";
+    document.getElementById("signButton").innerHTML = "Sign In";
 }
 
 function Register() {
@@ -65,7 +66,7 @@ function Register() {
 
 function addUser() {
     let request = new XMLHttpRequest();
-    let target = "/add_user"; 
+    const target = "/add_user"; 
     request.open("POST", target);
     request.send();
 	   request.onreadystatechange = function(){
@@ -87,28 +88,21 @@ function changeButton() {
 }
 
 function signIn() {
-       hideTags();
-     eraseForms();
-       let InorOut = document.getElementById('signButton');
-       let html = "";
-       if (InorOut.innerHTML == "Sign In") {
+    hideTags();
+    eraseForms();
+    let InorOut = document.getElementById('signButton');
+    let html = "";
+    if (InorOut.innerHTML == "Sign In") {
         html = "<form action='/sign_in' method='get'><h2>Sign In</h2><br><label>Username</label><input type='text' name='username' placeholder='username...' required>";
         html += "<label>Password</label><input name='password' type='password' placeholder='enter password...' required><input type='submit' value='Sign In' onclick='changeButton()'></form>";
-
-        } else {
-            let request = new XMLHttpRequest();
-            let target = "/sign_out"; 
-            request.open("GET", target);
-            request.send();
-	        request.onreadystatechange = function(){
-		        if(request.readyState == 4){
-			         if(request.status == 200){
-                    }  
-                }
-            }
-          InorOut.innerHTML = "Sign In";
-          html = "<h2>Please come again!</h2>";
-        }
+    } else {
+        let request = new XMLHttpRequest();
+        const target = "/sign_out"; 
+        request.open("GET", target);
+        request.send();
+        InorOut.innerHTML = "Sign In";
+        html = "<h2>Please come again!</h2>";
+    }
     document.getElementById("books").innerHTML = html;
 }
 
@@ -140,17 +134,17 @@ function printAuthors(array, subdiv) {
 
 
 function fill(array, divBooks) {
-     document.getElementById("AddBookHeader").style.visibility = "visible";
-     document.getElementById("addGenre").style.visibility = "visible";
-      document.getElementById("LibHead").style.visibility = "visible";
-     document.getElementById("searchDiv").style.visibility = "visible";
-        document.getElementById("seeBookHead").style.visibility = "visible";
+    document.getElementById("AddBookHeader").style.visibility = "visible";
+    document.getElementById("addGenre").style.visibility = "visible";
+    document.getElementById("LibHead").style.visibility = "visible";
+    document.getElementById("searchDiv").style.visibility = "visible";
+    document.getElementById("seeBookHead").style.visibility = "visible";
     let divAuthor = document.getElementById('addAuthor');
     let divAddBook = document.getElementById('addBook');
     divAddBook.innerHTML = "";
     divAuthor.innerHTML = "";
     divBooks.innerHTML = "";
-    let formStart = "<form action='/check_out' method='post'>";
+    const formStart = "<form action='/check_out' method='post'>";
     let books = "";
     array.forEach(function(item) {
         let entry = `<p><b>${item.title}</b> by ${item.fname} ${item.lname}</p>`;
@@ -159,14 +153,15 @@ function fill(array, divBooks) {
 	    entry += `<input type='checkbox' name='checkout[]' value='${item.book_id}'>`;
         books = books + entry;
     });
-    let button = '<br><input type="submit" class="button" value="Check Out"></form>';
-    let wholeForm = formStart + books + button;
+    const button = '<br><input type="submit" class="button" value="Check Out"></form>';
+    const wholeForm = formStart + books + button;
     divBooks.innerHTML = wholeForm;
-   let formBookStart = document.createElement('p');
-    content = "<label>Title </label><input type='text' name='title' required><br>";
+    let formBookStart = document.createElement('p');
+    const content = "<label>Title </label><input type='text' name='title' required><br>";
     formBookStart.innerHTML = content;
     divAddBook.insertBefore(formBookStart, divAddBook.childNodes[0]);
-//get all the genres</br>
+
+    //get all the genres</br>
     let authorName = document.createElement('p');
     authorName.innerHTML = '<h3>Add Author</h3><label>First Name </label><input type="text" name="fname" required><br><br><label>Last Name </label><input type="text" name="lname" required>';
     divAuthor.insertBefore(authorName, divAuthor.childNodes[0]);
@@ -174,10 +169,10 @@ function fill(array, divBooks) {
     authorSubmit.innerHTML = "<input type='submit' value='Add Author'>";
     divAuthor.insertBefore(authorSubmit, divAuthor.childNodes[2]);
     let request = new XMLHttpRequest();
-    let target = "/get_genres"; 
+    const target = "/get_genres"; 
     request.open("GET", target);
     request.send();
-	   request.onreadystatechange = function(){
+    request.onreadystatechange = function(){
 		console.log("on ready state function calling: " + request.readyState);
 		if(request.readyState == 4){
 			let genreP = document.createElement('p');
@@ -191,13 +186,13 @@ function fill(array, divBooks) {
         }
     }
 //get all authors
- let requestAuthor = new XMLHttpRequest();
-    let targetAuthor = "/get_authors"; 
+    let requestAuthor = new XMLHttpRequest();
+    const targetAuthor = "/get_authors"; 
     requestAuthor.open("GET", targetAuthor);
     requestAuthor.send();
        requestAuthor.onreadystatechange = function(){
 		if(requestAuthor.readyState == 4){
-			var authorP = document.createElement('p');
+			let authorP = document.createElement('p');
 			if(requestAuthor.status == 200){
                 console.log(requestAuthor.responseText);
                 let array = JSON.parse(requestAuthor.responseText);
@@ -208,7 +203,7 @@ function fill(array, divBooks) {
             }
         }
     }
-let more = '<label>Year </label><input type="date" name="year" required><br><br><label>Publisher </label>';
+    let more = '<label>Year </label><input type="date" name="year" required><br><br><label>Publisher </label>';
     more += '<input type="text" name="publisher" required><br><br><input type="submit" class="button" value="Add Book">';
     let bookAddButton = document.createElement('p');
     bookAddButton.innerHTML = more;
@@ -216,22 +211,22 @@ let more = '<label>Year </label><input type="date" name="year" required><br><br>
 }
 
 function searchLibrary() {
-    let method = document.getElementById('method').value;
-    let search = document.getElementById('search').value;
+    const method = document.getElementById('method').value;
+    const search = document.getElementById('search').value;
     let request = new XMLHttpRequest();
-    let target = "/search_library?method=" + method + "&search=" + search;
+    const target = "/search_library?method=" + method + "&search=" + search;
     request.open("GET", target);
     request.send();
-   let divBooks = document.getElementById('books');
+    let divBooks = document.getElementById('books');
     request.onreadystatechange = function(){
         if(request.readyState == 4){
-			var div = document.createElement('div');
+			let div = document.createElement('div');
 			if(request.status == 200){
-                let array = JSON.parse(request.responseText);
+                const array = JSON.parse(request.responseText);
                 if (array.length == 0) {
                     div.innerHTML = "<h3>No Results</h3>";
                 } else {
-                fill(array, div);
+                    fill(array, div);
                 }
 			}else{
 				div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
@@ -248,7 +243,7 @@ function getLibrary() {
     request.open("GET", target);
     request.send();
     console.log("sending request...");
-   let divBooks = document.getElementById('books');
+    let divBooks = document.getElementById('books');
     request.onreadystatechange = function(){
 		console.log("on ready state function calling: " + request.readyState);
 		if(request.readyState == 4){
@@ -266,31 +261,34 @@ function getLibrary() {
 }
 
 function hideTags() {
-               document.getElementById("AddBookHeader").style.visibility = "hidden";
-     document.getElementById("addGenre").style.visibility = "hidden";
-        document.getElementById("LibHead").style.visibility = "hidden";
-     document.getElementById("searchDiv").style.visibility = "hidden";
-        document.getElementById("seeBookHead").style.visibility = "hidden";
+    document.getElementById("AddBookHeader").style.visibility = "hidden";
+    document.getElementById("addGenre").style.visibility = "hidden";
+    document.getElementById("LibHead").style.visibility = "hidden";
+    document.getElementById("searchDiv").style.visibility = "hidden";
+    document.getElementById("seeBookHead").style.visibility = "hidden";
 }
 
 function getParams() {
-    let url = location.search.substring(1);
+    let signButton = document.getElementById("signButton");
+    const url = location.search.substring(1);
     if (!url) {
-        if (document.getElementById("signButton").innerHTML != "Sign Out") {
-            document.getElementById("signButton").innerHTML = "Sign In";
+        if (signButton.innerHTML != "Sign Out") {
+            signButton.innerHTML = "Sign In";
         }
         home();
-       return;
+        return;
     } else {
-        document.getElementById("signButton").innerHTML = "Sign Out";
+        signButton.innerHTML = "Sign Out";
     }
     let SignVariables = url.split('&');
     let SignVarArray = SignVariables[0].split('=');
     if (SignVarArray[0] == 'register') {
         hideTags();
-                document.getElementById("signButton").innerHTML = "Sign In";
+        signButton.innerHTML = "Sign In";
         let welcome = document.getElementById('books');
         welcome.innerHTML = "<h2>You have successfully registered. Feel free to sign in.</h2>";
+
+    // Display Check Out receipt    
     } else if (SignVarArray[0] == 'checkOut') {
         hideTags();
         let variables = url.split('&');
