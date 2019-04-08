@@ -344,7 +344,7 @@ function signIn(req, res) {
            bcrypt.compare(password, hash[0].password, function(err, response) {
                if (err) {
                    console.log(err);
-                   res.status(500).redirect(`home_library.html?login=false`);
+                   res.status(500).redirect(`home_library.html?false=false`);
                } else if (response) {
                    getId(username, function(error, res) {
                        if (error) {
@@ -362,7 +362,7 @@ function signIn(req, res) {
                    });
                   res.status(200).redirect(`home_library.html?login=true`);
                } else {
-                    res.status(500).redirect(`home_library.html?login=false`);
+                    res.status(500).redirect(`home_library.html?false=false`);
                }
            });
        }
