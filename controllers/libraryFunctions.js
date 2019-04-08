@@ -16,7 +16,7 @@ function requireLogin(req, res, next) {
       next();
   } else {
     console.log("user: " + req.session.user);
-    res.redirect('home_library.html?login=false');
+    res.status(200).json({SignIn: false});
   }
 };
 
@@ -280,9 +280,6 @@ function postAuthor(fname, lname, genre_id, callback) {
 
 // getMyBooks retrieves all of the books currently on the user's account
 function getMyBooks(req, res) {
-    if (!req.session.user) {
-        res.status(200).json({SignIn: false});
-    }
     queryMyBooks(req.session.user, function(error, result) {
        if (error || result == null) {
            console.log("failed to get books " + error);
