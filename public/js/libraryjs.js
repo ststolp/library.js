@@ -284,8 +284,6 @@ function getParams() {
     let SignVarArray = SignVariables[0].split('=');
     if (SignVarArray[0] == 'register') {
         hideTags();
-        // if (signButton.innerHTML != "Sign Out")
-        // signButton.innerHTML = "Sign In";
         let welcome = document.getElementById('books');
         welcome.innerHTML = "<h2>You have successfully registered. Feel free to sign in.</h2>";
     } else if (SignVarArray[0] == 'false') {
