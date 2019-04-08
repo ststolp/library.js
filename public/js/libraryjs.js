@@ -12,7 +12,11 @@ function myBooks() {
 			var div = document.createElement('div');
 			if(request.status == 200){
                 let array = JSON.parse(request.responseText);
-                currentBooks(array, div);
+                if (!array.SignIn) {
+                    div.innerHTML = "<h3>Please Sign In</h3>";
+                } else {
+                    currentBooks(array, div);
+                }
 			}else{
 				div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
             }
