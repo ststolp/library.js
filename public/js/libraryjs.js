@@ -287,7 +287,11 @@ function getParams() {
         signButton.innerHTML = "Sign In";
         let welcome = document.getElementById('books');
         welcome.innerHTML = "<h2>You have successfully registered. Feel free to sign in.</h2>";
-
+     } else if (SignVarArray[0] == 'false') {
+        // wrong password or username
+        hideTags();
+        signButton.innerHTML = "Sign In";
+        document.getElementById('books').innerHTML = "<h3>Incorrect username or password</h3>";
     // Display Check Out receipt    
     } else if (SignVarArray[0] == 'checkOut') {
         hideTags();
