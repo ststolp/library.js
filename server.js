@@ -2,14 +2,7 @@ const http = require('http');
 const express = require('express');
 const controller = require("./controllers/libraryFunctions.js");
 const session = require('express-session');
-// const bodyParser = require('body-parser');
-// const bcrypt = require('bcrypt');
-//const { Pool } = require("pg");
 const app = express();
-// const saltRounds = 10;
-
-// const connectionString = process.env.DATABASE_URL;
-// const pool = Pool({connectionString: connectionString});
 
 app.use(session({
   name: 'server-session-cookie-id',
