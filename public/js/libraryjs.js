@@ -24,7 +24,7 @@ function myBooks() {
 
 // Display the users books provided in the array
 function currentBooks(array, divBooks) {
-   const formStart = "<h2>Your Boooks</h2>";
+   const formStart = "<h2>My Boooks</h2>";
     let books = "";
     array.forEach(function(item) {
         let entry = `<p><b>${item.book_title}</b><p>`;
