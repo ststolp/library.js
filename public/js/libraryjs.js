@@ -59,7 +59,7 @@ function Register() {
     hideTags();
     document.getElementById("signButton").innerHTML = "Sign In";
     eraseForms();
-    let html = "<form action='/add_user' method='post'><h2>Sign Up</h2><br><label>Username</label><input type='text' name='username' placeholder='username...' required>";
+    let html = "<form action='/add_user' method='post'><h2>Sign Up</h2><br><label>Username</label><input type='text' name='username' placeholder='username...' required><br>";
     html += "<label>Password</label><input name='password' type='password' placeholder='enter password...' required><input type='submit' value='Register' onclick='buttonSignIn()'></form>";
     document.getElementById("books").innerHTML = html;
 }
@@ -93,7 +93,7 @@ function signIn() {
     let InorOut = document.getElementById('signButton');
     let html = "";
     if (InorOut.innerHTML == "Sign In") {
-        html = "<form action='/sign_in' method='get'><h2>Sign In</h2><br><label>Username</label><input type='text' name='username' placeholder='username...' required>";
+        html = "<form action='/sign_in' method='get'><h2>Sign In</h2><br><label>Username</label><input type='text' name='username' placeholder='username...' required><br>";
         html += "<label>Password</label><input name='password' type='password' placeholder='enter password...' required><input type='submit' value='Sign In' onclick='changeButton()'></form>";
     } else {
         let request = new XMLHttpRequest();
