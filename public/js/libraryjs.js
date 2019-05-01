@@ -215,7 +215,7 @@ function fill(array, divBooks) {
 			if(request.status == 200){
                 let array = JSON.parse(request.responseText);
                 printGenres(array, genreP);
-                divAddBook.insertBefore(authorP, divAddBook.childNodes[2]);
+                divAddBook.insertBefore(genreP, divAddBook.childNodes[2]);
 			}else{
 				div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
             }
