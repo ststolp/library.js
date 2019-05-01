@@ -120,7 +120,7 @@ function getBooks(method, search, callback) {
        } else if (method == 'title') {
 		query = "SELECT b.book_id, b.title, a.fname, a.lname, b.year, b.publisher FROM books b INNER JOIN author a ON b.author_id = a.author_id WHERE b.title LIKE $1 ORDER BY b.title";	
 	   } else if (method == 'genre') {
-       	query = "SELECT b.book_id, b.title, a.fname, a.lname, b.year, b.publisher FROM books b INNER JOIN author a ON b.author_id = a.author_id INNER JOIN genre g ON a.genre_id = g.genre_id WHERE g.genre LIKE $1 ORDER BY b.title";
+       	query = "SELECT b.book_id, b.title, a.fname, a.lname, b.year, b.publisher FROM books b INNER JOIN author a ON b.author_id = a.author_id INNER JOIN genre g ON b.genre_id = g.genre_id WHERE g.genre LIKE $1 ORDER BY b.title";
        } else {
 	     query = "SELECT b.book_id, b.title, a.fname, a.lname, b.year, b.publisher FROM books b INNER JOIN author a ON b.author_id = a.author_id WHERE b.title LIKE $1 ORDER BY b.title";
        }
@@ -205,7 +205,8 @@ function addBook(req, res) {
         const author_id = req.body.author_id;
         const year = req.body.year;
         const publisher = req.body.publisher;
-            postBook(title, author_id, year, publisher, function(error, result) {
+        const genre_id = req.body.genre_id;
+            postBook(title, author_id, year, publisher, genre_id, function(error, result) {
             if (error || result == null) {
                 console.log("failed to post book: " + error);
             } else {
@@ -223,8 +224,7 @@ function addAuthor(req, res) {
     if(req.session.user) {
         const fname = req.body.fname;
         const lname = req.body.lname;
-        const genre_id = req.body.genre_id;
-            postAuthor(fname, lname, genre_id, function(error, result) {
+            postAuthor(fname, lname, function(error, result) {
             if (error || result == null) {
                 console.log("failed to post author: " + error);
             } else {
@@ -251,9 +251,9 @@ function postGenre(genre, callback) {
    });
 }
 
-function postBook(title, author_id, year, publisher, callback) {
-    const query = "INSERT INTO books (title, author_id, year, publisher) VALUES ( $1, $2, $3, $4)";
-    const params = [title, author_id, year, publisher];
+function postBook(title, author_id, year, publisher, genre_id, callback) {
+    const query = "INSERT INTO books (title, author_id, year, publisher, genre_id) VALUES ( $1, $2, $3, $4, $5)";
+    const params = [title, author_id, year, publisher, genre_id];
       pool.query(query, params, function(error, response) {
        if(error) {
            console.log("There was an error: " + error);
@@ -264,10 +264,10 @@ function postBook(title, author_id, year, publisher, callback) {
    });
 }
 
-function postAuthor(fname, lname, genre_id, callback) {
+function postAuthor(fname, lname, callback) {
     console.log("The value of genre_id is: " + genre_id);
-    const query = "INSERT INTO author (genre_id, fname, lname) VALUES ( $1, $2, $3 )";
-    const params = [genre_id, fname, lname];
+    const query = "INSERT INTO author (fname, lname) VALUES ( $1, $2)";
+    const params = [fname, lname];
       pool.query(query, params, function(error, response) {
        if(error) {
            console.log("There was an error: " + error);

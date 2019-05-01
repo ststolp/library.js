@@ -168,23 +168,23 @@ function fill(array, divBooks) {
     let authorSubmit = document.createElement('p');
     authorSubmit.innerHTML = "<input type='submit' value='Add Author'>";
     divAuthor.insertBefore(authorSubmit, divAuthor.childNodes[2]);
-    let request = new XMLHttpRequest();
-    const target = "/get_genres"; 
-    request.open("GET", target);
-    request.send();
-    request.onreadystatechange = function(){
-		console.log("on ready state function calling: " + request.readyState);
-		if(request.readyState == 4){
-			let genreP = document.createElement('p');
-			if(request.status == 200){
-                let array = JSON.parse(request.responseText);
-                printGenres(array, genreP);
-                divAuthor.insertBefore(genreP, divAuthor.childNodes[1]);
-			}else{
-				div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
-            }
-        }
-    }
+    // let request = new XMLHttpRequest();
+    // const target = "/get_genres"; 
+    // request.open("GET", target);
+    // request.send();
+    // request.onreadystatechange = function(){
+	// 	console.log("on ready state function calling: " + request.readyState);
+	// 	if(request.readyState == 4){
+	// 		let genreP = document.createElement('p');
+	// 		if(request.status == 200){
+    //             let array = JSON.parse(request.responseText);
+    //             printGenres(array, genreP);
+    //             divAuthor.insertBefore(genreP, divAuthor.childNodes[1]);
+	// 		}else{
+	// 			div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
+    //         }
+    //     }
+    // }
 //get all authors
     let requestAuthor = new XMLHttpRequest();
     const targetAuthor = "/get_authors"; 
@@ -200,6 +200,24 @@ function fill(array, divBooks) {
                 divAddBook.insertBefore(authorP, divAddBook.childNodes[1]);
 			}else{
 				div.appendChild(document.createTextNodeJSON.stringify(ERROR));
+            }
+        }
+    }
+
+        let request = new XMLHttpRequest();
+    const target = "/get_genres"; 
+    request.open("GET", target);
+    request.send();
+    request.onreadystatechange = function(){
+		console.log("on ready state function calling: " + request.readyState);
+		if(request.readyState == 4){
+			let genreP = document.createElement('p');
+			if(request.status == 200){
+                let array = JSON.parse(request.responseText);
+                printGenres(array, genreP);
+                divAddBook.insertBefore(authorP, divAddBook.childNodes[2]);
+			}else{
+				div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
             }
         }
     }
