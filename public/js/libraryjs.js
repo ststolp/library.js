@@ -112,7 +112,7 @@ function printGenres(array, subdiv) {
         let choice = "<h3>Select Genre</h3>";
         array.forEach(function(item) {
             let emt = document.createElement('p');
-            choice += `<option value='${item.genre_id}'>${item.genre}</option>`
+            choice += `<option value='${item.genre_id}'>${item.genre}</option>`;
             // choice += `<label>${item.genre}</label>`;
             // choice += `<input type='radio' name='genre_id' value='${item.genre_id}'><br>`;
             emt.innerHTML = choice;
@@ -126,11 +126,12 @@ function printAuthors(array, subdiv) {
         let choice = "<h3>Select Author</h3>";
         array.forEach(function(item) {
             let emt = document.createElement('p');
-            choice += `<label>${item.fname} ${item.lname}</label>`;
-            choice += `<input type='radio' name="author_id" value='${item.author_id}'><br>`;
+            choice += `<option value='${item.author_id}'>${item.fname} ${item.lname}</option`;
+            // choice += `<label>${item.fname} ${item.lname}</label>`;
+            // choice += `<input type='radio' name="author_id" value='${item.author_id}'><br>`;
             emt.innerHTML = choice;
         });
-        subdiv.innerHTML = choice;
+        subdiv.innerHTML = "<select>" + choice + "</select>";
     }
 }
 
