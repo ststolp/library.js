@@ -112,8 +112,6 @@ function printGenres(array, subdiv) {
         let choice = "";
         array.forEach(function(item) {
             choice += `<option value='${item.genre_id}'>${item.genre}</option>`;
-            // choice += `<label>${item.genre}</label>`;
-            // choice += `<input type='radio' name='genre_id' value='${item.genre_id}'><br>`;
         });
         subdiv.innerHTML = "<h3>Select Genre</h3><select>" + choice + "</select>";
     }
@@ -124,8 +122,6 @@ function printAuthors(array, subdiv) {
         let choice = "";
         array.forEach(function(item) {
             choice += `<option value='${item.author_id}'>${item.fname} ${item.lname}</option>`;
-            // choice += `<label>${item.fname} ${item.lname}</label>`;
-            // choice += `<input type='radio' name="author_id" value='${item.author_id}'><br>`;
         });
         subdiv.innerHTML = "<h3>Select Author</h3><select>" + choice + "</select>";
     }
@@ -167,23 +163,6 @@ function fill(array, divBooks) {
     let authorSubmit = document.createElement('p');
     authorSubmit.innerHTML = "<input type='submit' value='Add Author'>";
     divAuthor.insertBefore(authorSubmit, divAuthor.childNodes[2]);
-    // let request = new XMLHttpRequest();
-    // const target = "/get_genres"; 
-    // request.open("GET", target);
-    // request.send();
-    // request.onreadystatechange = function(){
-	// 	console.log("on ready state function calling: " + request.readyState);
-	// 	if(request.readyState == 4){
-	// 		let genreP = document.createElement('p');
-	// 		if(request.status == 200){
-    //             let array = JSON.parse(request.responseText);
-    //             printGenres(array, genreP);
-    //             divAuthor.insertBefore(genreP, divAuthor.childNodes[1]);
-	// 		}else{
-	// 			div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
-    //         }
-    //     }
-    // }
 //get all authors
     let requestAuthor = new XMLHttpRequest();
     const targetAuthor = "/get_authors"; 

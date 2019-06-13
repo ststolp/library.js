@@ -306,6 +306,9 @@ function queryMyBooks(user_id, callback) {
 function register(req, res) {
     const username = req.body.username;
     const password = req.body.password;
+    const librarian = req.body.librarian;
+    const isLibrarian = librarian.checked;
+    console.log("isLibrarian: " + isLibrarian);
     console.log("Password: " + password);
     bcrypt.genSalt(saltRounds, function(err, salt) {
         if (err) {
@@ -315,7 +318,7 @@ function register(req, res) {
                 if (err) {
                     console.log(err);
                 }
-                postUser(username, hash, function(error, result) {
+            postUser(username, hash, isLibrarian, function(error, result) {
                     if (error || result == null) {  
                         console.log("failed to get books " + error);
                     } else {
@@ -396,9 +399,9 @@ function getHashed(username, callback) {
     });
 }
 
-function postUser(username, password, callback) {
-    const query = "INSERT INTO patron(username, password) VALUES ($1, $2) RETURNING patron_id";
-    const param = [username, password];
+function postUser(username, password, isLibrarian, callback) {
+    const query = "INSERT INTO patron(username, password, librarian) VALUES ($1, $2, $3) RETURNING patron_id";
+    const param = [username, password, isLibrarian];
     pool.query(query, param, function(error, response) {
         if(error) {
             console.log("There was an error: " + error);
