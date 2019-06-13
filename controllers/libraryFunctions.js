@@ -306,7 +306,7 @@ function queryMyBooks(user_id, callback) {
 function register(req, res) {
     const username = req.body.username;
     const password = req.body.password;
-    const librarian = req.body.librarian;
+    const librarian = Boolean(req.body.librarian);
     const isLibrarian = librarian.checked;
     console.log("isLibrarian: " + isLibrarian);
     console.log("Password: " + password);
