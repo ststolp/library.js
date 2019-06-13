@@ -59,7 +59,7 @@ function Register() {
     hideTags();
     document.getElementById("signButton").innerHTML = "Sign In";
     eraseForms();
-    let html = "<form action='/add_user' method='post'><h2>Sign Up</h2><br><label>Username</label><input type='text' name='username' placeholder='username...' required><br><br>";
+    let html = "<form action='/add_user' method='post'><h2>Create New Account</h2><br><label>Username</label><input type='text' name='username' placeholder='username...' required><br><br>";
     html += "<label>Password</label><input name='password' type='password' placeholder='enter password...' required><br><br>";
     html += "<label>Confirm Password</label><input type='password' name='confirm' placeholder='confirm password...' required><br><br><label>I'm a Librarian</label><input type='checkbox' name='librarian'><br><br><input type='submit' value='Register' onclick='buttonSignIn()'></form>";
     document.getElementById("books").innerHTML = html;
@@ -95,7 +95,7 @@ function signIn() {
     let html = "";
     if (InorOut.innerHTML == "Sign In") {
         html = "<form action='/sign_in' method='get'><h2>Sign In</h2><br><label>Username</label><input type='text' name='username' placeholder='username...' required><br><br>";
-        html += "<label>Password</label><input name='password' type='password' placeholder='enter password...' required><input type='submit' value='Sign In' onclick='changeButton()'></form>";
+        html += "<label>Password</label><input name='password' type='password' placeholder='enter password...' required><br><br><input type='submit' value='Sign In' onclick='changeButton()'></form>";
     } else {
         let request = new XMLHttpRequest();
         const target = "/sign_out"; 
@@ -112,11 +112,12 @@ function printGenres(array, subdiv) {
         let choice = "<h3>Select Genre</h3>";
         array.forEach(function(item) {
             let emt = document.createElement('p');
-            choice += `<label>${item.genre}</label>`;
-            choice += `<input type='radio' name='genre_id' value='${item.genre_id}'><br>`;
+            choice += `<option value='${item.genre_id}'>${item.genre}</option>`
+            // choice += `<label>${item.genre}</label>`;
+            // choice += `<input type='radio' name='genre_id' value='${item.genre_id}'><br>`;
             emt.innerHTML = choice;
         });
-        subdiv.innerHTML = choice;
+        subdiv.innerHTML = "<select>" + choice + "</select";
     }
 }
 
