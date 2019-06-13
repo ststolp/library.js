@@ -60,7 +60,8 @@ function Register() {
     document.getElementById("signButton").innerHTML = "Sign In";
     eraseForms();
     let html = "<form action='/add_user' method='post'><h2>Sign Up</h2><br><label>Username</label><input type='text' name='username' placeholder='username...' required><br><br>";
-    html += "<label>Password</label><input name='password' type='password' placeholder='enter password...' required><input type='submit' value='Register' onclick='buttonSignIn()'></form>";
+    html += "<label>Password</label><input name='password' type='password' placeholder='enter password...' required><br><br>";
+    html += "<label>Confirm Password</label><input type='password' name='confirm' placeholder='confirm password...' required><br><br><label>I'm a Librarian</label><input type='checkbox' name='librarian'><br><br><input type='submit' value='Register' onclick='buttonSignIn()'></form>";
     document.getElementById("books").innerHTML = html;
 }
 
