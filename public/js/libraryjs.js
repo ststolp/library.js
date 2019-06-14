@@ -35,7 +35,7 @@ function currentBooks(array, divBooks) {
         books = books + entry;
     });
         wholeForm = formStart + books;
-    } catch {
+    } catch(err) {
         signIn();
         alert("Please Sign In");
         return;
@@ -96,6 +96,7 @@ function changeButton() {
 }
 
 function signIn() {
+    alert("ind signin()");
     hideTags();
     eraseForms();
     let InorOut = document.getElementById('signButton');
@@ -112,6 +113,7 @@ function signIn() {
         html = "<h2>Please come again!</h2>";
     }
     document.getElementById("books").innerHTML = html;
+    alert("end of signIn()");
 }
 
 function printGenres(array, subdiv) {
