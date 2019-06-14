@@ -12,7 +12,9 @@ function myBooks() {
 			var div = document.createElement('div');
 			if(request.status == 200){
                 let array = JSON.parse(request.responseText);
-                currentBooks(array, div);
+                if(!currentBooks(array, div)) {
+                    return;
+                }
 			}else{
 				div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
             }
@@ -38,9 +40,10 @@ function currentBooks(array, divBooks) {
     } catch(err) {
         signIn();
         alert("Please Sign In");
-        return;
+        return false;
     }
     divBooks.innerHTML = wholeForm;
+    return true;
 }
 
 function eraseForms() {
