@@ -281,7 +281,7 @@ function getParams() {
     if (SignVarArray[0] == 'register') {
         hideTags();
         let welcome = document.getElementById('books');
-        alert(typeof SignVarArray[0]);
+        alert(typeof SignVarArray[0].value);
         if (SignVarArray[0].value == true)
             welcome.innerHTML = "<h2>You have successfully registered. Feel free to sign in.</h2>";
         else
