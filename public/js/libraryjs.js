@@ -26,6 +26,7 @@ function myBooks() {
 function currentBooks(array, divBooks) {
    const formStart = "<h2>My Boooks</h2>";
     let books = "";
+    try {
     array.forEach(function(item) {
         let entry = `<p><b>${item.book_title}</b><p>`;
         entry += `<p>Checkd Out: ${item.checked_out}</p>`;
@@ -34,6 +35,9 @@ function currentBooks(array, divBooks) {
     });
     const wholeForm = formStart + books;
     divBooks.innerHTML = wholeForm;
+    } catch {
+        alert("Please Sign In");
+    }
 }
 
 function eraseForms() {
@@ -281,7 +285,6 @@ function getParams() {
     if (SignVarArray[0] == 'register') {
         hideTags();
         let welcome = document.getElementById('books');
-        alert(typeof SignVarArray[0][0]);
         if (SignVarArray[0].value == true)
             welcome.innerHTML = "<h2>You have successfully registered. Feel free to sign in.</h2>";
         else {
