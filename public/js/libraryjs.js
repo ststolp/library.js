@@ -99,7 +99,6 @@ function changeButton() {
 }
 
 function signIn() {
-    alert("ind signin()");
     hideTags();
     eraseForms();
     let InorOut = document.getElementById('signButton');
@@ -116,7 +115,6 @@ function signIn() {
         html = "<h2>Please come again!</h2>";
     }
     document.getElementById("books").innerHTML = html;
-    alert("end of signIn()");
 }
 
 function printGenres(array, subdiv) {
@@ -304,7 +302,8 @@ function getParams() {
         // wrong password or username
         hideTags();
         signButton.innerHTML = "Sign In";
-        document.getElementById('books').innerHTML = "<h3>Incorrect username or password</h3>";
+        signIn();
+        alert("Incorrect username or password");
     // Display Check Out receipt    
     } else if (SignVarArray[0] == 'checkOut') {
         hideTags();
