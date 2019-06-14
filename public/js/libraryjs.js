@@ -37,6 +37,7 @@ function currentBooks(array, divBooks) {
     divBooks.innerHTML = wholeForm;
     } catch {
         alert("Please Sign In");
+        signIn();
     }
 }
 
