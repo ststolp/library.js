@@ -281,11 +281,14 @@ function getParams() {
     if (SignVarArray[0] == 'register') {
         hideTags();
         let welcome = document.getElementById('books');
-        alert(typeof SignVarArray[0].value);
+        alert(typeof SignVarArray[0][0]);
         if (SignVarArray[0].value == true)
             welcome.innerHTML = "<h2>You have successfully registered. Feel free to sign in.</h2>";
-        else
-            welcome.innerHTML = "<h2>Your passwords did not match</h2>";
+        else {
+            welcome.innerHTML = "";
+            Register();
+            alert("Your passwords did not match");
+        }
     } else if (SignVarArray[0] == 'false') {
         // wrong password or username
         hideTags();
