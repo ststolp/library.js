@@ -26,6 +26,7 @@ function myBooks() {
 function currentBooks(array, divBooks) {
    const formStart = "<h2>My Boooks</h2>";
     let books = "";
+    const wholeForm;
     try {
     array.forEach(function(item) {
         let entry = `<p><b>${item.book_title}</b><p>`;
@@ -33,12 +34,13 @@ function currentBooks(array, divBooks) {
 	    entry += `<p>Due Date: ${item.due_date}`;
         books = books + entry;
     });
-    const wholeForm = formStart + books;
-    divBooks.innerHTML = wholeForm;
+        wholeForm = formStart + books;
     } catch {
         signIn();
         alert("Please Sign In");
+        return;
     }
+    divBooks.innerHTML = wholeForm;
 }
 
 function eraseForms() {
