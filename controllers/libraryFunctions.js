@@ -303,11 +303,20 @@ function queryMyBooks(user_id, callback) {
     });
 }
 
+function validatePassword(req, res, next) {
+    const password = req.body.password;
+    const confirm = req.body.confirm;
+    if (password == confirm) {
+        next();
+    } else {
+        res.status(200).redirect(`home_library.html?register=false`);
+    }
+}
+
 function register(req, res) {
     const username = req.body.username;
     const password = req.body.password;
     const isLibrarian = Boolean(req.body.librarian);
-    console.log("isLibrarian: " + isLibrarian);
     console.log("Password: " + password);
     bcrypt.genSalt(saltRounds, function(err, salt) {
         if (err) {
@@ -431,5 +440,6 @@ module.exports = {
     register: register,
     addAuthor: addAuthor,
     addBook: addBook,
-    addGenre: addGenre
+    addGenre: addGenre,
+    validatePassword: validatePassword
  };

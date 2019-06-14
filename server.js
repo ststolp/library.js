@@ -30,7 +30,7 @@ app.post("/add_author", controller.addAuthor);
 app.post("/add_book", controller.addBook);
 app.post("/add_genre", controller.addGenre);
 app.post("/check_out", controller.requireLogin, controller.checkOut);
-app.post("/add_user", controller.register);
+app.post("/add_user", controller.validatePassword, controller.register);
 
 app.listen(app.get('port'), function(){
 	console.log("It's working");
