@@ -26,7 +26,7 @@ function myBooks() {
 function currentBooks(array, divBooks) {
    const formStart = "<h2>My Boooks</h2>";
     let books = "";
-    const wholeForm;
+    let wholeForm = "";
     try {
     array.forEach(function(item) {
         let entry = `<p><b>${item.book_title}</b><p>`;
