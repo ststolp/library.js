@@ -379,7 +379,7 @@ function signIn(req, res) {
                                console.log(err);
                            }
                        });
-                       const lib = toString(req.session.isLibrarian);
+                       const lib = req.session.isLibrarian.toString();
                   res.status(200).redirect(`home_library.html?login=true&librarian=${lib}`);
                   })
                } else {
