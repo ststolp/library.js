@@ -380,7 +380,7 @@ function signIn(req, res) {
                            }
                        });
                        const lib = req.session.isLibrarian.toString();
-                  res.status(200).redirect(`home_library.html?login=true&librarian=${lib}`);
+                  res.status(200).redirect("home_library.html?login=true&librarian=" + lib);
                   })
                } else {
                     res.status(500).redirect(`home_library.html?login=false`);
