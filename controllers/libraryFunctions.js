@@ -15,7 +15,7 @@ function requireLogin(req, res, next) {
       console.log(req.session.user);
       next();
   } else {
-    console.log("user: " + req.session.user);
+    console.log(`user: ${req.session.user}`);
     res.status(200).json({SignIn: false});
   }
 };
@@ -36,7 +36,7 @@ function checkOut(req, response) {
             } else {
                 console.log(res);
                 count++;
-                console.log("Item: " + array[index]);
+                console.log(`Item: ${array[index]}`);
                 url += "&array[]=" + array[index];
                 console.log("Index: " + index + " arrayLength: " + array.length);
                 console.log("value : " + array[index+1] == array.length)
@@ -184,8 +184,12 @@ function queryGenres(callback) {
 }
 
 function requiresLibrarian(req, res, next) {
-    const user = req.session.user;
-
+    let librarian = req.session.librarian;
+    if (librarian != NULL && librarian) {
+        next();
+    } else {
+        res.redirect(301);
+    }
 }
 
 function addGenre(req, res) {
@@ -367,7 +371,7 @@ function signIn(req, res) {
                            console.log(error);
                        } else {
                         req.session.user = res[0].patron_id;
-                        req.session.isLibrarian = res[1].librarian;
+                        req.session.isLibrarian = res[0].librarian;
                         console.log(`user: ${req.session.user} librarian: ${req.session.isLibrarian}`);
                        }
                        req.session.save(function(err) {
@@ -375,7 +379,7 @@ function signIn(req, res) {
                                console.log(err);
                            }
                        });
-                  res.status(200).redirect(`home_library.html?login=true`);
+                  res.status(200).redirect(`home_library.html?login=true&librarian=${req.session.isLibrarian}`);
                   })
                } else {
                     res.status(500).redirect(`home_library.html?login=false`);
