@@ -185,10 +185,10 @@ function queryGenres(callback) {
 
 function requiresLibrarian(req, res, next) {
     let librarian = req.session.librarian;
-    if (librarian != NULL && librarian) {
+    if (librarian == true) {
         next();
     } else {
-        res.redirect(301);
+        res.status(301).redirect("home_library.html");
     }
 }
 
@@ -380,10 +380,10 @@ function signIn(req, response1) {
                            }
                        });
                        const lib = req.session.isLibrarian.toString();
-                  response1.redirect(200, "home_library.html?login=true&librarian=" + lib);
+                  response1.status(200).redirect("home_library.html?login=true&librarian=" + lib);
                   });
                } else {
-                    response1.redirect(500, `home_library.html?login=false`);
+                    response1.status(500).redirect(`home_library.html?login=false`);
                }
            });
        }
