@@ -348,7 +348,7 @@ function register(req, res) {
     });
 }
 
-function signIn(req, res) {
+function signIn(req, response1) {
     const username = req.query.username;
     const password = req.query.password;
     console.log("Username: " + username);
@@ -364,7 +364,7 @@ function signIn(req, res) {
            bcrypt.compare(password, hash[0].password, function(err, response) {
                if (err) {
                    console.log(err);
-                   res.status(500).redirect(`home_library.html?login=false`);
+                   response1.status(500).redirect(`home_library.html?login=false`);
                } else if (response) {
                    getId(username, function(error, res) {
                        if (error) {
@@ -380,10 +380,10 @@ function signIn(req, res) {
                            }
                        });
                        const lib = req.session.isLibrarian.toString();
-                  res.redirect(200, "home_library.html?login=true&librarian=" + lib);
-                  })
+                  response1.redirect(200, "home_library.html?login=true&librarian=" + lib);
+                  });
                } else {
-                    res.redirect(500, `home_library.html?login=false`);
+                    response1.redirect(500, `home_library.html?login=false`);
                }
            });
        }
