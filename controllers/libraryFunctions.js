@@ -183,6 +183,11 @@ function queryGenres(callback) {
    });
 }
 
+function requiresLibrarian(req, res, next) {
+    const user = req.session.user;
+
+}
+
 function addGenre(req, res) {
     if(req.session.user) {
         const genre = req.body.genre;
@@ -355,25 +360,25 @@ function signIn(req, res) {
            bcrypt.compare(password, hash[0].password, function(err, response) {
                if (err) {
                    console.log(err);
-                   res.status(500).redirect(`home_library.html?false=false`);
+                   res.status(500).redirect(`home_library.html?login=false`);
                } else if (response) {
                    getId(username, function(error, res) {
                        if (error) {
                            console.log(error);
                        } else {
                         req.session.user = res[0].patron_id;
-                        console.log("user: " + req.session.user);
-
+                        req.session.isLibrarian = res[1].librarian;
+                        console.log(`user: ${req.session.user} librarian: ${req.session.isLibrarian}`);
                        }
                        req.session.save(function(err) {
                            if(err) {
                                console.log(err);
                            }
                        });
-                   });
                   res.status(200).redirect(`home_library.html?login=true`);
+                  })
                } else {
-                    res.status(500).redirect(`home_library.html?false=false`);
+                    res.status(500).redirect(`home_library.html?login=false`);
                }
            });
        }
@@ -381,14 +386,14 @@ function signIn(req, res) {
 }
 
 function getId(username, callback) {
-    const query = "SELECT patron_id FROM patron WHERE username = $1";
+    const query = "SELECT patron_id, librarian FROM patron WHERE username = $1";
     const param = [username];
     pool.query(query, param, function(error, response) {
         if(error) {
-            console.log("There was an error: " + error);
+            console.log(`There was an error: ${error}`);
             callback(error, null);
          } else {
-             console.log("From getId: " + response.rows);
+             console.log(`From getId: ${response.rows}`);
             callback(null, response.rows);
         }
     });
@@ -441,5 +446,6 @@ module.exports = {
     addAuthor: addAuthor,
     addBook: addBook,
     addGenre: addGenre,
-    validatePassword: validatePassword
+    validatePassword: validatePassword,
+    requiresLibrarian: requiresLibrarian
  };

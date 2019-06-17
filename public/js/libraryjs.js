@@ -1,3 +1,8 @@
+//global variables to hold state
+// let userSignedIn = false;
+// let userIsLibrarian = false;  // also check if user is a librarian on the server just in case.
+// let userRegistered = false;
+// REQ.SESSION.?  holds session variables.
 function myBooks() {   
     eraseForms();
     hideTags();
@@ -276,7 +281,7 @@ function hideTags() {
 
 function getParams() {
     let signButton = document.getElementById("signButton");
-    const url = location.search.substring(1);
+    const url = window.location.href;
     if (!url) {
         if (signButton.innerHTML != "Sign Out") {
             signButton.innerHTML = "Sign In";
