@@ -74,7 +74,7 @@ function Register() {
     hideTags();
     document.getElementById("signButton").innerHTML = "Sign In";
     eraseForms();
-    let html = "<form action='/add_user' method='post'><h2>Create New Account</h2><br><label>Username</label><input type='text' name='username' placeholder='username...' required><br><br>";
+    let html = "<form action='addUser()' method='post'><h2>Create New Account</h2><br><label>Username</label><input type='text' name='username' placeholder='username...' required><br><br>";
     html += "<label>Password</label><input name='password' type='password' placeholder='enter password...' required><br><br>";
     html += "<label>Confirm Password</label><input type='password' name='confirm' placeholder='confirm password...' required><br><br><label>I'm a Librarian</label><input type='checkbox' name='librarian'><br><br><input type='submit' value='Register' onclick='buttonSignIn()'></form>";
     document.getElementById("books").innerHTML = html;
@@ -89,11 +89,67 @@ function addUser() {
 		if(request.readyState == 4){
 			let genreP = document.createElement('p');
 			if(request.status == 200){
-                let array = JSON.parse(request.responseText);
-                printGenres(array, genreP);
-                divAuthor.insertBefore(genreP, divAuthor.childNodes[1]);
-			}else{
-				div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
+                let response = JSON.parse(request.responseText);
+                if (response['register'] == true) {
+                    hideTags();
+                    let welcome = document.getElementById('books');
+                    welcome.innerHTML = "<h2>You have successfully registered. Feel free to sign in.</h2>";
+                } else {    
+                    alert("Your passwords did not match");
+                }
+            } else {
+				//div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
+            }
+        }
+    }
+}
+
+function addBook() {
+    let request = new XMLHttpRequest();
+    const target = "/add_book";
+    request.open("POST", target);
+    request.send();
+    request.onreadystatechange = function() {
+        if(request.readyState == 4 && request.status == 200) {
+            const response = JSON.parse(request.responseText);
+            if (response['book'] == true) {
+                alert("Book successfully added.");
+            } else {
+            alert("Permission denied.");
+            }
+        }
+    }
+}
+
+function addGenre() {
+    let request = new XMLHttpRequest();
+    const target = "/add_genre";
+    request.open("POST", target);
+    request.send();
+    request.onreadystatechange = function() {
+        if(request.readyState == 4 && request.status == 200) {
+            const response = JSON.parse(request.responseText);
+            if (response['genre'] == true) {
+                alert("Genre successfully added.");
+            } else {
+            alert("Permission denied.");
+            }
+        }
+    }
+}
+
+function addAuthor() {
+    let request = new XMLHttpRequest();
+    const target = "/add_author";
+    request.open("POST", target);
+    request.send();
+    request.onreadystatechange = function() {
+        if(request.readyState == 4 && request.status == 200) {
+            const response = JSON.parse(request.responseText);
+            if (response['author'] == true) {
+                alert("Author successfully added.");
+            } else {
+            alert("Permission denied.");
             }
         }
     }
@@ -290,6 +346,7 @@ function getParameterByName(name, url) {
 }
 
 function getParams() {
+    alert("Loading...");
     let signButton = document.getElementById("signButton");
     const url = window.location.href;
     const librarian = getParameterByName('librarian');

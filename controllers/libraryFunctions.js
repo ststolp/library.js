@@ -184,11 +184,11 @@ function queryGenres(callback) {
 }
 
 function requiresLibrarian(req, res, next) {
-    let librarian = req.session.librarian;
+    let librarian = req.session.isLibrarian;
     if (librarian == true) {
         next();
     } else {
-        res.status(301).redirect("home_library.html");
+        res.json();
     }
 }
 
@@ -201,11 +201,11 @@ function addGenre(req, res) {
             } else {
                 console.log("genre posted!");
                 console.log(result);
-                res.redirect("home_library.html?login=true");
+                res.json({'genre': true});
             }
         });
     } else { 
-        res.redirect("home_library.html");
+        res.json({'genre': false});
     }
 }
 
@@ -222,11 +222,11 @@ function addBook(req, res) {
             } else {
                 console.log("book posted!");
                 console.log(result);
-                res.redirect("home_library.html?login=true");
+                res.json({'book': true});
             }
         });
     } else {
-        res.redirect("home_library.html");
+        res.json({'book': false});
     }
 }
 
@@ -240,11 +240,11 @@ function addAuthor(req, res) {
             } else {
                 console.log("author posted!");
                 console.log(result);
-                res.redirect("home_library.html?login=true");
+                res.json({'author': true});
             }
         });
     } else {
-        res.redirect("home_library.html");
+        res.json({'author': false});
     }
 }
 
@@ -318,7 +318,7 @@ function validatePassword(req, res, next) {
     if (password == confirm) {
         next();
     } else {
-        res.status(200).redirect(`home_library.html?register=false`);
+        res.status(200).json({register: false});
     }
 }
 
@@ -340,7 +340,7 @@ function register(req, res) {
                         console.log("failed to get books " + error);
                     } else {
                         console.log(result);
-                    res.status(200).redirect(`home_library.html?register=true`);
+                    res.status(200).json({'register': true});
                     }      
                 });
             });
@@ -364,7 +364,7 @@ function signIn(req, response1) {
            bcrypt.compare(password, hash[0].password, function(err, response) {
                if (err) {
                    console.log(err);
-                   response1.status(500).redirect(`home_library.html?login=false`);
+                   response1.status(500).json({login: false});
                } else if (response) {
                    getId(username, function(error, res) {
                        if (error) {
@@ -379,11 +379,10 @@ function signIn(req, response1) {
                                console.log(err);
                            }
                        });
-                       const lib = req.session.isLibrarian.toString();
-                  response1.status(200).redirect("home_library.html?login=true&librarian=" + lib);
+                  response1.status(200).json({login: true, librarian: req.session.isLibrarian});
                   });
                } else {
-                    response1.status(500).redirect(`home_library.html?login=false`);
+                    response1.status(500).json({login: false});
                }
            });
        }
@@ -432,7 +431,7 @@ function postUser(username, password, isLibrarian, callback) {
 
 function signOut(req, res) {
     req.session.destroy();
-    res.redirect('home_library.html');
+    res.json({login: false});
 }
 
 module.exports = {
