@@ -23,7 +23,7 @@
       <option value="title">Title</option>
       <option value="genre">Genre</option>
     </select>
-    <input type='text' placeholder='That has...' id='search' value="" required>
+    <input type='text' placeholder='That has...' id='search' value="">
     <button onclick="searchLibrary()" class="button">Search</button>
   </div>
   <h1 id="LibHead">Library</h1>
@@ -31,12 +31,12 @@
   <div id="books"></div>
     <br><br>
     <h2 id="AddBookHeader" style="visibility: hidden">Add Book</h2>
-    <form id="addBook" action='/addBook' method='post'></form>
-    <form id="addAuthor" action="/addAuthor" method='post'></form>
-    <form style="visibility: hidden" id="addGenre" action="/addGenre" method="post">
+    <form id="addBook" action='/add_book' method='post'></form>
+    <form id="addAuthor" action="/add_author" method='post'></form>
+    <form style="visibility: hidden" id="addGenre" action="/add_genre" method="post">
       <h3>Add Genre</h3>
       <label>Genre</label>
-      <input type="text" name="genre" required><br><br>
+      <input type="text" name="genre"><br><br>
       <input type="submit" value="Add Genre">
     </form>
   </div>

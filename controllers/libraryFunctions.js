@@ -15,7 +15,7 @@ function requireLogin(req, res, next) {
       console.log(req.session.user);
       next();
   } else {
-    console.log(`user: ${req.session.user}`);
+    console.log("user: " + req.session.user);
     res.status(200).json({SignIn: false});
   }
 };
@@ -36,7 +36,7 @@ function checkOut(req, response) {
             } else {
                 console.log(res);
                 count++;
-                console.log(`Item: ${array[index]}`);
+                console.log("Item: " + array[index]);
                 url += "&array[]=" + array[index];
                 console.log("Index: " + index + " arrayLength: " + array.length);
                 console.log("value : " + array[index+1] == array.length)
@@ -183,15 +183,6 @@ function queryGenres(callback) {
    });
 }
 
-function requiresLibrarian(req, res, next) {
-    let librarian = req.session.isLibrarian;
-    if (librarian == true) {
-        next();
-    } else {
-        res.json();
-    }
-}
-
 function addGenre(req, res) {
     if(req.session.user) {
         const genre = req.body.genre;
@@ -201,11 +192,11 @@ function addGenre(req, res) {
             } else {
                 console.log("genre posted!");
                 console.log(result);
-                res.json({'genre': true});
+                res.redirect("home_library.html?login=true");
             }
         });
     } else { 
-        res.json({'genre': false});
+        res.redirect("home_library.html");
     }
 }
 
@@ -222,11 +213,11 @@ function addBook(req, res) {
             } else {
                 console.log("book posted!");
                 console.log(result);
-                res.json({'book': true});
+                res.redirect("home_library.html?login=true");
             }
         });
     } else {
-        res.json({'book': false});
+        res.redirect("home_library.html");
     }
 }
 
@@ -240,11 +231,11 @@ function addAuthor(req, res) {
             } else {
                 console.log("author posted!");
                 console.log(result);
-                res.json({'author': true});
+                res.redirect("home_library.html?login=true");
             }
         });
     } else {
-        res.json({'author': false});
+        res.redirect("home_library.html");
     }
 }
 
@@ -312,20 +303,9 @@ function queryMyBooks(user_id, callback) {
     });
 }
 
-function validatePassword(req, res, next) {
-    const password = req.body.password;
-    const confirm = req.body.confirm;
-    if (password == confirm) {
-        next();
-    } else {
-        res.status(200).json({register: false});
-    }
-}
-
 function register(req, res) {
     const username = req.body.username;
     const password = req.body.password;
-    const isLibrarian = Boolean(req.body.librarian);
     console.log("Password: " + password);
     bcrypt.genSalt(saltRounds, function(err, salt) {
         if (err) {
@@ -335,12 +315,12 @@ function register(req, res) {
                 if (err) {
                     console.log(err);
                 }
-            postUser(username, hash, isLibrarian, function(error, result) {
+                postUser(username, hash, function(error, result) {
                     if (error || result == null) {  
                         console.log("failed to get books " + error);
                     } else {
                         console.log(result);
-                    res.status(200).json({'register': true});
+                    res.status(200).redirect(`home_library.html?register=true`);
                     }      
                 });
             });
@@ -348,7 +328,7 @@ function register(req, res) {
     });
 }
 
-function signIn(req, response1) {
+function signIn(req, res) {
     const username = req.query.username;
     const password = req.query.password;
     console.log("Username: " + username);
@@ -364,25 +344,25 @@ function signIn(req, response1) {
            bcrypt.compare(password, hash[0].password, function(err, response) {
                if (err) {
                    console.log(err);
-                   response1.status(500).json({login: false});
+                   res.status(500).redirect(`home_library.html?false=false`);
                } else if (response) {
                    getId(username, function(error, res) {
                        if (error) {
                            console.log(error);
                        } else {
                         req.session.user = res[0].patron_id;
-                        req.session.isLibrarian = res[0].librarian;
-                        console.log(`user: ${req.session.user} librarian: ${req.session.isLibrarian}`);
+                        console.log("user: " + req.session.user);
+
                        }
                        req.session.save(function(err) {
                            if(err) {
                                console.log(err);
                            }
                        });
-                  response1.status(200).json({login: true, librarian: req.session.isLibrarian});
-                  });
+                   });
+                  res.status(200).redirect(`home_library.html?login=true`);
                } else {
-                    response1.status(500).json({login: false});
+                    res.status(500).redirect(`home_library.html?false=false`);
                }
            });
        }
@@ -390,14 +370,14 @@ function signIn(req, response1) {
 }
 
 function getId(username, callback) {
-    const query = "SELECT patron_id, librarian FROM patron WHERE username = $1";
+    const query = "SELECT patron_id FROM patron WHERE username = $1";
     const param = [username];
     pool.query(query, param, function(error, response) {
         if(error) {
-            console.log(`There was an error: ${error}`);
+            console.log("There was an error: " + error);
             callback(error, null);
          } else {
-             console.log(`From getId: ${response.rows}`);
+             console.log("From getId: " + response.rows);
             callback(null, response.rows);
         }
     });
@@ -416,9 +396,9 @@ function getHashed(username, callback) {
     });
 }
 
-function postUser(username, password, isLibrarian, callback) {
-    const query = "INSERT INTO patron(username, password, librarian) VALUES ($1, $2, $3) RETURNING patron_id";
-    const param = [username, password, isLibrarian];
+function postUser(username, password, callback) {
+    const query = "INSERT INTO patron(username, password) VALUES ($1, $2) RETURNING patron_id";
+    const param = [username, password];
     pool.query(query, param, function(error, response) {
         if(error) {
             console.log("There was an error: " + error);
@@ -431,7 +411,7 @@ function postUser(username, password, isLibrarian, callback) {
 
 function signOut(req, res) {
     req.session.destroy();
-    res.json({login: false});
+    res.redirect('home_library.html');
 }
 
 module.exports = {
@@ -449,7 +429,5 @@ module.exports = {
     register: register,
     addAuthor: addAuthor,
     addBook: addBook,
-    addGenre: addGenre,
-    validatePassword: validatePassword,
-    requiresLibrarian: requiresLibrarian
+    addGenre: addGenre
  };
