@@ -17,6 +17,8 @@
     "express-session": "^1.15.6",
     "morgan": "^1.9.1",
     "pg": "^7.9.0",
+    "plotly": "^1.0.6",
+    "python-shell": "^1.0.8",
     "request": "^2.88.0",
     "request-promise": "^4.2.4",
     "session-file-store": "^1.2.0",
