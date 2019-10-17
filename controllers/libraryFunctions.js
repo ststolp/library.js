@@ -335,7 +335,7 @@ function signIn(req, res) {
     getHashed(username, function(error, hash) {
             if (error || hash == null || typeof hash[0] === undefined) {
            console.log("failed to get user " + error);
-           console.log("hash: " + hash.passord);
+           console.log("hash: " + hash.password);
            console.log("patron: " + hash.patron_id);
            res.writeHead(200, {'Content-Type': 'text/html'});
            res.write("<h3>Invalid username or password</h3>");
